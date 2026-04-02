@@ -19,8 +19,8 @@ const SpecTabNavigation: React.FC<SpecTabNavigationProps> = ({ activeTab, onTabC
     <Box
       sx={{
         display: 'flex',
-        gap: 1,
-        mb: 1.5,
+        gap: '4px',
+        marginBottom: '4px',
       }}
     >
       {specTabs.map((tab) => {
@@ -30,24 +30,31 @@ const SpecTabNavigation: React.FC<SpecTabNavigationProps> = ({ activeTab, onTabC
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
             sx={{
-              px: 2,
-              py: 0.75,
-              borderRadius: '20px',
-              backgroundColor: isActive ? '#1a237e' : '#f0f0f0',
+              padding: '4px 8px',
+              borderRadius: '4px',
+              backgroundColor: isActive ? 'var(--bg-card)' : 'transparent',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              border: isActive ? '1px solid #1a237e' : '1px solid #e0e0e0',
+              transition: 'all 150ms ease-in-out',
+              border: '1px solid',
+              borderColor: isActive ? 'var(--accent-gold)' : 'var(--border-default)',
+              boxShadow: isActive ? '0px 2px 4px rgba(0, 0, 0, 0.04)' : 'none',
               '&:hover': {
-                backgroundColor: isActive ? '#283593' : '#e8e8e8',
+                backgroundColor: 'var(--bg-card)',
+                borderColor: 'var(--accent-gold)',
               },
+              '&:hover .tab-text': {
+                color: isActive ? 'var(--accent-gold)' : 'var(--text-main)',
+              }
             }}
           >
             <Typography
+              className="tab-text"
               sx={{
-                fontSize: '12px',
-                fontWeight: isActive ? 600 : 400,
-                color: isActive ? '#FFFFFF' : '#666',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                color: isActive ? 'var(--accent-gold)' : 'var(--text-muted)',
                 whiteSpace: 'nowrap',
+                transition: 'color 150ms ease-in-out',
               }}
             >
               {tab.label}

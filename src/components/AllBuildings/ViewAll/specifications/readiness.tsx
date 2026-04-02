@@ -23,7 +23,9 @@ const Readiness: React.FC = () => {
       sx={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
-        gap: 0,
+        columnGap: '16px',
+        rowGap: '4px',
+        padding: '4px',
       }}
     >
       {readinessItems.map((item, idx) => (
@@ -33,15 +35,30 @@ const Readiness: React.FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            py: 1,
-            px: 0.5,
-            borderBottom: idx < readinessItems.length - 2 ? '1px solid #f0f0f0' : 'none',
+            padding: '4px 8px',
+            borderBottom: idx < readinessItems.length - 2 ? '1px solid var(--border-default)' : '1px solid transparent',
+            transition: 'all 150ms ease-in-out',
+            borderRadius: '4px',
+            '&:hover': {
+              backgroundColor: 'var(--bg-app)',
+            },
+            '&:hover .spec-value': {
+              color: 'var(--accent-gold)',
+            }
           }}
         >
-          <Typography sx={{ fontSize: '12px', color: '#888' }}>
+          <Typography sx={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
             {item.label}
           </Typography>
-          <Typography sx={{ fontSize: '12px', fontWeight: 700, color: '#1a237e' }}>
+          <Typography
+            className="spec-value"
+            sx={{
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              color: 'var(--text-main)',
+              transition: 'color 150ms ease-in-out',
+            }}
+          >
             {item.value}
           </Typography>
         </Box>

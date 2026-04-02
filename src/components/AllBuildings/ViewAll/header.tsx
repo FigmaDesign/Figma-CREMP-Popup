@@ -8,56 +8,65 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onBack }) => {
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        width: '100%',
-        height: 220,
-        overflow: 'hidden',
-      }}
-    >
-      {/* Hero Image */}
+    <Box sx={{ padding: '4px' }}>
       <Box
-        component="img"
-        src="/images/viewall/hero.png"
-        alt="Retail Unit Hero"
         sx={{
+          position: 'relative',
           width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          display: 'block',
-        }}
-      />
-
-      {/* Gradient Overlay (bottom fade) */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: '50%',
-          background: 'linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 100%)',
-        }}
-      />
-
-      {/* Back Button */}
-      <IconButton
-        onClick={onBack}
-        sx={{
-          position: 'absolute',
-          top: 12,
-          left: 12,
-          backgroundColor: 'rgba(255,255,255,0.85)',
-          width: 32,
-          height: 32,
-          '&:hover': {
-            backgroundColor: 'rgba(255,255,255,0.95)',
-          },
+          height: 220,
+          overflow: 'hidden',
+          borderRadius: '4px',
+          border: '1px solid var(--border-default)',
         }}
       >
-        <ArrowBackIcon sx={{ fontSize: 18, color: '#1a237e' }} />
-      </IconButton>
+        <Box
+          component="img"
+          src="/images/viewall/hero.png"
+          alt="Retail Unit Hero"
+          sx={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+          }}
+        />
+
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: '50%',
+            background: 'linear-gradient(to top, rgba(15, 26, 44, 0.85) 0%, transparent 100%)',
+          }}
+        />
+
+        <IconButton
+          disableRipple
+          onClick={onBack}
+          sx={{
+            position: 'absolute',
+            top: '4px',
+            left: '4px',
+            backgroundColor: 'var(--bg-card)',
+            width: 32,
+            height: 32,
+            borderRadius: '4px',
+            border: '1px solid var(--border-default)',
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
+            color: 'var(--text-main)',
+            transition: 'all 150ms ease-in-out',
+            '&:hover': {
+              backgroundColor: 'var(--bg-card)',
+              borderColor: 'var(--accent-gold)',
+              color: 'var(--accent-gold)',
+            },
+          }}
+        >
+          <ArrowBackIcon sx={{ fontSize: 16, color: 'inherit' }} />
+        </IconButton>
+      </Box>
     </Box>
   );
 };

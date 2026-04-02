@@ -15,20 +15,22 @@ interface NavItemProps {
 const NavItem: React.FC<NavItemProps> = ({ label, isActive, onClick }) => {
   return (
     <Typography
-      variant="body2"
       onClick={onClick}
       sx={{
-        py: 0.5,
-        px: 1.25,
+        padding: '4px 8px',
         cursor: 'pointer',
-        borderRadius: '6px',
-        backgroundColor: isActive ? '#e8eaf6' : 'transparent',
-        color: isActive ? '#1a237e' : '#666666',
-        fontWeight: isActive ? '600' : '400',
-        fontSize: '13px',
-        transition: 'all 0.15s ease',
+        borderRadius: '4px',
+        backgroundColor: isActive ? 'var(--bg-app)' : 'transparent',
+        color: isActive ? 'var(--accent-gold)' : 'var(--text-muted)',
+        fontWeight: 600,
+        fontSize: '0.875rem',
+        transition: 'all 150ms ease-in-out',
+        borderLeft: isActive ? '2px solid var(--accent-gold)' : '2px solid transparent',
+        display: 'flex',
+        alignItems: 'center',
         '&:hover': {
-          backgroundColor: isActive ? '#e8eaf6' : '#f0f0f0',
+          backgroundColor: 'var(--bg-app)',
+          color: isActive ? 'var(--accent-gold)' : 'var(--text-main)',
         },
       }}
     >
@@ -42,54 +44,80 @@ const LeftPanel: React.FC<LeftPanelProps> = ({ activePage, onPageSelect }) => {
     <Box
       sx={{
         width: '25%',
-        p: 3,
-        backgroundColor: '#F5F5F5',
-        borderRight: '1px solid #e0e0e0',
+        minWidth: '240px',
+        padding: '16px',
+        backgroundColor: 'var(--bg-card)',
+        borderRight: '1px solid var(--border-default)',
         height: '100%',
         overflow: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
-      <Typography variant="h6" fontWeight="bold" gutterBottom>
+      <Typography 
+        sx={{ 
+          fontSize: '1.125rem', 
+          fontWeight: 600, 
+          color: 'var(--text-main)', 
+          marginBottom: '16px' 
+        }}
+      >
         Pages
       </Typography>
 
-      {/* All Buildings Section */}
       <Typography
-        variant="subtitle2"
-        fontWeight="600"
-        sx={{ mt: 2, mb: 1, color: '#333333' }}
+        sx={{ 
+          fontSize: '0.75rem', 
+          fontWeight: 600, 
+          color: 'var(--text-muted)', 
+          marginTop: '8px', 
+          marginBottom: '8px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px'
+        }}
       >
         All buildings
       </Typography>
-      <NavItem
-        label="1. Main screen"
-        isActive={activePage === 'main'}
-        onClick={() => onPageSelect('main')}
-      />
-      <NavItem
-        label="2. View All"
-        isActive={activePage === 'viewAll'}
-        onClick={() => onPageSelect('viewAll')}
-      />
+      
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <NavItem
+          label="1. Main screen"
+          isActive={activePage === 'main'}
+          onClick={() => onPageSelect('main')}
+        />
+        <NavItem
+          label="2. View All"
+          isActive={activePage === 'viewAll'}
+          onClick={() => onPageSelect('viewAll')}
+        />
+      </Box>
 
-      {/* Land Section */}
       <Typography
-        variant="subtitle2"
-        fontWeight="600"
-        sx={{ mt: 3, mb: 1, color: '#333333' }}
+        sx={{ 
+          fontSize: '0.75rem', 
+          fontWeight: 600, 
+          color: 'var(--text-muted)', 
+          marginTop: '24px', 
+          marginBottom: '8px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px'
+        }}
       >
         Land
       </Typography>
-      <NavItem
-        label="1. Main screen"
-        isActive={activePage === 'landMain'}
-        onClick={() => onPageSelect('landMain')}
-      />
-      <NavItem
-        label="2. View All"
-        isActive={activePage === 'landViewAll'}
-        onClick={() => onPageSelect('landViewAll')}
-      />
+      
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <NavItem
+          label="1. Main screen"
+          isActive={activePage === 'landMain'}
+          onClick={() => onPageSelect('landMain')}
+        />
+        <NavItem
+          label="2. View All"
+          isActive={activePage === 'landViewAll'}
+          onClick={() => onPageSelect('landViewAll')}
+        />
+      </Box>
     </Box>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Stack, Button } from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
 import BusinessIcon from '@mui/icons-material/Business';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -49,15 +49,19 @@ const officeUnits: OfficeUnitData[] = [
 const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
   <Box
     sx={{
-      borderRadius: '12px',
+      borderRadius: '4px',
       overflow: 'hidden',
-      border: '1px solid #eee',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-      backgroundColor: '#fff',
+      border: '1px solid var(--border-default)',
+      boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
+      backgroundColor: 'var(--bg-card)',
+      transition: 'all 150ms ease-in-out',
+      '&:hover': {
+        borderColor: 'var(--accent-gold)',
+        transform: 'translateY(-2px)',
+      }
     }}
   >
-    {/* Image */}
-    <Box sx={{ position: 'relative', height: 110 }}>
+    <Box sx={{ position: 'relative', height: 110, backgroundColor: 'var(--bg-app)' }}>
       <Box
         component="img"
         src={unit.image}
@@ -70,7 +74,6 @@ const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
         }}
       />
 
-      {/* Just Viewed overlay */}
       {unit.justViewed && (
         <Box
           sx={{
@@ -79,17 +82,17 @@ const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'linear-gradient(135deg, rgba(0,0,0,0.35) 0%, transparent 60%)',
+            background: 'linear-gradient(135deg, rgba(15, 26, 44, 0.85) 0%, transparent 70%)',
           }}
         >
           <Typography
             sx={{
               position: 'absolute',
-              top: 10,
-              left: 8,
-              fontSize: '10px',
-              fontWeight: 500,
-              color: 'rgba(255,255,255,0.9)',
+              top: '4px',
+              left: '4px',
+              fontSize: '0.65rem',
+              fontWeight: 600,
+              color: 'var(--accent-gold)',
               fontStyle: 'italic',
             }}
           >
@@ -98,86 +101,83 @@ const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
         </Box>
       )}
 
-      {/* Office Tag */}
       <Box
         sx={{
           position: 'absolute',
-          bottom: 8,
-          left: 8,
+          bottom: '4px',
+          left: '4px',
           display: 'flex',
           alignItems: 'center',
-          gap: 0.3,
-          px: 0.75,
-          py: 0.3,
-          borderRadius: '6px',
-          backgroundColor: 'rgba(26, 35, 126, 0.85)',
+          gap: '4px',
+          padding: '4px',
+          borderRadius: '4px',
+          backgroundColor: 'var(--bg-header)',
         }}
       >
-        <BusinessIcon sx={{ fontSize: 10, color: '#fff' }} />
-        <Typography sx={{ fontSize: '9px', fontWeight: 600, color: '#fff' }}>
+        <BusinessIcon sx={{ fontSize: 12, color: 'var(--text-inverse)' }} />
+        <Typography sx={{ fontSize: '0.65rem', fontWeight: 600, color: 'var(--text-inverse)' }}>
           Office
         </Typography>
       </Box>
 
-      {/* Image count */}
       <Box
         sx={{
           position: 'absolute',
-          bottom: 8,
-          right: 8,
-          px: 0.6,
-          py: 0.2,
+          bottom: '4px',
+          right: '4px',
+          padding: '2px 4px',
           borderRadius: '4px',
-          backgroundColor: 'rgba(0,0,0,0.55)',
+          backgroundColor: 'var(--bg-header)',
         }}
       >
-        <Typography sx={{ fontSize: '9px', color: '#fff', fontWeight: 500 }}>
+        <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-inverse)', fontWeight: 600 }}>
           {unit.imageCount}
         </Typography>
       </Box>
     </Box>
 
-    {/* Info */}
-    <Box sx={{ p: 1.25 }}>
-      <Typography sx={{ fontSize: '12px', fontWeight: 700, color: '#111', lineHeight: 1.3 }}>
+    <Box sx={{ padding: '4px' }}>
+      <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.2 }}>
         {unit.name}
       </Typography>
-      <Stack direction="row" alignItems="center" spacing={0.3} sx={{ mt: 0.25 }}>
-        <LocationOnIcon sx={{ fontSize: 10, color: '#aaa' }} />
-        <Typography sx={{ fontSize: '10px', color: '#888' }}>
+      <Stack direction="row" alignItems="center" spacing="4px" sx={{ marginTop: '4px' }}>
+        <LocationOnIcon sx={{ fontSize: 12, color: 'var(--text-muted)' }} />
+        <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
           {unit.floor} | {unit.area}
         </Typography>
       </Stack>
 
-      <Typography sx={{ fontSize: '14px', fontWeight: 700, color: '#111', mt: 0.75 }}>
+      <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>
         {unit.price}
       </Typography>
-      <Typography sx={{ fontSize: '9px', color: '#aaa', mt: -0.25 }}>
+      <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
         {unit.priceLabel}
       </Typography>
 
-      {/* View Details button */}
-      <Button
-        variant="contained"
-        fullWidth
-        endIcon={<ArrowForwardIcon sx={{ fontSize: 14 }} />}
+      <Box
         sx={{
-          mt: 1,
-          borderRadius: '8px',
-          textTransform: 'none',
-          fontSize: '11px',
-          fontWeight: 600,
-          py: 0.65,
-          backgroundColor: '#1a237e',
-          boxShadow: 'none',
+          marginTop: '4px',
+          borderRadius: '4px',
+          padding: '4px',
+          backgroundColor: 'var(--bg-header)',
+          border: '1px solid transparent',
+          transition: 'all 150ms ease-in-out',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '4px',
           '&:hover': {
-            backgroundColor: '#283593',
-            boxShadow: 'none',
+            backgroundColor: 'var(--bg-card)',
+            borderColor: 'var(--accent-gold)',
           },
         }}
       >
-        View Details
-      </Button>
+        <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-inverse)' }}>
+          View Details
+        </Typography>
+        <ArrowForwardIcon sx={{ fontSize: 12, color: 'var(--text-inverse)' }} />
+      </Box>
     </Box>
   </Box>
 );
@@ -186,10 +186,10 @@ const OfficeSpace: React.FC = () => {
   return (
     <Box
       sx={{
-        px: 2,
+        padding: '4px',
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
-        gap: 1,
+        gap: '4px',
       }}
     >
       {officeUnits.map((unit, idx) => (

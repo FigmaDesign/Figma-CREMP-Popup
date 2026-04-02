@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Stack, Button } from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
 import GroupsIcon from '@mui/icons-material/Groups';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -7,57 +7,57 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import LocalCafeIcon from '@mui/icons-material/LocalCafe';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 
-/* ================ Featured Co-working Card ================ */
-
 const FeaturedCoWorking: React.FC = () => (
   <Box
     sx={{
-      mx: 2,
-      mb: 1.5,
-      p: 1.5,
-      borderRadius: '12px',
-      border: '1px solid #eee',
-      boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
-      backgroundColor: '#fff',
+      margin: '4px',
+      padding: '4px',
+      borderRadius: '4px',
+      border: '1px solid var(--border-default)',
+      boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
+      backgroundColor: 'var(--bg-card)',
+      transition: 'all 150ms ease-in-out',
+      '&:hover': {
+        borderColor: 'var(--accent-gold)',
+      }
     }}
   >
-    <Stack direction="row" spacing={1.5}>
-      <Box sx={{ flex: 1 }}>
+    <Stack direction="row" spacing="4px">
+      <Box sx={{ flex: 1, padding: '4px' }}>
         <Typography
-          sx={{ fontSize: '14px', fontWeight: 700, color: '#111', lineHeight: 1.3 }}
+          sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.2 }}
         >
           Co-Work Hub 305
         </Typography>
-        <Typography sx={{ fontSize: '11px', color: '#888', mt: 0.25 }}>
+        <Typography sx={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
           3rd Floor | 50 Seats
         </Typography>
 
-        {/* Amenities */}
-        <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-          <Stack direction="row" alignItems="center" spacing={0.3}>
-            <WifiIcon sx={{ fontSize: 12, color: '#1a237e' }} />
-            <Typography sx={{ fontSize: '9px', color: '#555' }}>High-Speed</Typography>
+        <Stack direction="row" spacing="4px" sx={{ marginTop: '4px' }}>
+          <Stack direction="row" alignItems="center" spacing="4px">
+            <WifiIcon sx={{ fontSize: 14, color: 'var(--accent-gold)' }} />
+            <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>High-Speed</Typography>
           </Stack>
-          <Stack direction="row" alignItems="center" spacing={0.3}>
-            <LocalCafeIcon sx={{ fontSize: 12, color: '#1a237e' }} />
-            <Typography sx={{ fontSize: '9px', color: '#555' }}>Cafeteria</Typography>
+          <Stack direction="row" alignItems="center" spacing="4px">
+            <LocalCafeIcon sx={{ fontSize: 14, color: 'var(--accent-gold)' }} />
+            <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Cafeteria</Typography>
           </Stack>
-          <Stack direction="row" alignItems="center" spacing={0.3}>
-            <MeetingRoomIcon sx={{ fontSize: 12, color: '#1a237e' }} />
-            <Typography sx={{ fontSize: '9px', color: '#555' }}>Meeting</Typography>
+          <Stack direction="row" alignItems="center" spacing="4px">
+            <MeetingRoomIcon sx={{ fontSize: 14, color: 'var(--accent-gold)' }} />
+            <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Meeting</Typography>
           </Stack>
         </Stack>
 
-        <Stack direction="row" spacing={2} sx={{ mt: 1.25 }}>
-          <Box>
-            <Typography sx={{ fontSize: '10px', color: '#aaa' }}>Per Seat:</Typography>
-            <Typography sx={{ fontSize: '13px', fontWeight: 700, color: '#111' }}>
+        <Stack direction="row" spacing="4px" sx={{ marginTop: '4px' }}>
+          <Box sx={{ padding: '4px' }}>
+            <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Per Seat:</Typography>
+            <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)' }}>
               ₹ 8,500/mo
             </Typography>
           </Box>
-          <Box>
-            <Typography sx={{ fontSize: '10px', color: '#aaa' }}>Full Floor:</Typography>
-            <Typography sx={{ fontSize: '13px', fontWeight: 700, color: '#111' }}>
+          <Box sx={{ padding: '4px' }}>
+            <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Full Floor:</Typography>
+            <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)' }}>
               ₹ 3.5 Lakh/mo
             </Typography>
           </Box>
@@ -66,25 +66,21 @@ const FeaturedCoWorking: React.FC = () => (
 
       <Box
         sx={{
-          width: 100,
-          height: 90,
-          borderRadius: '10px',
+          width: 80,
+          borderRadius: '4px',
           overflow: 'hidden',
           flexShrink: 0,
-          alignSelf: 'center',
-          backgroundColor: '#e8eaf6',
+          backgroundColor: 'var(--bg-app)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <GroupsIcon sx={{ fontSize: 36, color: '#1a237e' }} />
+        <GroupsIcon sx={{ fontSize: 24, color: 'var(--accent-gold)' }} />
       </Box>
     </Stack>
   </Box>
 );
-
-/* ================ Co-Working Unit Card ================ */
 
 interface CoWorkUnit {
   name: string;
@@ -121,104 +117,105 @@ const coWorkUnits: CoWorkUnit[] = [
 const CoWorkCard: React.FC<{ unit: CoWorkUnit }> = ({ unit }) => (
   <Box
     sx={{
-      borderRadius: '12px',
+      borderRadius: '4px',
       overflow: 'hidden',
-      border: '1px solid #eee',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-      backgroundColor: '#fff',
+      border: '1px solid var(--border-default)',
+      boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
+      backgroundColor: 'var(--bg-card)',
+      transition: 'all 150ms ease-in-out',
+      '&:hover': {
+        borderColor: 'var(--accent-gold)',
+        transform: 'translateY(-2px)',
+      }
     }}
   >
-    {/* Image placeholder */}
     <Box
       sx={{
-        height: 90,
-        backgroundColor: '#e8eaf6',
+        height: 70,
+        backgroundColor: 'var(--bg-app)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
       }}
     >
-      <GroupsIcon sx={{ fontSize: 32, color: '#1a237e', opacity: 0.5 }} />
+      <GroupsIcon sx={{ fontSize: 24, color: 'var(--accent-gold)', opacity: 0.5 }} />
 
-      {/* Tag */}
       <Box
         sx={{
           position: 'absolute',
-          bottom: 8,
-          left: 8,
+          bottom: '4px',
+          left: '4px',
           display: 'flex',
           alignItems: 'center',
-          gap: 0.3,
-          px: 0.75,
-          py: 0.3,
-          borderRadius: '6px',
-          backgroundColor: 'rgba(26, 35, 126, 0.85)',
+          gap: '4px',
+          padding: '4px',
+          borderRadius: '4px',
+          backgroundColor: 'var(--bg-header)',
         }}
       >
-        <GroupsIcon sx={{ fontSize: 10, color: '#fff' }} />
-        <Typography sx={{ fontSize: '9px', fontWeight: 600, color: '#fff' }}>
+        <GroupsIcon sx={{ fontSize: 12, color: 'var(--text-inverse)' }} />
+        <Typography sx={{ fontSize: '0.65rem', fontWeight: 600, color: 'var(--text-inverse)' }}>
           Co-Work
         </Typography>
       </Box>
     </Box>
 
-    {/* Info */}
-    <Box sx={{ p: 1.25 }}>
-      <Typography sx={{ fontSize: '12px', fontWeight: 700, color: '#111', lineHeight: 1.3 }}>
+    <Box sx={{ padding: '4px' }}>
+      <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.2 }}>
         {unit.name}
       </Typography>
-      <Stack direction="row" alignItems="center" spacing={0.3} sx={{ mt: 0.25 }}>
-        <LocationOnIcon sx={{ fontSize: 10, color: '#aaa' }} />
-        <Typography sx={{ fontSize: '10px', color: '#888' }}>
+      <Stack direction="row" alignItems="center" spacing="4px" sx={{ marginTop: '4px' }}>
+        <LocationOnIcon sx={{ fontSize: 12, color: 'var(--text-muted)' }} />
+        <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
           {unit.floor} | {unit.seats}
         </Typography>
       </Stack>
 
-      <Typography sx={{ fontSize: '14px', fontWeight: 700, color: '#111', mt: 0.75 }}>
+      <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>
         {unit.price}
       </Typography>
-      <Typography sx={{ fontSize: '9px', color: '#aaa', mt: -0.25 }}>
+      <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
         {unit.priceLabel}
       </Typography>
 
-      <Button
-        variant="contained"
-        fullWidth
-        endIcon={<ArrowForwardIcon sx={{ fontSize: 14 }} />}
+      <Box
         sx={{
-          mt: 1,
-          borderRadius: '8px',
-          textTransform: 'none',
-          fontSize: '11px',
-          fontWeight: 600,
-          py: 0.65,
-          backgroundColor: '#1a237e',
-          boxShadow: 'none',
+          marginTop: '4px',
+          borderRadius: '4px',
+          padding: '4px',
+          backgroundColor: 'var(--bg-header)',
+          border: '1px solid transparent',
+          transition: 'all 150ms ease-in-out',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '4px',
           '&:hover': {
-            backgroundColor: '#283593',
-            boxShadow: 'none',
+            backgroundColor: 'var(--bg-card)',
+            borderColor: 'var(--accent-gold)',
           },
         }}
       >
-        View Details
-      </Button>
+        <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-inverse)' }}>
+          View Details
+        </Typography>
+        <ArrowForwardIcon sx={{ fontSize: 12, color: 'var(--text-inverse)' }} />
+      </Box>
     </Box>
   </Box>
 );
 
-/* ================ CoWorkingSpaces Main ================ */
-
 const CoWorkingSpaces: React.FC = () => {
   return (
-    <Stack spacing={1.5}>
+    <Stack spacing="4px" sx={{ padding: '4px' }}>
       <FeaturedCoWorking />
       <Box
         sx={{
-          px: 2,
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: 1,
+          gap: '4px',
         }}
       >
         {coWorkUnits.map((unit, idx) => (

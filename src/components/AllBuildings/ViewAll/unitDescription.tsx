@@ -27,28 +27,28 @@ const descriptionGroups: DescriptionGroup[] = [
   {
     title: 'Basic Info',
     items: [
-      { icon: <SquareFootIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Carpet Area', value: '1,200 sq.ft' },
-      { icon: <StraightenIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Built-up Area', value: '1,500 sq.ft' },
-      { icon: <LayersIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Floor', value: 'Ground / 15' },
-      { icon: <ExploreIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Unit Facing', value: 'North-East' },
+      { icon: <SquareFootIcon sx={{ fontSize: 16 }} />, label: 'Carpet Area', value: '1,200 sq.ft' },
+      { icon: <StraightenIcon sx={{ fontSize: 16 }} />, label: 'Built-up Area', value: '1,500 sq.ft' },
+      { icon: <LayersIcon sx={{ fontSize: 16 }} />, label: 'Floor', value: 'Ground / 15' },
+      { icon: <ExploreIcon sx={{ fontSize: 16 }} />, label: 'Unit Facing', value: 'North-East' },
     ],
   },
   {
-    title: 'Dimensions & Layout',
+    title: 'Dimensions',
     items: [
-      { icon: <AspectRatioIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'L x B', value: '40ft x 30ft' },
-      { icon: <StraightenIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Frontage', value: '24 Feet' },
-      { icon: <HeightIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Ceiling Height', value: '14 Feet' },
-      { icon: <DashboardCustomizeIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Corner Unit', value: 'Yes' },
+      { icon: <AspectRatioIcon sx={{ fontSize: 16 }} />, label: 'L x B', value: '40ft x 30ft' },
+      { icon: <StraightenIcon sx={{ fontSize: 16 }} />, label: 'Frontage', value: '24 Feet' },
+      { icon: <HeightIcon sx={{ fontSize: 16 }} />, label: 'Ceiling Height', value: '14 Feet' },
+      { icon: <DashboardCustomizeIcon sx={{ fontSize: 16 }} />, label: 'Corner Unit', value: 'Yes' },
     ],
   },
   {
-    title: 'Location Context',
+    title: 'Context',
     items: [
-      { icon: <VisibilityIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Road Visibility', value: 'Main Road' },
-      { icon: <LocationCityIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Zone', value: 'Commercial PD' },
-      { icon: <SignpostIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Colony/Layout', value: 'Sector 50' },
-      { icon: <MapIcon sx={{ fontSize: 18, color: '#c8a45a' }} />, label: 'Map Location', value: 'View Map' },
+      { icon: <VisibilityIcon sx={{ fontSize: 16 }} />, label: 'Road Visibility', value: 'Main Road' },
+      { icon: <LocationCityIcon sx={{ fontSize: 16 }} />, label: 'Zone', value: 'Commercial PD' },
+      { icon: <SignpostIcon sx={{ fontSize: 16 }} />, label: 'Colony/Layout', value: 'Sector 50' },
+      { icon: <MapIcon sx={{ fontSize: 16 }} />, label: 'Map Location', value: 'View Map' },
     ],
   },
 ];
@@ -56,34 +56,41 @@ const descriptionGroups: DescriptionGroup[] = [
 const DescriptionCard: React.FC<{ item: DescriptionItem }> = ({ item }) => (
   <Box
     sx={{
-      backgroundColor: '#f8f9fb',
+      backgroundColor: 'var(--bg-app)',
       borderRadius: '4px',
-      p: 1.5,
+      padding: '4px',
       display: 'flex',
       alignItems: 'center',
-      gap: 1.5,
-      textAlign: 'left',
+      gap: '4px',
+      transition: 'all 150ms ease-in-out',
+      border: '1px solid transparent',
+      '&:hover': {
+        borderColor: 'var(--accent-gold)',
+        backgroundColor: 'var(--bg-card)',
+      }
     }}
   >
     <Box
       sx={{
-        width: 32,
-        height: 32,
+        width: 28,
+        height: 28,
         borderRadius: '4px',
-        backgroundColor: '#fdf6e3',
+        backgroundColor: 'var(--bg-card)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        color: 'var(--accent-gold)',
         flexShrink: 0,
+        boxShadow: '0px 1px 2px rgba(0,0,0,0.02)',
       }}
     >
       {item.icon}
     </Box>
-    <Stack spacing={0.5}>
-      <Typography sx={{ fontSize: '11px', color: '#888', lineHeight: 1.3 }}>
+    <Stack spacing={0}>
+      <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)', lineHeight: 1.2 }}>
         {item.label}
       </Typography>
-      <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#1a237e', lineHeight: 1.3 }}>
+      <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.2 }}>
         {item.value}
       </Typography>
     </Stack>
@@ -98,60 +105,71 @@ const UnitDescription: React.FC = () => {
   };
 
   return (
-    <Box sx={{ px: 2, py: 2, textAlign: 'left' }}>
-      <Typography
-        sx={{
-          fontSize: '16px',
-          fontWeight: 700,
-          color: '#1a237e',
-          mb: 2,
-        }}
-      >
-        Unit description
-      </Typography>
-
-      <Tabs 
-        value={tabValue} 
-        onChange={handleTabChange}
-        variant="scrollable"
-        scrollButtons={false}
-        sx={{ 
-          minHeight: '36px',
-          mb: 3,
-          borderBottom: '1px solid #eee',
-          '& .MuiTab-root': {
-            minHeight: '36px',
-            textTransform: 'none',
-            fontSize: '13px',
-            fontWeight: 600,
-            py: 1,
-            px: 2,
-            color: '#555',
-          },
-          '& .Mui-selected': {
-            color: '#1a237e',
-          },
-          '& .MuiTabs-indicator': {
-            backgroundColor: '#1a237e',
-            borderRadius: '4px 4px 0 0',
-          }
-        }}
-      >
-        {descriptionGroups.map((group, idx) => (
-          <Tab key={idx} label={group.title} />
-        ))}
-      </Tabs>
-
+    <Box sx={{ padding: '4px', textAlign: 'left' }}>
       <Box
         sx={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 2,
+          backgroundColor: 'var(--bg-card)',
+          borderRadius: '4px',
+          border: '1px solid var(--border-default)',
+          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
+          padding: '4px',
         }}
       >
-        {descriptionGroups[tabValue]?.items.map((item, idx) => (
-          <DescriptionCard key={idx} item={item} />
-        ))}
+        <Typography
+          sx={{
+            fontSize: '0.875rem',
+            fontWeight: 600,
+            color: 'var(--text-main)',
+            marginBottom: '4px',
+            paddingLeft: '4px',
+          }}
+        >
+          Unit description
+        </Typography>
+
+        <Tabs 
+          value={tabValue} 
+          onChange={handleTabChange}
+          variant="scrollable"
+          scrollButtons={false}
+          sx={{ 
+            minHeight: '28px',
+            marginBottom: '4px',
+            borderBottom: '1px solid var(--border-default)',
+            '& .MuiTab-root': {
+              minHeight: '28px',
+              textTransform: 'none',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              padding: '4px',
+              color: 'var(--text-muted)',
+              transition: 'all 150ms ease-in-out',
+            },
+            '& .Mui-selected': {
+              color: 'var(--accent-gold)',
+            },
+            '& .MuiTabs-indicator': {
+              backgroundColor: 'var(--accent-gold)',
+              height: '2px',
+            }
+          }}
+        >
+          {descriptionGroups.map((group, idx) => (
+            <Tab key={idx} label={group.title} disableRipple />
+          ))}
+        </Tabs>
+
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '4px',
+          }}
+        >
+          {descriptionGroups[tabValue]?.items.map((item, idx) => (
+            <DescriptionCard key={idx} item={item} />
+          ))}
+        </Box>
       </Box>
     </Box>
   );

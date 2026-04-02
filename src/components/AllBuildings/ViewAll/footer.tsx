@@ -8,29 +8,24 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 interface FooterAction {
   icon: React.ReactNode;
   label: string;
-  color: string;
 }
 
 const footerActions: FooterAction[] = [
   {
-    icon: <ShareIcon sx={{ fontSize: 20 }} />,
+    icon: <ShareIcon sx={{ fontSize: 16, color: 'inherit' }} />,
     label: 'Share',
-    color: '#1a237e',
   },
   {
-    icon: <PhoneIcon sx={{ fontSize: 20 }} />,
+    icon: <PhoneIcon sx={{ fontSize: 16, color: 'inherit' }} />,
     label: 'Contact',
-    color: '#1a237e',
   },
   {
-    icon: <CalendarMonthIcon sx={{ fontSize: 20 }} />,
+    icon: <CalendarMonthIcon sx={{ fontSize: 16, color: 'inherit' }} />,
     label: 'Schedule Visit',
-    color: '#1a237e',
   },
   {
-    icon: <BookmarkBorderIcon sx={{ fontSize: 20 }} />,
+    icon: <BookmarkBorderIcon sx={{ fontSize: 16, color: 'inherit' }} />,
     label: 'Save',
-    color: '#1a237e',
   },
 ];
 
@@ -42,41 +37,49 @@ const Footer: React.FC = () => {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: '#FFFFFF',
-        borderTop: '1px solid #e0e0e0',
-        px: 1,
-        py: 1,
+        backgroundColor: 'var(--bg-card)',
+        borderTop: '1px solid var(--border-default)',
+        padding: '4px',
         display: 'flex',
         justifyContent: 'space-around',
         alignItems: 'center',
         zIndex: 10,
-        boxShadow: '0 -2px 10px rgba(0,0,0,0.06)',
+        boxShadow: '0px -2px 4px rgba(0, 0, 0, 0.04)',
       }}
     >
       {footerActions.map((action, idx) => (
         <Stack
           key={idx}
           alignItems="center"
-          spacing={0.25}
+          spacing="4px"
           sx={{
             cursor: 'pointer',
             flex: 1,
-            py: 0.5,
-            borderRadius: '8px',
-            transition: 'background-color 0.15s ease',
+            padding: '4px',
+            borderRadius: '4px',
+            color: 'var(--text-main)',
+            transition: 'all 150ms ease-in-out',
             '&:hover': {
-              backgroundColor: '#f5f5f5',
+              backgroundColor: 'var(--bg-app)',
+              color: 'var(--accent-gold)',
             },
           }}
         >
-          <Box sx={{ color: action.color }}>
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center' 
+            }}
+          >
             {action.icon}
           </Box>
           <Typography
             sx={{
-              fontSize: '10px',
-              fontWeight: 500,
-              color: action.color,
+              fontSize: '0.65rem',
+              fontWeight: 600,
+              color: 'inherit',
+              transition: 'color 150ms ease-in-out',
             }}
           >
             {action.label}

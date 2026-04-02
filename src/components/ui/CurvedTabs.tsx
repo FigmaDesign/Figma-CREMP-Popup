@@ -24,16 +24,18 @@ const TabShape: React.FC<{ isActive: boolean }> = ({ isActive }) => {
         width: '100%',
         height: '100%',
         zIndex: -1,
-        filter: isActive ? 'drop-shadow(0px -2px 4px rgba(0,0,0,0.05))' : 'none',
+        filter: isActive ? 'drop-shadow(0px -2px 4px rgba(0,0,0,0.04))' : 'none',
+        transition: 'all 150ms ease-in-out',
       }}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M 5 40 L 15 5 Q 18 0 25 0 L 135 0 Q 142 0 145 5 L 155 40 Z"
-        fill={isActive ? '#FFFFFF' : '#F4F6F8'}
-        stroke={isActive ? '#C8A45A' : '#E0E0E0'}
-        strokeWidth={isActive ? '1.5' : '1'}
+        d="M 4 40 L 12 4 Q 16 0 24 0 L 136 0 Q 144 0 148 4 L 156 40 Z"
+        fill={isActive ? 'var(--bg-card)' : 'var(--bg-app)'}
+        stroke={isActive ? 'var(--accent-gold)' : 'var(--border-default)'}
+        strokeWidth={isActive ? '2' : '1'}
         vectorEffect="non-scaling-stroke"
+        style={{ transition: 'all 150ms ease-in-out' }}
       />
     </svg>
   );
@@ -45,9 +47,7 @@ export const CurvedTabs: React.FC<CurvedTabsProps> = ({ tabs, activeTab, onChang
       sx={{
         display: 'flex',
         alignItems: 'flex-end',
-        justifyContent: 'center',
-        // Slight negative margin for overlapping effect
-        ml: { xs: -1, sm: -2 },
+        justifyContent: 'flex-start',
       }}
     >
       {tabs.map((tab, idx) => {
@@ -62,31 +62,29 @@ export const CurvedTabs: React.FC<CurvedTabsProps> = ({ tabs, activeTab, onChang
               position: 'relative',
               width: { xs: '160px', sm: '180px' },
               height: isActive ? '48px' : '44px',
-              ml: isFirst ? 0 : '-16px', // Overlap effect
+              ml: isFirst ? 0 : '-16px',
               zIndex: isActive ? 10 : tabs.length - idx,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              transition: 'all 0.3s ease-in-out',
-              transform: isActive ? 'scale(1.05)' : 'none',
+              transition: 'all 150ms ease-in-out',
+              transform: isActive ? 'scale(1.02)' : 'none',
               transformOrigin: 'bottom center',
               '&:hover': {
-                transform: isActive ? 'scale(1.05)' : 'translateY(-2px)',
-                opacity: isActive ? 1 : 0.9,
+                transform: isActive ? 'scale(1.02)' : 'translateY(-2px)',
+                opacity: 1,
               },
             }}
           >
             <TabShape isActive={isActive} />
             <Typography
               sx={{
-                fontWeight: 700,
-                letterSpacing: '1px',
-                color: isActive ? '#121C2D' : '#727C8E',
-                fontSize: { xs: '13px', sm: '15px' },
-                textTransform: 'uppercase',
+                fontWeight: 600,
+                color: isActive ? 'var(--text-main)' : 'var(--text-muted)',
+                fontSize: '0.875rem',
                 mt: isActive ? '-4px' : '0px',
-                transition: 'color 0.3s ease-in-out',
+                transition: 'color 150ms ease-in-out',
                 userSelect: 'none',
               }}
             >

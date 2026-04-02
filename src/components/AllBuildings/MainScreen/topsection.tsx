@@ -14,22 +14,22 @@ interface StatItem {
 
 const stats: StatItem[] = [
   {
-    icon: <ApartmentIcon sx={{ fontSize: 20, color: '#1a237e' }} />,
+    icon: <ApartmentIcon sx={{ fontSize: 16, color: 'var(--accent-gold)' }} />,
     value: '24',
     label: 'Units',
   },
   {
-    icon: <SquareFootIcon sx={{ fontSize: 20, color: '#1a237e' }} />,
+    icon: <SquareFootIcon sx={{ fontSize: 16, color: 'var(--accent-gold)' }} />,
     value: '25L sq.ft.',
     label: 'Overall Area',
   },
   {
-    icon: <LayersIcon sx={{ fontSize: 20, color: '#1a237e' }} />,
+    icon: <LayersIcon sx={{ fontSize: 16, color: 'var(--accent-gold)' }} />,
     value: '15',
     label: 'Floors',
   },
   {
-    icon: <LocalParkingIcon sx={{ fontSize: 20, color: '#1a237e' }} />,
+    icon: <LocalParkingIcon sx={{ fontSize: 16, color: 'var(--accent-gold)' }} />,
     value: '400+',
     label: 'Parking',
   },
@@ -37,14 +37,15 @@ const stats: StatItem[] = [
 
 const TopSection: React.FC = () => {
   return (
-    <Box>
-      {/* Hero Image */}
+    <Box sx={{ padding: '4px' }}>
       <Box
         sx={{
           position: 'relative',
           width: '100%',
           height: 200,
           overflow: 'hidden',
+          borderRadius: '4px',
+          border: '1px solid var(--border-default)',
         }}
       >
         <Box
@@ -59,32 +60,31 @@ const TopSection: React.FC = () => {
           }}
         />
 
-        {/* Heart / Favourite Icon */}
         <Box
           sx={{
             position: 'absolute',
-            top: 12,
-            right: 12,
-            width: 34,
-            height: 34,
-            borderRadius: '10px',
-            backgroundColor: 'rgba(255,255,255,0.85)',
-            backdropFilter: 'blur(4px)',
+            top: '4px',
+            right: '4px',
+            width: 32,
+            height: 32,
+            borderRadius: '4px',
+            backgroundColor: 'var(--bg-card)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
-            transition: 'transform 0.15s ease',
+            border: '1px solid var(--border-default)',
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
+            transition: 'all 150ms ease-in-out',
             '&:hover': {
-              transform: 'scale(1.08)',
+              borderColor: 'var(--accent-gold)',
+              transform: 'translateY(-2px)',
             },
           }}
         >
-          <FavoriteBorderIcon sx={{ fontSize: 18, color: '#1a237e' }} />
+          <FavoriteBorderIcon sx={{ fontSize: 16, color: 'var(--text-main)' }} />
         </Box>
 
-        {/* Bottom gradient */}
         <Box
           sx={{
             position: 'absolute',
@@ -92,46 +92,49 @@ const TopSection: React.FC = () => {
             left: 0,
             right: 0,
             height: '40%',
-            background: 'linear-gradient(to top, rgba(255,255,255,0.7) 0%, transparent 100%)',
+            background: 'linear-gradient(to top, rgba(15, 26, 44, 0.85) 0%, transparent 100%)',
           }}
         />
-      </Box>
-
-      {/* Title Section */}
-      <Box sx={{ px: 2, pt: 1.5, pb: 0.5 }}>
-        <Typography
-          sx={{
-            fontSize: '20px',
-            fontWeight: 800,
-            color: '#111',
-            lineHeight: 1.2,
-            letterSpacing: '-0.3px',
+        
+        <Box 
+          sx={{ 
+            position: 'absolute', 
+            bottom: '8px', 
+            left: '8px', 
+            padding: '4px' 
           }}
         >
-          XYZ Plaza
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: '12px',
-            fontWeight: 400,
-            color: '#777',
-            mt: 0.25,
-          }}
-        >
-          Premium Commercial Property
-        </Typography>
+          <Typography
+            sx={{
+              fontSize: '1.25rem',
+              fontWeight: 600,
+              color: 'var(--text-inverse)',
+              lineHeight: 1.2,
+            }}
+          >
+            XYZ Plaza
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '0.75rem',
+              fontWeight: 400,
+              color: 'var(--accent-gold)',
+              marginTop: '4px',
+            }}
+          >
+            Premium Commercial Property
+          </Typography>
+        </Box>
       </Box>
 
-      {/* Stats Card */}
-      <Box sx={{ px: 2, pt: 1, pb: 1.5 }}>
+      <Box sx={{ paddingTop: '4px' }}>
         <Box
           sx={{
-            backgroundColor: '#FFFFFF',
-            borderRadius: '12px',
-            border: '1px solid #eee',
-            boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-            py: 1.25,
-            px: 1,
+            backgroundColor: 'var(--bg-card)',
+            borderRadius: '4px',
+            border: '1px solid var(--border-default)',
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
+            padding: '8px 4px',
             display: 'flex',
             justifyContent: 'space-around',
             alignItems: 'center',
@@ -139,13 +142,13 @@ const TopSection: React.FC = () => {
         >
           {stats.map((stat, idx) => (
             <React.Fragment key={idx}>
-              <Stack alignItems="center" spacing={0.25} sx={{ flex: 1 }}>
+              <Stack alignItems="center" spacing="4px" sx={{ flex: 1 }}>
                 {stat.icon}
                 <Typography
                   sx={{
-                    fontSize: '13px',
-                    fontWeight: 700,
-                    color: '#111',
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
+                    color: 'var(--text-main)',
                     lineHeight: 1.2,
                   }}
                 >
@@ -153,8 +156,8 @@ const TopSection: React.FC = () => {
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: '9px',
-                    color: '#999',
+                    fontSize: '0.65rem',
+                    color: 'var(--text-muted)',
                     fontWeight: 400,
                     lineHeight: 1.2,
                   }}
@@ -166,8 +169,8 @@ const TopSection: React.FC = () => {
                 <Box
                   sx={{
                     width: '1px',
-                    height: 36,
-                    backgroundColor: '#eee',
+                    height: 32,
+                    backgroundColor: 'var(--border-default)',
                     flexShrink: 0,
                   }}
                 />

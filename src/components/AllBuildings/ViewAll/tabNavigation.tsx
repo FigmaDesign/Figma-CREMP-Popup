@@ -21,9 +21,11 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ activeTab, onTabChange })
     <Box
       sx={{
         display: 'flex',
-        gap: 0,
-        borderBottom: '1px solid #e0e0e0',
+        gap: '4px',
+        borderBottom: '1px solid var(--border-default)',
         overflowX: 'auto',
+        padding: '0 4px',
+        backgroundColor: 'var(--bg-card)',
         '&::-webkit-scrollbar': { display: 'none' },
         scrollbarWidth: 'none',
       }}
@@ -35,21 +37,30 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ activeTab, onTabChange })
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
             sx={{
-              px: 1.5,
-              py: 1.25,
+              px: '8px',
+              py: '8px',
               cursor: 'pointer',
               position: 'relative',
               flexShrink: 0,
-              borderBottom: isActive ? '2px solid #1a237e' : '2px solid transparent',
-              transition: 'border-color 0.2s ease',
+              transition: 'all 150ms ease-in-out',
+              borderBottom: '2px solid',
+              borderColor: isActive ? 'var(--accent-gold)' : 'transparent',
+              '&:hover': {
+                backgroundColor: 'var(--bg-app)',
+              },
+              '&:hover .tab-text': {
+                color: 'var(--text-main)',
+              }
             }}
           >
             <Typography
+              className="tab-text"
               sx={{
-                fontSize: '13px',
-                fontWeight: isActive ? 600 : 400,
-                color: isActive ? '#1a237e' : '#888',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                color: isActive ? 'var(--accent-gold)' : 'var(--text-muted)',
                 whiteSpace: 'nowrap',
+                transition: 'color 150ms ease-in-out',
               }}
             >
               {tab.label}

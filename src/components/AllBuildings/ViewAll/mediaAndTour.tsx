@@ -11,27 +11,29 @@ const thumbnails = [
 
 const MediaAndTour: React.FC = () => {
   return (
-    <Box sx={{ px: 2, py: 1.5 }}>
+    <Box sx={{ padding: '4px' }}>
       <Typography
         sx={{
-          fontSize: '15px',
-          fontWeight: 700,
-          color: '#1a237e',
-          mb: 1.5,
+          fontSize: '0.875rem',
+          fontWeight: 600,
+          color: 'var(--text-main)',
+          marginBottom: '4px',
+          paddingLeft: '4px',
         }}
       >
         Media & tours
       </Typography>
 
-      {/* Main Preview Image with Play Button */}
       <Box
         sx={{
           position: 'relative',
           width: '100%',
           height: 180,
-          borderRadius: '10px',
+          borderRadius: '4px',
+          border: '1px solid var(--border-default)',
           overflow: 'hidden',
-          mb: 1,
+          marginBottom: '4px',
+          backgroundColor: 'var(--bg-app)',
         }}
       >
         <Box
@@ -45,38 +47,42 @@ const MediaAndTour: React.FC = () => {
             display: 'block',
           }}
         />
-        {/* Dark overlay */}
         <Box
           sx={{
             position: 'absolute',
             inset: 0,
-            backgroundColor: 'rgba(0,0,0,0.25)',
+            backgroundColor: 'rgba(15, 26, 44, 0.4)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            transition: 'background-color 150ms ease-in-out',
+            '&:hover': {
+              backgroundColor: 'rgba(15, 26, 44, 0.5)',
+            },
           }}
         >
           <PlayCircleFilledIcon
             sx={{
-              fontSize: 52,
-              color: 'rgba(255,255,255,0.9)',
-              filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))',
+              fontSize: 48,
+              color: 'var(--accent-gold)',
+              filter: 'drop-shadow(0px 4px 12px rgba(0,0,0,0.3))',
               cursor: 'pointer',
-              transition: 'transform 0.2s ease',
+              transition: 'all 150ms ease-in-out',
               '&:hover': {
                 transform: 'scale(1.1)',
+                color: '#FFFFFF',
               },
             }}
           />
         </Box>
       </Box>
 
-      {/* Thumbnails Strip */}
       <Stack
         direction="row"
-        spacing={0.75}
+        spacing="4px"
         sx={{
           overflowX: 'auto',
+          padding: '2px',
           '&::-webkit-scrollbar': { display: 'none' },
           scrollbarWidth: 'none',
         }}
@@ -88,10 +94,16 @@ const MediaAndTour: React.FC = () => {
               position: 'relative',
               width: 72,
               height: 56,
-              borderRadius: '8px',
+              borderRadius: '4px',
+              border: '1px solid var(--border-default)',
               overflow: 'hidden',
               flexShrink: 0,
               cursor: 'pointer',
+              transition: 'all 150ms ease-in-out',
+              '&:hover': {
+                borderColor: 'var(--accent-gold)',
+                transform: 'translateY(-2px)',
+              },
             }}
           >
             <Box
@@ -105,23 +117,22 @@ const MediaAndTour: React.FC = () => {
                 display: 'block',
               }}
             />
-            {/* +12 More overlay on last thumbnail */}
             {idx === thumbnails.length - 1 && (
               <Box
                 sx={{
                   position: 'absolute',
                   inset: 0,
-                  backgroundColor: 'rgba(26, 35, 126, 0.75)',
+                  backgroundColor: 'rgba(15, 26, 44, 0.85)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  borderRadius: '8px',
+                  borderRadius: '4px',
                 }}
               >
                 <Typography
                   sx={{
-                    color: '#FFFFFF',
-                    fontSize: '11px',
+                    color: 'var(--accent-gold)',
+                    fontSize: '0.65rem',
                     fontWeight: 700,
                   }}
                 >

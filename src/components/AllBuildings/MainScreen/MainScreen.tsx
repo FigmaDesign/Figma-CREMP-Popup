@@ -30,30 +30,43 @@ const MainScreen: React.FC = () => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#f9fafb',
+        backgroundColor: 'var(--bg-app)',
       }}
     >
-      {/* Scrollable content */}
       <Box
         sx={{
           flex: 1,
           overflowY: 'auto',
           overflowX: 'hidden',
-          '&::-webkit-scrollbar': { width: 3 },
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '4px',
+          padding: '4px',
+          '&::-webkit-scrollbar': { 
+            width: '4px' 
+          },
           '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0,0,0,0.12)',
-            borderRadius: 4,
+            backgroundColor: 'var(--border-default)',
+            borderRadius: '4px',
+            transition: 'all 150ms ease-in-out',
+            '&:hover': {
+              backgroundColor: 'var(--text-muted)',
+            }
           },
         }}
       >
-        {/* Top Section: Hero + Title + Stats */}
         <TopSection />
-
-        {/* Tab Navigation */}
+        
         <TabNavigation selectedTab={selectedTab} onTabChange={setSelectedTab} />
-
-        {/* Tab Content */}
-        <Box sx={{ pb: 3 }}>
+        
+        <Box 
+          sx={{ 
+            paddingBottom: '12px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '4px',
+          }}
+        >
           {renderTabContent()}
         </Box>
       </Box>

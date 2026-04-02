@@ -23,19 +23,49 @@ const Specifications: React.FC = () => {
   };
 
   return (
-    <Box sx={{ px: 2, py: 1.5 }}>
-      <Typography
+    <Box 
+      sx={{ 
+        padding: '4px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '4px'
+      }}
+    >
+      <Box
         sx={{
-          fontSize: '15px',
-          fontWeight: 700,
-          color: '#1a237e',
-          mb: 1.5,
+          padding: '4px',
+          borderRadius: '4px',
+          backgroundColor: 'var(--bg-card)',
+          border: '1px solid var(--border-default)',
+          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
         }}
       >
-        Specifications
-      </Typography>
-      <SpecTabNavigation activeTab={activeSpecTab} onTabChange={setActiveSpecTab} />
-      {renderSpecContent()}
+        <Typography
+          sx={{
+            fontSize: '0.875rem',
+            fontWeight: 600,
+            color: 'var(--text-main)',
+            marginBottom: '4px',
+            paddingLeft: '4px',
+          }}
+        >
+          Specifications
+        </Typography>
+
+        <SpecTabNavigation 
+          activeTab={activeSpecTab} 
+          onTabChange={setActiveSpecTab} 
+        />
+
+        <Box 
+          sx={{ 
+            marginTop: '4px',
+            transition: 'all 150ms ease-in-out'
+          }}
+        >
+          {renderSpecContent()}
+        </Box>
+      </Box>
     </Box>
   );
 };

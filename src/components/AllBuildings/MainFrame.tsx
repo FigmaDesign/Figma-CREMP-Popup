@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import LeftPanel from './MainScreen/left';
 import MainScreen from './MainScreen';
-import { ViewAll } from './ViewAll';
+import ViewAll from './ViewAll'; // Importing as default now
 
 const MainFrame: React.FC = () => {
   const [activePage, setActivePage] = useState<string>('main');
@@ -14,9 +14,21 @@ const MainFrame: React.FC = () => {
       case 'viewAll':
         return <ViewAll onBack={() => setActivePage('main')} />;
       case 'landMain':
-        return <Box sx={{ p: 2 }}>Land Main - Coming Soon</Box>;
+        return (
+          <Box sx={{ p: 4, textAlign: 'center' }}>
+            <Typography sx={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+              Land Main - Coming Soon
+            </Typography>
+          </Box>
+        );
       case 'landViewAll':
-        return <Box sx={{ p: 2 }}>Land View All - Coming Soon</Box>;
+        return (
+          <Box sx={{ p: 4, textAlign: 'center' }}>
+            <Typography sx={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+              Land View All - Coming Soon
+            </Typography>
+          </Box>
+        );
       default:
         return <MainScreen />;
     }
@@ -26,35 +38,66 @@ const MainFrame: React.FC = () => {
     <Box
       sx={{
         height: '100vh',
-        backgroundColor: '#F5F5F5',
+        width: '100vw',
+        backgroundColor: 'var(--bg-app)',
         display: 'flex',
         flexDirection: 'row',
+        overflow: 'hidden', // Prevents the browser window itself from scrolling
       }}
     >
-      {/* LEFT PAGES PANEL */}
+      {/* LEFT NAVIGATION PANEL */}
       <LeftPanel activePage={activePage} onPageSelect={setActivePage} />
 
-      {/* MOBILE FRAME (CENTER) */}
+      {/* CENTER MOBILE VIEWPORT AREA */}
       <Box
         sx={{
-          width: 360,
-          height: '100%',
-          backgroundColor: '#FFFFFF',
-          border: '1px solid #222',
-          borderRadius: '2px',
-          overflow: 'hidden',
+          flex: 1,
           display: 'flex',
-          flexDirection: 'column',
-          mx: 'auto',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '20px',
+          height: '100%',
         }}
       >
-        {renderContent()}
+        {/* THE "MOBILE PHONE" BOX */}
+        <Box
+          sx={{
+            width: 360,
+            height: '100%',
+            maxHeight: '800px', // Standard mobile height ratio
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border-default)',
+            borderRadius: '8px',
+            display: 'flex',
+            flexDirection: 'column',
+            boxShadow: '0px 10px 40px rgba(0, 0, 0, 0.12)',
+            position: 'relative',
+            overflow: 'hidden', // CRITICAL: Keeps the scroll inside the frame
+          }}
+        >
+          {/* CONTENT WRAPPER */}
+          <Box
+            sx={{
+              flex: 1,
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {renderContent()}
+          </Box>
+        </Box>
       </Box>
 
-      {/* RIGHT EMPTY PANEL */}
+      {/* RIGHT SIDEBAR PANEL */}
       <Box
         sx={{
           width: '25%',
+          minWidth: '240px',
+          borderLeft: '1px solid var(--border-default)',
+          backgroundColor: 'var(--bg-card)',
+          display: { xs: 'none', lg: 'block' },
         }}
       />
     </Box>

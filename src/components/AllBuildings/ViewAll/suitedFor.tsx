@@ -10,11 +10,11 @@ interface SuitedCategory {
 const categories: SuitedCategory[] = [
   {
     title: '🏬 Retail Categories',
-    tags: ['Apparel & Fashion', 'Luxury Watches', 'Electronics', 'F&B (Restaurant / Cafe)', 'Salon / Spa', 'Pharmacy'],
+    tags: ['Apparel & Fashion', 'Luxury Watches', 'Electronics', 'F&B', 'Salon / Spa', 'Pharmacy'],
   },
   {
     title: '🏢 Office Use',
-    tags: ['IT / Startup Office', 'Coworking', 'Corporate Office'],
+    tags: ['IT / Startup', 'Coworking', 'Corporate'],
   },
   {
     title: '🏠 Also Suitable For',
@@ -24,58 +24,84 @@ const categories: SuitedCategory[] = [
 
 const SuitedFor: React.FC = () => {
   return (
-    <Box sx={{ px: 2, py: 2, textAlign: 'left' }}>
-      <Typography
+    <Box sx={{ padding: '4px' }}>
+      <Box
         sx={{
-          fontSize: '16px',
-          fontWeight: 700,
-          color: '#1a237e',
-          mb: 3,
+          padding: '4px',
+          borderRadius: '4px',
+          backgroundColor: 'var(--bg-card)',
+          border: '1px solid var(--border-default)',
+          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
         }}
       >
-        Suited for
-      </Typography>
+        <Typography
+          sx={{
+            fontSize: '0.875rem',
+            fontWeight: 600,
+            color: 'var(--text-main)',
+            marginBottom: '8px',
+            paddingLeft: '4px',
+          }}
+        >
+          Suited for
+        </Typography>
 
-      <Stack spacing={3}>
-        {categories.map((category, catIdx) => (
-          <Box key={catIdx}>
-            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#555', mb: 1.5 }}>
-              {category.title}
-            </Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: 1,
-              }}
-            >
-              {category.tags.map((tag, idx) => (
-                <Chip
-                  key={idx}
-                  icon={<CheckCircleIcon sx={{ fontSize: 16, color: '#4caf50 !important' }} />}
-                  label={tag}
-                  variant="outlined"
-                  sx={{
-                    borderRadius: '4px',
-                    borderColor: '#e0e0e0',
-                    backgroundColor: '#fafafa',
-                    fontSize: '12px',
-                    fontWeight: 500,
-                    color: '#1a237e',
-                    height: 32,
-                    '& .MuiChip-label': {
-                      px: 1,
-                    },
-                    '& .MuiChip-icon': {
-                      ml: 1,
-                    },
-                  }}
-                />
-              ))}
+        <Stack spacing="8px">
+          {categories.map((category, catIdx) => (
+            <Box key={catIdx} sx={{ paddingLeft: '4px' }}>
+              <Typography 
+                sx={{ 
+                  fontSize: '0.75rem', 
+                  fontWeight: 600, 
+                  color: 'var(--text-muted)', 
+                  marginBottom: '4px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}
+              >
+                {category.title}
+              </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '4px',
+                }}
+              >
+                {category.tags.map((tag, idx) => (
+                  <Chip
+                    key={idx}
+                    icon={<CheckCircleIcon sx={{ fontSize: 14, color: 'var(--accent-gold) !important' }} />}
+                    label={tag}
+                    variant="outlined"
+                    sx={{
+                      borderRadius: '4px',
+                      borderColor: 'var(--border-default)',
+                      backgroundColor: 'var(--bg-app)',
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      color: 'var(--text-main)',
+                      height: 28,
+                      transition: 'all 150ms ease-in-out',
+                      '&:hover': {
+                        borderColor: 'var(--accent-gold)',
+                        backgroundColor: 'var(--bg-card)',
+                      },
+                      '& .MuiChip-label': {
+                        paddingLeft: '4px',
+                        paddingRight: '8px',
+                      },
+                      '& .MuiChip-icon': {
+                        marginLeft: '4px',
+                      },
+                    }}
+                  />
+                ))}
+              </Box>
             </Box>
-          </Box>
-        ))}
-      </Stack>
+          ))}
+        </Stack>
+      </Box>
     </Box>
   );
 };

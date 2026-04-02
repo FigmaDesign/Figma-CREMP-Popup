@@ -10,15 +10,13 @@ import DoneIcon from '@mui/icons-material/Done';
 interface FacilityCategory {
   title: string;
   icon: React.ReactNode;
-  color: string;
   items: { label: string; value: string | boolean }[];
 }
 
 const facilityCategories: FacilityCategory[] = [
   {
     title: 'Parking',
-    icon: <LocalParkingIcon sx={{ fontSize: 20 }} />,
-    color: '#e3f2fd', // light blue
+    icon: <LocalParkingIcon sx={{ fontSize: 16 }} />,
     items: [
       { label: 'Dedicated Parking', value: 'Yes' },
       { label: 'Number of Slots', value: '4' },
@@ -27,8 +25,7 @@ const facilityCategories: FacilityCategory[] = [
   },
   {
     title: 'Power',
-    icon: <BoltIcon sx={{ fontSize: 20 }} />,
-    color: '#fff3e0', // light orange
+    icon: <BoltIcon sx={{ fontSize: 16 }} />,
     items: [
       { label: 'Power Backup', value: 'Yes' },
       { label: 'Power Load', value: '15 kW' },
@@ -37,8 +34,7 @@ const facilityCategories: FacilityCategory[] = [
   },
   {
     title: 'Water',
-    icon: <WaterDropIcon sx={{ fontSize: 20 }} />,
-    color: '#e0f7fa', // light cyan
+    icon: <WaterDropIcon sx={{ fontSize: 16 }} />,
     items: [
       { label: 'Water Connection', value: 'Yes' },
       { label: '24/7 Availability', value: 'Yes' },
@@ -46,8 +42,7 @@ const facilityCategories: FacilityCategory[] = [
   },
   {
     title: 'Safety',
-    icon: <ShieldIcon sx={{ fontSize: 20 }} />,
-    color: '#fce4ec', // light pink
+    icon: <ShieldIcon sx={{ fontSize: 16 }} />,
     items: [
       { label: 'Fire Sprinklers', value: 'Yes' },
       { label: 'Fire Extinguishers', value: 'Yes' },
@@ -55,8 +50,7 @@ const facilityCategories: FacilityCategory[] = [
   },
   {
     title: 'Building Amenities',
-    icon: <DomainIcon sx={{ fontSize: 20 }} />,
-    color: '#e8f5e9', // light green
+    icon: <DomainIcon sx={{ fontSize: 16 }} />,
     items: [
       { label: 'Lift', value: 'Yes' },
       { label: 'Security', value: 'Yes' },
@@ -76,13 +70,13 @@ const Facilities: React.FC = () => {
   const activeCategory = facilityCategories[tabValue];
 
   return (
-    <Box sx={{ px: 2, py: 2, textAlign: 'left' }}>
+    <Box sx={{ padding: '4px', textAlign: 'left' }}>
       <Typography
         sx={{
-          fontSize: '16px',
-          fontWeight: 700,
-          color: '#1a237e',
-          mb: 2,
+          fontSize: '0.875rem',
+          fontWeight: 600,
+          color: 'var(--text-main)',
+          marginBottom: '4px',
         }}
       >
         Building Facilities
@@ -94,77 +88,78 @@ const Facilities: React.FC = () => {
         variant="scrollable"
         scrollButtons={false}
         sx={{ 
-          minHeight: '36px',
-          mb: 3,
-          borderBottom: '1px solid #eee',
+          minHeight: '28px',
+          marginBottom: '4px',
+          borderBottom: '1px solid var(--border-default)',
           '& .MuiTab-root': {
-            minHeight: '36px',
+            minHeight: '28px',
             textTransform: 'none',
-            fontSize: '13px',
+            fontSize: '0.75rem',
             fontWeight: 600,
-            py: 1,
-            px: 2,
-            color: '#555',
+            padding: '4px',
+            color: 'var(--text-muted)',
+            transition: 'all 150ms ease-in-out',
           },
           '& .Mui-selected': {
-            color: '#1a237e',
+            color: 'var(--accent-gold)',
           },
           '& .MuiTabs-indicator': {
-            backgroundColor: '#1a237e',
-            borderRadius: '4px 4px 0 0',
+            backgroundColor: 'var(--accent-gold)',
+            height: '2px',
           }
         }}
       >
         {facilityCategories.map((category, idx) => (
-          <Tab key={idx} label={category.title} />
+          <Tab key={idx} label={category.title} disableRipple />
         ))}
       </Tabs>
 
       {activeCategory && (
         <Box
           sx={{
-            p: 2,
+            padding: '4px',
             borderRadius: '4px',
-            border: '1px solid #f0f0f0',
-            backgroundColor: '#fff',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
+            border: '1px solid var(--border-default)',
+            backgroundColor: 'var(--bg-card)',
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
+            transition: 'all 150ms ease-in-out',
           }}
         >
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
+          <Stack direction="row" alignItems="center" spacing="4px" sx={{ marginBottom: '4px' }}>
             <Box
               sx={{
-                width: 32,
-                height: 32,
+                width: 24,
+                height: 24,
                 borderRadius: '4px',
-                backgroundColor: activeCategory.color,
+                backgroundColor: 'var(--bg-app)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#1a237e',
+                color: 'var(--accent-gold)',
               }}
             >
               {activeCategory.icon}
             </Box>
-            <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#222' }}>
+            <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)' }}>
               {activeCategory.title}
             </Typography>
           </Stack>
 
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
             {activeCategory.items.map((item, i) => (
-              <Box key={i} sx={{ width: 'calc(50% - 8px)' }}>
-                <Stack direction="row" alignItems="flex-start" spacing={1}>
+              <Box key={i} sx={{ width: 'calc(50% - 2px)' }}>
+                <Stack direction="row" alignItems="flex-start" spacing="4px">
                   {item.value === 'Yes' ? (
-                    <DoneIcon sx={{ fontSize: 16, color: '#4caf50', mt: 0.2 }} />
+                    <DoneIcon sx={{ fontSize: 12, color: 'var(--accent-gold)', marginTop: '2px' }} />
                   ) : (
-                    <Box sx={{ width: 16, height: 16, display: 'inline-block' }} />
+                    <Box sx={{ width: 12, height: 12, display: 'inline-block' }} />
                   )}
                   <Box>
-                    <Typography sx={{ fontSize: '11px', color: '#666', lineHeight: 1.2 }}>
+                    <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)', lineHeight: 1.2 }}>
                       {item.label}
                     </Typography>
                     {item.value !== 'Yes' && item.value !== 'No' && (
-                      <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#111' }}>
+                      <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)' }}>
                         {item.value}
                       </Typography>
                     )}

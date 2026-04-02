@@ -4,68 +4,43 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+
 import Header from './header';
 import Highlights from './highlights';
-import TabNavigation from './tabNavigation';
-import type { ViewAllTab } from './tabNavigation';
+import TabNavigation, { type ViewAllTab } from './tabNavigation';
 import UnitDescription from './unitDescription';
 import MediaAndTour from './mediaAndTour';
+import Specifications from './Specifications';
 import Facilities from './facilities';
 import SuitedFor from './suitedFor';
 import InvestmentSummary from './investmentSummary';
 import Footer from './footer';
-import Specifications from './Specifications';
 
 interface ViewAllProps {
   onBack?: () => void;
 }
 
-/* ---- Key Icons Row ---- */
-interface KeyIconItemProps {
-  icon: React.ReactNode;
-  value: string;
-  label: string;
-}
-
-const keyIcons: KeyIconItemProps[] = [
-  {
-    icon: <StorefrontIcon sx={{ fontSize: 18 }} />,
-    value: '25 ft',
-    label: 'Frontage',
-  },
-  {
-    icon: <PeopleAltIcon sx={{ fontSize: 18 }} />,
-    value: 'High',
-    label: 'Footfall',
-  },
-  {
-    icon: <VisibilityIcon sx={{ fontSize: 18 }} />,
-    value: 'Main Road',
-    label: 'Visibility',
-  },
-];
-
-const KeyIconItem: React.FC<KeyIconItemProps> = ({ icon, value, label }) => (
-  <Stack direction="row" alignItems="center" spacing={1}>
-    <Box
-      sx={{
-        width: 36,
-        height: 36,
-        borderRadius: '50%',
-        backgroundColor: '#fdf6e3',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#c8a45a',
-      }}
-    >
+const KeyIconItem: React.FC<{ icon: React.ReactNode; value: string; label: string }> = ({ icon, value, label }) => (
+  <Stack 
+    direction="row" 
+    alignItems="center" 
+    spacing="4px" 
+    sx={{ 
+      flex: 1,
+      padding: '4px',
+      borderRadius: '4px',
+      backgroundColor: 'var(--bg-app)',
+      border: '1px solid var(--border-default)',
+    }}
+  >
+    <Box sx={{ width: 28, height: 28, borderRadius: '4px', backgroundColor: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-gold)', flexShrink: 0 }}>
       {icon}
     </Box>
     <Stack spacing={0}>
-      <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#222', lineHeight: 1.3 }}>
+      <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.2 }}>
         {value}
       </Typography>
-      <Typography sx={{ fontSize: '10px', color: '#888', lineHeight: 1.3 }}>
+      <Typography sx={{ fontSize: '0.6rem', color: 'var(--text-muted)', lineHeight: 1.2, textTransform: 'uppercase' }}>
         {label}
       </Typography>
     </Stack>
@@ -76,133 +51,79 @@ const ViewAll: React.FC<ViewAllProps> = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState<ViewAllTab>('unitDetails');
 
   return (
-    <Box
-      sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: '#FFFFFF',
-      }}
-    >
-      {/* Scrollable body */}
+    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-app)', overflow: 'hidden' }}>
+      
+      {/* --- 1. THE SCROLLABLE AREA --- */}
+      {/* Moving everything except the Tab Bar and Footer here makes them scrollable */}
       <Box
         sx={{
           flex: 1,
           overflowY: 'auto',
           overflowX: 'hidden',
-          '&::-webkit-scrollbar': { width: 4 },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0,0,0,0.15)',
-            borderRadius: 4,
-          },
+          display: 'flex',
+          flexDirection: 'column',
+          WebkitOverflowScrolling: 'touch',
+          '&::-webkit-scrollbar': { width: '4px' },
+          '&::-webkit-scrollbar-thumb': { backgroundColor: 'var(--border-default)', borderRadius: '4px' },
         }}
       >
-        {/* 1. Header Image */}
+        {/* Everything from your screenshot now scrolls: */}
         <Header onBack={onBack} />
-
-        {/* 2. Blue Highlights Strip */}
         <Highlights />
-
-        {/* 3. Title Section */}
-        <Box sx={{ px: 2, pt: 2, pb: 1 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        
+        <Box sx={{ padding: '8px', backgroundColor: 'var(--bg-card)' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: '8px' }}>
             <Box>
-              <Typography
-                sx={{
-                  fontSize: '18px',
-                  fontWeight: 700,
-                  color: '#222',
-                  lineHeight: 1.2,
-                }}
-              >
+              <Typography sx={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.2 }}>
                 Retail Unit A105
               </Typography>
-              <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mt: 0.5 }}>
-                <LocationOnIcon sx={{ fontSize: 14, color: '#1a237e' }} />
-                <Typography sx={{ fontSize: '12px', color: '#666' }}>
+              <Stack direction="row" alignItems="center" spacing="4px" sx={{ mt: '4px' }}>
+                <LocationOnIcon sx={{ fontSize: 14, color: 'var(--accent-gold)' }} />
+                <Typography sx={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                   Ground Floor, XYZ Mall, Manhattan
                 </Typography>
               </Stack>
             </Box>
-            <Box
-              sx={{
-                px: 1.5,
-                py: 0.5,
-                backgroundColor: '#e8f5e9',
-                borderRadius: '6px',
-                flexShrink: 0,
-                mt: 0.25,
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: '10px',
-                  fontWeight: 600,
-                  color: '#2e7d32',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                Unit Available
+            <Box sx={{ px: '8px', py: '2px', backgroundColor: 'var(--bg-app)', borderRadius: '4px', border: '1px solid var(--border-default)' }}>
+              <Typography sx={{ fontSize: '0.65rem', fontWeight: 600, color: 'var(--accent-gold)', textTransform: 'uppercase' }}>
+                Available
               </Typography>
             </Box>
           </Box>
+
+          <Box sx={{ display: 'flex', gap: '8px' }}>
+            <KeyIconItem icon={<StorefrontIcon sx={{ fontSize: 16 }} />} value="25 ft" label="Frontage" />
+            <KeyIconItem icon={<PeopleAltIcon sx={{ fontSize: 16 }} />} value="High" label="Footfall" />
+            <KeyIconItem icon={<VisibilityIcon sx={{ fontSize: 16 }} />} value="Main Road" label="Visibility" />
+          </Box>
         </Box>
 
-        {/* 4. Key Icons Row */}
-        <Box
-          sx={{
-            px: 2,
-            pb: 1,
-            display: 'flex',
-            gap: 2,
-            justifyContent: 'flex-start',
-          }}
-        >
-          {keyIcons.map((item, idx) => (
-            <KeyIconItem key={idx} {...item} />
-          ))}
+        {/* --- 2. THE STICKY TABS --- */}
+        {/* We use position: sticky so the tabs stay at the top when the content below slides under them */}
+        <Box sx={{ position: 'sticky', top: 0, zIndex: 10, backgroundColor: 'var(--bg-card)' }}>
+          <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
         </Box>
 
-        {/* 5. Section Tabs */}
-        <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-
-        {/* Divider */}
-        <Divider sx={{ mx: 2 }} />
-
-        {/* 6. Content Sections */}
-        <Box sx={{ pb: 2 }}>
-          {/* Unit Description */}
+        {/* Content Sections */}
+        <Box sx={{ p: '4px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <UnitDescription />
-
-          <Divider sx={{ mx: 2 }} />
-
-          {/* Media & Tours */}
+          <Divider sx={{ mx: 1, borderColor: 'var(--border-default)' }} />
           <MediaAndTour />
-
-          <Divider sx={{ mx: 2 }} />
-
-          {/* Specifications */}
+          <Divider sx={{ mx: 1, borderColor: 'var(--border-default)' }} />
           <Specifications />
-
-          <Divider sx={{ mx: 2 }} />
-
-          {/* Facilities */}
+          <Divider sx={{ mx: 1, borderColor: 'var(--border-default)' }} />
           <Facilities />
-
-          <Divider sx={{ mx: 2 }} />
-
-          {/* Suited For */}
+          <Divider sx={{ mx: 1, borderColor: 'var(--border-default)' }} />
           <SuitedFor />
-
-          <Divider sx={{ mx: 2 }} />
-
-          {/* Investment Summary */}
+          <Divider sx={{ mx: 1, borderColor: 'var(--border-default)' }} />
           <InvestmentSummary />
         </Box>
       </Box>
 
-      {/* Sticky Footer */}
-      <Footer />
+      {/* --- 3. FIXED FOOTER --- */}
+      <Box sx={{ flexShrink: 0 }}>
+        <Footer />
+      </Box>
     </Box>
   );
 };

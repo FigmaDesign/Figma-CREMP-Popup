@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box } from '@mui/material';
-
 import { CurvedTabs, type CurvedTabOption } from '../../ui/CurvedTabs';
 
 type TabType = 'retail' | 'office' | 'coworking';
@@ -20,14 +19,16 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ selectedTab, onTabChange 
   return (
     <Box
       sx={{
-        px: 2,
-        pb: 2,
-        mt: 1,
+        padding: '4px',
+        marginTop: '4px',
+        marginBottom: '4px',
         width: '100%',
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         overflowX: 'auto',
-        '&::-webkit-scrollbar': { display: 'none' }, // hide scrollbar
+        '&::-webkit-scrollbar': { 
+          display: 'none' 
+        },
       }}
     >
       <CurvedTabs
