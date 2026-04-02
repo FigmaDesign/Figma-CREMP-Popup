@@ -1,5 +1,8 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import BusinessIcon from '@mui/icons-material/Business';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 type TabType = 'retail' | 'office' | 'coworking';
 
@@ -8,72 +11,86 @@ interface TabNavigationProps {
   onTabChange: (tab: TabType) => void;
 }
 
-interface TabButtonProps {
+interface TabDef {
+  id: TabType;
   label: string;
-  isActive: boolean;
-  onClick: () => void;
+  icon: React.ReactNode;
 }
 
-const TabButton: React.FC<TabButtonProps> = ({ label, isActive, onClick }) => {
-  return (
-    <Box
-      onClick={onClick}
-      sx={{
-        px: 3,
-        py: 1.5,
-        borderRadius: 20,
-        backgroundColor: isActive ? '#1a237e' : '#f0f0f0',
-        cursor: 'pointer',
-        transition: 'all 0.2s ease',
-        '&:hover': {
-          backgroundColor: isActive ? '#283593' : '#e0e0e0',
-        },
-      }}
-    >
-      <Typography
-        variant="body2"
-        fontWeight={isActive ? '600' : '400'}
-        sx={{
-          color: isActive ? '#FFFFFF' : '#666666',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {label}
-      </Typography>
-    </Box>
-  );
-};
+const tabs: TabDef[] = [
+  {
+    id: 'retail',
+    label: 'Retail',
+    icon: <ApartmentIcon sx={{ fontSize: 15 }} />,
+  },
+  {
+    id: 'office',
+    label: 'Office',
+    icon: <BusinessIcon sx={{ fontSize: 15 }} />,
+  },
+  {
+    id: 'coworking',
+    label: 'Co-working',
+    icon: <GroupsIcon sx={{ fontSize: 15 }} />,
+  },
+];
 
 const TabNavigation: React.FC<TabNavigationProps> = ({ selectedTab, onTabChange }) => {
   return (
     <Box
       sx={{
         px: 2,
-        py: 2,
+        pb: 1.5,
         display: 'flex',
-        gap: 1,
+        gap: 0.75,
         justifyContent: 'flex-start',
-        overflowX: 'auto',
-        '&::-webkit-scrollbar': {
-          display: 'none',
-        },
       }}
     >
-      <TabButton
-        label="Retail"
-        isActive={selectedTab === 'retail'}
-        onClick={() => onTabChange('retail')}
-      />
-      <TabButton
-        label="Office"
-        isActive={selectedTab === 'office'}
-        onClick={() => onTabChange('office')}
-      />
-      <TabButton
-        label="Co-working"
-        isActive={selectedTab === 'coworking'}
-        onClick={() => onTabChange('coworking')}
-      />
+      {tabs.map((tab) => {
+        const isActive = selectedTab === tab.id;
+        return (
+          <Box
+            key={tab.id}
+            onClick={() => onTabChange(tab.id)}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
+              px: 2,
+              py: 0.85,
+              borderRadius: '22px',
+              backgroundColor: isActive ? '#1a237e' : 'transparent',
+              border: isActive ? '1px solid #1a237e' : '1px solid #d0d0d0',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                backgroundColor: isActive ? '#283593' : '#f5f5f5',
+              },
+            }}
+          >
+            <Box
+              sx={{
+                color: isActive ? '#FFFFFF' : '#555',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              {tab.icon}
+            </Box>
+            <Typography
+              sx={{
+                fontSize: '12px',
+                fontWeight: isActive ? 600 : 500,
+                color: isActive ? '#FFFFFF' : '#555',
+                whiteSpace: 'nowrap',
+                lineHeight: 1,
+              }}
+            >
+              {tab.label}
+            </Typography>
+          </Box>
+        );
+      })}
     </Box>
   );
 };

@@ -19,14 +19,16 @@ const NavItem: React.FC<NavItemProps> = ({ label, isActive, onClick }) => {
       onClick={onClick}
       sx={{
         py: 0.5,
-        px: 1,
+        px: 1.25,
         cursor: 'pointer',
-        borderRadius: 1,
+        borderRadius: '6px',
         backgroundColor: isActive ? '#e8eaf6' : 'transparent',
         color: isActive ? '#1a237e' : '#666666',
         fontWeight: isActive ? '600' : '400',
+        fontSize: '13px',
+        transition: 'all 0.15s ease',
         '&:hover': {
-          backgroundColor: isActive ? '#e8eaf6' : '#f5f5f5',
+          backgroundColor: isActive ? '#e8eaf6' : '#f0f0f0',
         },
       }}
     >
