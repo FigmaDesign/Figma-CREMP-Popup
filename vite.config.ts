@@ -4,6 +4,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/Figma-CREMP-Popup/',
   plugins: [react()],
   resolve: {
     alias: {

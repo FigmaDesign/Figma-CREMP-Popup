@@ -1,4 +1,4 @@
-import React from 'react';
+// ...existing code...
 import { Box, Typography, Stack } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
 import PhoneIcon from '@mui/icons-material/Phone';

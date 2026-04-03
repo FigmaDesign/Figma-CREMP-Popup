@@ -1,4 +1,4 @@
-import React from 'react';
+// ...existing code...
 import { 
   Storefront, Handyman, LocationOn, 
   LocalParking, Bolt, WaterDrop,

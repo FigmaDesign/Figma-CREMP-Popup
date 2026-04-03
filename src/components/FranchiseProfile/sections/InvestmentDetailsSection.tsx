@@ -1,4 +1,4 @@
-import React from 'react';
+// ...existing code...
 import { AccountBalanceWallet, TrendingUp } from '@mui/icons-material';
 import { data } from '../data';
 import { Card, SectionTitle, LabelValueRow } from '../SharedUI';

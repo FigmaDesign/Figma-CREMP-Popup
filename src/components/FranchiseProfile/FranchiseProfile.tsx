@@ -1,4 +1,4 @@
-import React from 'react';
+// ...existing code...
 import HeaderSection from './sections/HeaderSection';
 import BusinessOverviewSection from './sections/BusinessOverviewSection';
 import SupportRequirementsSection from './sections/SupportRequirementsSection';
@@ -27,7 +27,7 @@ export default function FranchiseProfile({ viewMode }: { viewMode: 'desktop' | '
           <div className={`w-full flex flex-col gap-[4px] pb-4 pt-[4px] ${isDesktop ? 'w-[30%] sticky top-[76px]' : ''}`}>
             <InvestmentDetailsSection isDesktop={isDesktop} />
             <TerritoryNetworkSection isDesktop={isDesktop} />
-            <ContactSection isDesktop={isDesktop} />
+            <ContactSection />
           </div>
         </div>
       </div>

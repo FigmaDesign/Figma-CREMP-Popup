@@ -1,8 +1,14 @@
 import React from 'react';
 import { Box, Typography, Stack } from '@mui/material';
-import BusinessIcon from '@mui/icons-material/Business';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+
+// Use the established consistent colors
+const navyPrimary = '#1C2A44'; 
+const navyMuted = '#334155';
+const goldAccent = '#D4AF37';
 
 interface OfficeUnitData {
   name: string;
@@ -51,13 +57,19 @@ const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
     sx={{
       borderRadius: '6px',
       overflow: 'hidden',
-      border: '1px solid rgba(198, 156, 68, 0.15)',
-      borderTop: '2px solid var(--accent-gold)',
-      boxShadow: '0 4px 20px rgba(28, 42, 68, 0.08), 0 1px 3px rgba(0,0,0,0.04)',
-      backgroundColor: 'var(--bg-card)',
+      border: '1px solid rgba(10, 17, 32, 0.08)',
+      boxShadow: '0 4px 12px rgba(10, 17, 32, 0.05)',
+      backgroundColor: '#FFFFFF',
+      transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+      display: 'flex',
+      flexDirection: 'column',
+      '&:hover': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 8px 20px rgba(10, 17, 32, 0.08), 0 4px 8px rgba(212, 175, 55, 0.1)',
+      }
     }}
   >
-    <Box sx={{ position: 'relative', height: 110, backgroundColor: 'var(--bg-app)' }}>
+    <Box sx={{ position: 'relative', height: 110, backgroundColor: '#F8FAFC' }}>
       <Box
         component="img"
         src={unit.image}
@@ -70,6 +82,7 @@ const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
         }}
       />
 
+      {/* Just Viewed - Centered overlay */}
       {unit.justViewed && (
         <Box
           sx={{
@@ -78,18 +91,21 @@ const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'linear-gradient(135deg, rgba(15, 26, 44, 0.85) 0%, transparent 70%)',
+            backgroundColor: 'rgba(28, 42, 68, 0.45)', // Dimmed overlay
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 2, // Above the arrows
           }}
         >
           <Typography
             sx={{
-              position: 'absolute',
-              top: '4px',
-              left: '4px',
-              fontSize: '0.65rem',
-              fontWeight: 600,
-              color: 'var(--accent-gold)',
+              fontSize: '0.8rem',
+              fontWeight: 700,
+              color: '#FFFFFF',
               fontStyle: 'italic',
+              letterSpacing: '0.02em',
+              textShadow: '0 2px 4px rgba(0,0,0,0.5)', // Gives text pop without needing a solid box
             }}
           >
             Just Viewed
@@ -97,76 +113,110 @@ const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
         </Box>
       )}
 
+      {/* Image Slider Controls (Left/Right Arrows) */}
       <Box
         sx={{
           position: 'absolute',
-          bottom: '4px',
+          top: '50%',
           left: '4px',
+          transform: 'translateY(-50%)',
+          backgroundColor: 'rgba(10, 17, 32, 0.4)',
+          borderRadius: '50%',
           display: 'flex',
-          alignItems: 'center',
-          gap: '4px',
-          padding: '4px',
-          borderRadius: '4px',
-          backgroundColor: 'var(--bg-header)',
+          padding: '2px',
+          cursor: 'pointer',
+          zIndex: 1,
+          transition: 'background-color 0.2s ease',
+          '&:hover': { backgroundColor: 'rgba(10, 17, 32, 0.8)' }
         }}
       >
-        <BusinessIcon sx={{ fontSize: 12, color: 'var(--text-inverse)' }} />
-        <Typography sx={{ fontSize: '0.65rem', fontWeight: 600, color: 'var(--text-inverse)' }}>
-          Office
-        </Typography>
+        <ChevronLeftIcon sx={{ color: '#FFFFFF', fontSize: 16 }} />
       </Box>
 
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          right: '4px',
+          transform: 'translateY(-50%)',
+          backgroundColor: 'rgba(10, 17, 32, 0.4)',
+          borderRadius: '50%',
+          display: 'flex',
+          padding: '2px',
+          cursor: 'pointer',
+          zIndex: 1,
+          transition: 'background-color 0.2s ease',
+          '&:hover': { backgroundColor: 'rgba(10, 17, 32, 0.8)' }
+        }}
+      >
+        <ChevronRightIcon sx={{ color: '#FFFFFF', fontSize: 16 }} />
+      </Box>
+
+      {/* Image Count - Gold Color */}
       <Box
         sx={{
           position: 'absolute',
           bottom: '4px',
           right: '4px',
-          padding: '2px 4px',
+          padding: '2px 6px',
           borderRadius: '4px',
-          backgroundColor: 'var(--bg-header)',
+          backgroundColor: 'rgba(28, 42, 68, 0.9)',
+          zIndex: 1,
         }}
       >
-        <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-inverse)', fontWeight: 600 }}>
+        <Typography sx={{ fontSize: '0.65rem', color: goldAccent, fontWeight: 700 }}>
           {unit.imageCount}
         </Typography>
       </Box>
     </Box>
 
-    <Box sx={{ padding: '4px' }}>
-      <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.2 }}>
+    <Box sx={{ padding: '8px' }}>
+      <Typography sx={{ fontSize: '0.85rem', fontWeight: 700, color: navyPrimary, lineHeight: 1.2 }}>
         {unit.name}
       </Typography>
       <Stack direction="row" alignItems="center" spacing="4px" sx={{ marginTop: '4px' }}>
-        <LocationOnIcon sx={{ fontSize: 12, color: 'var(--text-muted)' }} />
-        <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
+        <LocationOnIcon sx={{ fontSize: 12, color: goldAccent }} />
+        <Typography sx={{ fontSize: '0.65rem', color: navyMuted }}>
           {unit.floor} | {unit.area}
         </Typography>
       </Stack>
 
-      <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>
+      <Typography sx={{ fontSize: '0.9rem', fontWeight: 700, color: navyPrimary, marginTop: '8px' }}>
         {unit.price}
       </Typography>
-      <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
+      <Typography sx={{ fontSize: '0.6rem', color: navyMuted }}>
         {unit.priceLabel}
       </Typography>
 
       <Box
         sx={{
-          marginTop: '4px',
+          marginTop: '10px',
           borderRadius: '4px',
-          padding: '6px',
-          background: 'linear-gradient(135deg, #B8902A 0%, #C9A84C 100%)',
+          padding: '4px 8px',
+          backgroundColor: navyPrimary, 
+          color: '#FFFFFF',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '4px',
+          gap: '16px',
+          transition: 'all 0.2s ease',
+          '&:hover': {
+            backgroundColor: '#111A2B', 
+          },
+          '&:hover .chevron-icon': {
+            display: 'none',
+          },
+          '&:hover .arrow-icon': {
+            display: 'block',
+          }
         }}
       >
-        <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-inverse)' }}>
+        <Typography sx={{ fontSize: '0.7rem', fontWeight: 600, color: 'inherit', letterSpacing: '0.02em' }}>
           View Details
         </Typography>
-        <ArrowForwardIcon sx={{ fontSize: 12, color: 'var(--text-inverse)' }} />
+        <ChevronRightIcon className="chevron-icon" sx={{ fontSize: 16, display: 'block', color: '#FFFFFF' }} />
+        <ArrowForwardIcon className="arrow-icon" sx={{ fontSize: 16, display: 'none', color: '#FFFFFF' }} />
       </Box>
     </Box>
   </Box>
@@ -179,7 +229,7 @@ const OfficeSpace: React.FC = () => {
         padding: '4px',
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
-        gap: '4px',
+        gap: '8px',
       }}
     >
       {officeUnits.map((unit, idx) => (

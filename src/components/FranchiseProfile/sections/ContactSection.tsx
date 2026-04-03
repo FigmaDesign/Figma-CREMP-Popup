@@ -1,8 +1,8 @@
-import React from 'react';
+// ...existing code...
 import { Phone, Mail, WhatsApp, SupportAgent } from '@mui/icons-material';
 import { data } from '../data';
 
-export default function ContactSection({ isDesktop }: { isDesktop: boolean }) {
+export default function ContactSection() {
   return (
     <div className="rounded-[6px] border border-[#1f3b73] overflow-hidden shadow-[0_2px_12px_rgba(15,31,61,0.18)]">
       <div className="w-full h-[3px] bg-gradient-to-r from-[#c9a34e] to-[#b8903c]" />

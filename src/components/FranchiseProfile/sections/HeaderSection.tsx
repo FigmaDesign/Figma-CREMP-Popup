@@ -1,4 +1,4 @@
-import React from 'react';
+// ...existing code...
 import { Storefront, CheckCircle, Language, Instagram, LinkedIn } from '@mui/icons-material';
 import { data } from '../data';
 import { Card, Pill } from '../SharedUI';

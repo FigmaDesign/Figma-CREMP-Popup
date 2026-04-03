@@ -8,24 +8,31 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     background: {
-      default: '#FFFFFF',
-      paper: '#FFFFFF',
+      default: '#f5f6f8',
+      paper: '#ffffff',
     },
     primary: {
-      main: '#1C2A44',
+      main: '#0f1f3d',
     },
     secondary: {
-      main: '#C69C44',
+      main: '#c9a34e',
     },
     text: {
-      primary: '#1C2A44',
+      primary: '#0f1f3d',
       secondary: '#637089',
     },
-    divider: '#E5E7EB',
+    divider: '#eef0f3',
   },
   typography: {
-    fontFamily: 'Outfit',
+    fontFamily: 'Outfit, sans-serif',
     button: {
+      fontWeight: 600,
+    },
+    h1: {
+      fontWeight: 700,
+      color: '#0f1f3d',
+    },
+    h6: {
       fontWeight: 600,
     },
   },
@@ -33,20 +40,24 @@ export const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: `
         :root {
-          --bg-app: #FFFFFF;
-          --bg-card: #FFFFFF;
-          --bg-header: #1C2A44;
-          --bg-shell: linear-gradient(135deg, #f7f6f3 0%, #eceae6 100%);
-          --accent-navy: #1C2A44;
-          --accent-gold: #C69C44;
-          --border-default: #E5E7EB;
-          --text-main: #1C2A44;
+          --bg-app: #f5f6f8;
+          --bg-card: #ffffff;
+          --bg-header: linear-gradient(135deg, #0f1f3d 0%, #1f3b73 100%);
+          --accent-navy: #0f1f3d;
+          --accent-gold-start: #c9a34e;
+          --accent-gold-end: #b8903c;
+          --accent-gold-light: #e3c980;
+          --border-default: #eef0f3;
+          --border-dark: #d9dde3;
+          --text-main: #0f1f3d;
           --text-muted: #637089;
-          --text-inverse: #FFFFFF;
+          --text-inverse: #ffffff;
         }
-
         body {
-          background: #FFFFFF;
+          background: var(--bg-app);
+          margin: 0;
+          padding: 0;
+          -webkit-font-smoothing: antialiased;
         }
       `,
     },
@@ -59,25 +70,37 @@ export const theme = createTheme({
         root: {
           borderRadius: 4,
           textTransform: 'none',
-          padding: '4px 12px',
-          justifyContent: 'flex-start',
+          padding: '8px 24px',
+          justifyContent: 'center',
           border: '1px solid transparent',
+          transition: 'all 0.3s ease',
         },
         containedPrimary: {
-          background: 'linear-gradient(135deg, #B8902A 0%, #C9A84C 100%)',
+          background: 'linear-gradient(135deg, var(--accent-gold-start) 0%, var(--accent-gold-end) 100%)',
           color: 'var(--text-inverse)',
+          '&:hover': {
+            background: 'linear-gradient(135deg, var(--accent-gold-end) 0%, var(--accent-gold-start) 100%)',
+            boxShadow: '0px 4px 12px rgba(201, 163, 78, 0.3)',
+          },
         },
         outlined: {
-          borderColor: 'var(--border-default)',
+          borderColor: 'var(--border-dark)',
           color: 'var(--text-main)',
+          backgroundColor: 'transparent',
+          '&:hover': {
+            backgroundColor: 'var(--bg-app)',
+            borderColor: 'var(--accent-navy)',
+          },
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: 4,
+          borderRadius: 6,
           border: '1px solid var(--border-default)',
+          boxShadow: '0px 8px 32px rgba(15, 31, 61, 0.04)',
+          background: 'var(--bg-card)',
         },
       },
     },

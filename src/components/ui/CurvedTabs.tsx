@@ -1,4 +1,4 @@
-import React from 'react';
+// ...existing code...
 import { Box, Typography } from '@mui/material';
 
 export interface CurvedTabOption {

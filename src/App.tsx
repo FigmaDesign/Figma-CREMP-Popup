@@ -1,62 +1,102 @@
 import { useState } from 'react';
+import { Box, Typography, Select, MenuItem, FormControl, AppBar, Toolbar, Button } from '@mui/material';
+import { DesktopWindows, Smartphone } from '@mui/icons-material';
 import FranchiseProfile from '@/components/FranchiseProfile/FranchiseProfile';
 import MainFrame from '@/components/AllBuildings/MainFrame';
-import { DesktopWindows, Smartphone } from '@mui/icons-material';
 
-function App() {
+export default function App() {
   const [activePage, setActivePage] = useState<'franchise' | 'mainframe'>('franchise');
   const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
   const isDesktop = viewMode === 'desktop';
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f7f6f3] overflow-x-hidden">
-      <header className="bg-white border-b border-[#eceae6] px-6 py-3 flex items-center justify-between sticky top-0 z-50 shadow-sm w-full">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-[#181c32] rounded-[4px] flex items-center justify-center text-[#c5a059] font-bold text-xl leading-none">
-            C
-          </div>
-          <h1 className="text-[#181c32] font-bold text-lg hidden sm:block">CREMP Workspace</h1>
-        </div>
+    <Box className="min-h-screen flex flex-col bg-[#f5f6f8] overflow-x-hidden font-['Outfit']">
+      <AppBar 
+        position="sticky" 
+        elevation={0} 
+        className="bg-[#ffffff] border-b border-[#eef0f3] z-50 shadow-[0px_4px_20px_rgba(15,31,61,0.02)]"
+      >
+        <Toolbar className="justify-between px-6 py-3 min-h-[64px]">
+          <Box className="flex items-center gap-[4px]">
+            <Box className="w-8 h-8 rounded-[4px] bg-gradient-to-br from-[#0f1f3d] to-[#1f3b73] flex items-center justify-center text-[#e3c980] font-bold text-xl leading-none shadow-sm">
+              C
+            </Box>
+            <Typography variant="h6" className="text-[#0f1f3d] font-bold text-lg hidden sm:block ml-2 tracking-tight">
+              CREMP Workspace
+            </Typography>
+          </Box>
 
-        {/* View Toggle - ONLY visible when franchise profile is active */}
-        {activePage === 'franchise' && (
-          <div className="hidden lg:flex bg-white border border-[#eceae6] rounded-[8px] p-[2px] shadow-sm">
-            <button 
-              onClick={() => setViewMode('desktop')} 
-              className={`px-3 py-1.5 rounded-[4px] flex items-center gap-1.5 text-[12px] font-bold transition-colors ${isDesktop ? 'bg-[#181c32] text-[#c5a059]' : 'text-[#7a7a7a] hover:bg-[#f7f6f3]'}`}
-            >
-              <DesktopWindows style={{ fontSize: 16 }} /> Desktop View
-            </button>
-            <button 
-              onClick={() => setViewMode('mobile')} 
-              className={`px-3 py-1.5 rounded-[4px] flex items-center gap-1.5 text-[12px] font-bold transition-colors ${!isDesktop ? 'bg-[#181c32] text-[#c5a059]' : 'text-[#7a7a7a] hover:bg-[#f7f6f3]'}`}
-            >
-              <Smartphone style={{ fontSize: 16 }} /> Mobile View
-            </button>
-          </div>
-        )}
-        
-        <div className="flex items-center gap-3">
-          <label htmlFor="page-select" className="text-sm font-semibold text-[#7a7a7a] hidden sm:block uppercase tracking-wider text-[11px]">
-            Current View
-          </label>
-          <select 
-            id="page-select"
-            value={activePage}
-            onChange={(e) => setActivePage(e.target.value as 'franchise' | 'mainframe')}
-            className="bg-[#fcfaf5] border border-[#e8dfc8] text-[#181c32] text-sm rounded-[4px] px-3 py-2 outline-none focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059] transition-all cursor-pointer font-semibold shadow-sm"
-          >
-            <option value="franchise">Franchise Profile</option>
-            <option value="mainframe">Main Frame (All Buildings)</option>
-          </select>
-        </div>
-      </header>
+          {activePage === 'franchise' && (
+            <Box className="hidden lg:flex bg-[#f5f6f8] border border-[#eef0f3] rounded-[6px] p-[2px]">
+              <Button
+                onClick={() => setViewMode('desktop')}
+                className={`px-4 py-1.5 min-w-0 rounded-[4px] flex items-center gap-[4px] text-xs font-semibold transition-all duration-300 ${
+                  isDesktop 
+                    ? 'bg-gradient-to-br from-[#c9a34e] to-[#b8903c] text-[#ffffff] shadow-[0px_2px_8px_rgba(201,163,78,0.25)]' 
+                    : 'text-[#637089] hover:bg-[#eef0f3] hover:text-[#0f1f3d] bg-transparent'
+                }`}
+              >
+                <DesktopWindows sx={{ fontSize: 16 }} />
+                Desktop View
+              </Button>
+              <Button
+                onClick={() => setViewMode('mobile')}
+                className={`px-4 py-1.5 min-w-0 rounded-[4px] flex items-center gap-[4px] text-xs font-semibold transition-all duration-300 ${
+                  !isDesktop 
+                    ? 'bg-gradient-to-br from-[#c9a34e] to-[#b8903c] text-[#ffffff] shadow-[0px_2px_8px_rgba(201,163,78,0.25)]' 
+                    : 'text-[#637089] hover:bg-[#eef0f3] hover:text-[#0f1f3d] bg-transparent'
+                }`}
+              >
+                <Smartphone sx={{ fontSize: 16 }} />
+                Mobile View
+              </Button>
+            </Box>
+          )}
+          
+          <Box className="flex items-center gap-[4px]">
+            <Typography className="text-[11px] font-semibold text-[#637089] hidden sm:block uppercase tracking-widest mr-2">
+              Current View
+            </Typography>
+            <FormControl size="small">
+              <Select
+                value={activePage}
+                onChange={(e) => setActivePage(e.target.value as 'franchise' | 'mainframe')}
+                className="bg-[#ffffff] text-[#0f1f3d] text-sm font-semibold h-[36px]"
+                sx={{
+                  borderRadius: '4px',
+                  fontFamily: 'Outfit, sans-serif',
+                  '.MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#eef0f3',
+                    borderWidth: '1px',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#c9a34e',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#b8903c',
+                    borderWidth: '1px',
+                  },
+                  '.MuiSelect-select': {
+                    paddingY: '6px',
+                    paddingX: '14px',
+                  },
+                }}
+              >
+                <MenuItem value="franchise" className="font-['Outfit'] text-sm font-medium text-[#0f1f3d]">
+                  Franchise Profile
+                </MenuItem>
+                <MenuItem value="mainframe" className="font-['Outfit'] text-sm font-medium text-[#0f1f3d]">
+                  Main Frame (All Buildings)
+                </MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </Toolbar>
+      </AppBar>
 
-      <main className="flex-1">
+      <Box component="main" className="flex-1 flex flex-col w-full relative">
         {activePage === 'franchise' ? <FranchiseProfile viewMode={viewMode} /> : <MainFrame />}
-      </main>
-    </div>
+      </Box>
+    </Box>
   );
 }
-
-export default App;

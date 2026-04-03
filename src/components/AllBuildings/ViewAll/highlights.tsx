@@ -1,4 +1,4 @@
-import React from 'react';
+// ...existing code...
 import { Box, Typography, Stack } from '@mui/material';
 
 interface HighlightItemProps {
