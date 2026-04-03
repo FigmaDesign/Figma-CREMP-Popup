@@ -28,7 +28,7 @@ const MainFrame: React.FC = () => {
       sx={{
         height: '100vh',
         width: '100vw',
-        background: 'var(--bg-shell)',
+        background: '#ffffff',
         display: 'flex',
         flexDirection: 'row',
         overflow: 'hidden',
