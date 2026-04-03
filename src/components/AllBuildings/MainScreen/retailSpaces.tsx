@@ -88,7 +88,7 @@ const FeaturedCard: React.FC = () => (
         </Box>
       </Box>
 
-      <Box sx={{ marginTop: 'auto' }}>
+      <Box sx={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '4px' }}>
         <Typography sx={{ fontSize: '0.7rem', color: navyMuted }}>Sale Value:</Typography>
         <Typography sx={{ fontSize: '0.9rem', fontWeight: 700, color: navyPrimary }}>
           ₹ 2.5 Crore
