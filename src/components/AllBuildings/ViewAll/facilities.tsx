@@ -6,7 +6,6 @@ import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import ShieldIcon from '@mui/icons-material/Shield';
 import DomainIcon from '@mui/icons-material/Domain';
 import DoneIcon from '@mui/icons-material/Done';
-import PremiumTabs, { type PremiumTabOption } from '../../ui/PremiumTabs';
 
 interface FacilityCategory {
   id: FacilityTab;
@@ -71,10 +70,6 @@ const facilityCategories: FacilityCategory[] = [
 
 const Facilities: React.FC = () => {
   const [tabValue, setTabValue] = useState<FacilityTab>('parking');
-  const tabs: PremiumTabOption<FacilityTab>[] = facilityCategories.map((category) => ({
-    label: category.title,
-    value: category.id,
-  }));
   const activeCategory = facilityCategories.find((category) => category.id === tabValue) ?? facilityCategories[0];
 
   return (
@@ -84,20 +79,57 @@ const Facilities: React.FC = () => {
           fontSize: '0.875rem',
           fontWeight: 600,
           color: 'var(--text-main)',
-          marginBottom: '4px',
+          marginBottom: '6px',
         }}
       >
         Building Facilities
       </Typography>
 
-      <Box sx={{ mb: '4px' }}>
-        <PremiumTabs tabs={tabs} value={tabValue} onChange={setTabValue} />
+      <Box sx={{ mb: '8px' }}>
+        <Stack 
+          direction="row" 
+          spacing={1} 
+          sx={{ 
+            overflowX: 'auto',
+            '&::-webkit-scrollbar': { display: 'none' },
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {facilityCategories.map((category) => {
+            const isActive = category.id === tabValue;
+            return (
+              <Box
+                key={category.id}
+                onClick={() => setTabValue(category.id)}
+                sx={{
+                  padding: '6px 14px',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  background: isActive ? 'linear-gradient(to bottom right, #1C2A44, #154eb1)' : '#F3F4F6', 
+                  color: isActive ? '#FFFFFF' : '#4B5563',
+                  fontWeight: 700,
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.02em',
+                  whiteSpace: 'nowrap',
+                  transition: 'background 0.2s ease, color 0.2s ease',
+                  userSelect: 'none',
+                  '&:hover': {
+                    background: isActive ? 'linear-gradient(to bottom right, #1C2A44, #154eb1)' : '#E5E7EB',
+                  }
+                }}
+              >
+                {category.title}
+              </Box>
+            );
+          })}
+        </Stack>
       </Box>
 
       {activeCategory && (
         <Box
           sx={{
-            padding: '4px',
+            padding: '8px 4px', // Slightly increased top padding for breathing room since the header is gone
             borderRadius: '4px',
             border: '1px solid var(--border-default)',
             backgroundColor: 'var(--bg-card)',
@@ -105,32 +137,12 @@ const Facilities: React.FC = () => {
             transition: 'all 150ms ease-in-out',
           }}
         >
-          <Stack direction="row" alignItems="center" spacing="4px" sx={{ marginBottom: '4px' }}>
-            <Box
-              sx={{
-                width: 24,
-                height: 24,
-                borderRadius: '4px',
-                backgroundColor: 'var(--bg-app)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--accent-gold)',
-              }}
-            >
-              {activeCategory.icon}
-            </Box>
-            <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)' }}>
-              {activeCategory.title}
-            </Typography>
-          </Stack>
-
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
             {activeCategory.items.map((item, i) => (
               <Box key={i} sx={{ width: 'calc(50% - 2px)' }}>
                 <Stack direction="row" alignItems="flex-start" spacing="4px">
                   {item.value === 'Yes' ? (
-                    <DoneIcon sx={{ fontSize: 12, color: 'var(--accent-gold)', marginTop: '2px' }} />
+                    <DoneIcon sx={{ fontSize: 12, color: '#1C2A44', marginTop: '2px' }} />
                   ) : (
                     <Box sx={{ width: 12, height: 12, display: 'inline-block' }} />
                   )}

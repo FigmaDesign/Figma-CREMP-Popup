@@ -16,23 +16,25 @@ const summaryItems: SummaryItem[] = [
 
 const InvestmentSummary: React.FC = () => {
   return (
-    <Box sx={{ padding: '4px' }}>
+    <Box sx={{ padding: '4px', textAlign: 'left' }}>
       <Box
         sx={{
-          padding: '4px',
-          borderRadius: '4px',
-          border: '1px solid var(--border-default)',
-          backgroundColor: 'var(--bg-card)',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
+          padding: '12px',
+          borderRadius: '6px',
+          border: '1px solid #E5E7EB',
+          backgroundColor: '#FFFFFF',
+          boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.03)',
+          transition: 'all 0.3s ease',
         }}
       >
         <Typography
           sx={{
             fontSize: '0.875rem',
             fontWeight: 600,
-            color: 'var(--text-main)',
-            marginBottom: '4px',
-            padding: '4px',
+            color: '#1C2A44', // Premium Navy
+            marginBottom: '12px',
+            letterSpacing: '0.01em',
+            paddingLeft: '4px',
           }}
         >
           Investment summary
@@ -41,30 +43,42 @@ const InvestmentSummary: React.FC = () => {
           sx={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            gap: '4px',
+            gap: '8px',
           }}
         >
           {summaryItems.map((item, idx) => (
             <Stack 
               key={idx} 
-              spacing="2px"
+              spacing="4px"
               sx={{
-                padding: '4px',
-                borderRadius: '4px',
-                transition: 'all 150ms ease-in-out',
+                padding: '10px 12px',
+                borderRadius: '6px',
+                border: '1px solid transparent',
+                transition: 'all 0.2s ease-in-out',
+                cursor: 'default',
                 '&:hover': {
-                  backgroundColor: 'var(--bg-app)',
+                  // Standard items get a light gray background; highlighted items get a subtle gold tint
+                  backgroundColor: item.highlight ? '#FFFCF5' : '#F9FAFB',
+                  borderColor: item.highlight ? 'rgba(200, 155, 60, 0.2)' : '#E5E7EB',
+                  transform: 'translateY(-1px)',
                 }
               }}
             >
-              <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
+              <Typography 
+                sx={{ 
+                  fontSize: '0.65rem', 
+                  color: '#6B7280', // Refined muted gray
+                  letterSpacing: '0.04em',
+                  fontWeight: 600,
+                }}
+              >
                 {item.label}
               </Typography>
               <Typography
                 sx={{
-                  fontSize: '0.875rem',
-                  fontWeight: 600,
-                  color: item.highlight ? 'var(--accent-gold)' : 'var(--text-main)',
+                  fontSize: '0.95rem',
+                  fontWeight: 700,
+                  color: item.highlight ? '#C89B3C' : '#1C2A44', // Gold for highlight, Navy for standard
                   transition: 'color 150ms ease-in-out',
                 }}
               >

@@ -114,16 +114,7 @@ const TopSection: React.FC = () => {
           >
             XYZ Plaza
           </Typography>
-          <Typography
-            sx={{
-              fontSize: '0.75rem',
-              fontWeight: 400,
-              color: 'var(--accent-gold)',
-              marginTop: '4px',
-            }}
-          >
-            Premium Commercial Property
-          </Typography>
+
         </Box>
       </Box>
 

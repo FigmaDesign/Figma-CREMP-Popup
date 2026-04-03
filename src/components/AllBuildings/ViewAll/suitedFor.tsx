@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Typography, Chip } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
-
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const allTags = [
   'Apparel & Fashion', 'Luxury Watches', 'Electronics', 'F&B', 'Salon / Spa', 'Pharmacy',
@@ -10,31 +10,31 @@ const allTags = [
   'Art Gallery', 'Premium Cafe', 'Clinic', 'Showroom',
 ];
 
-
-
 const SuitedFor: React.FC = () => {
   const [expanded, setExpanded] = useState(false);
 
-  const tagsToShow = expanded ? allTags : allTags.slice(0, 3);
+  // Show 4 items initially to form a nice grid-like wrap before hiding the rest
+  const tagsToShow = expanded ? allTags : allTags.slice(0, 4);
 
   return (
-    <Box sx={{ padding: '4px' }}>
+    <Box sx={{ padding: '4px', textAlign: 'left' }}>
       <Box
         sx={{
-          padding: '4px',
-          borderRadius: '4px',
-          backgroundColor: 'var(--bg-card)',
-          border: '1px solid var(--border-default)',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
+          padding: '12px',
+          borderRadius: '6px',
+          backgroundColor: '#FFFFFF',
+          border: '1px solid #E5E7EB',
+          boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.03)',
+          transition: 'all 0.3s ease',
         }}
       >
         <Typography
           sx={{
             fontSize: '0.875rem',
             fontWeight: 600,
-            color: 'var(--text-main)',
-            marginBottom: '8px',
-            paddingLeft: '4px',
+            color: '#1C2A44',
+            marginBottom: '10px',
+            letterSpacing: '0.01em',
           }}
         >
           Suited for
@@ -44,54 +44,73 @@ const SuitedFor: React.FC = () => {
           sx={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: '4px',
-            paddingLeft: '4px',
+            gap: '8px',
           }}
         >
           {tagsToShow.map((tag, idx) => (
             <Chip
               key={idx}
-              icon={<CheckCircleIcon sx={{ fontSize: 14, color: 'var(--accent-gold) !important' }} />}
+              icon={<CheckCircleIcon sx={{ fontSize: 16, color: '#C89B3C !important' }} />}
               label={tag}
               variant="outlined"
               sx={{
-                borderRadius: '4px',
-                borderColor: 'var(--border-default)',
-                backgroundColor: 'var(--bg-app)',
+                borderRadius: '6px',
+                borderColor: '#E5E7EB',
+                backgroundColor: '#F9FAFB',
                 fontSize: '0.75rem',
                 fontWeight: 600,
-                color: 'var(--text-main)',
-                height: 28,
-                transition: 'all 150ms ease-in-out',
+                color: '#4B5563',
+                height: 30,
+                transition: 'all 0.2s ease-in-out',
+                cursor: 'default',
                 '&:hover': {
-                  borderColor: 'var(--accent-gold)',
-                  backgroundColor: 'var(--bg-card)',
+                  borderColor: '#C89B3C',
+                  backgroundColor: '#FFFCF5',
+                  transform: 'translateY(-1px)',
+                  boxShadow: '0 2px 4px rgba(200, 155, 60, 0.1)',
                 },
                 '& .MuiChip-label': {
-                  paddingLeft: '4px',
-                  paddingRight: '8px',
+                  paddingLeft: '6px',
+                  paddingRight: '10px',
                 },
                 '& .MuiChip-icon': {
-                  marginLeft: '4px',
+                  marginLeft: '8px',
                 },
               }}
             />
           ))}
-          {allTags.length > 3 && (
+          
+          {allTags.length > 4 && (
             <Chip
               label={expanded ? 'View Less' : 'View More'}
+              icon={
+                expanded ? 
+                <KeyboardArrowUpIcon sx={{ fontSize: 16, color: 'inherit !important' }} /> : 
+                <KeyboardArrowDownIcon sx={{ fontSize: 16, color: 'inherit !important' }} />
+              }
               onClick={() => setExpanded((prev) => !prev)}
-              variant="outlined"
+              // Removed variant="outlined" and explicitly removed the border
               sx={{
-                borderRadius: '4px',
-                borderColor: 'var(--accent-gold)',
-                backgroundColor: 'var(--bg-app)',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: 'transparent',
                 fontSize: '0.75rem',
-                fontWeight: 600,
-                color: 'var(--accent-gold)',
-                height: 28,
+                fontWeight: 700,
+                color: '#1C2A44',
+                height: 30,
                 cursor: 'pointer',
-                marginLeft: '4px',
+                transition: 'all 0.2s ease-in-out',
+                '&:hover': {
+                  backgroundColor: '#F3F4F6',
+                  color: '#154eb1', // Changes both text and icon color on hover
+                },
+                '& .MuiChip-label': {
+                  paddingLeft: '6px',
+                  paddingRight: '10px',
+                },
+                '& .MuiChip-icon': {
+                  marginLeft: '8px',
+                },
               }}
             />
           )}

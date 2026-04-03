@@ -11,7 +11,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import MapIcon from '@mui/icons-material/Map';
 import SignpostIcon from '@mui/icons-material/Signpost';
-import PremiumTabs, { type PremiumTabOption } from '../../ui/PremiumTabs';
 
 interface DescriptionItem {
   icon: React.ReactNode;
@@ -72,7 +71,7 @@ const DescriptionCard: React.FC<{ item: DescriptionItem }> = ({ item }) => (
       transition: 'all 150ms ease-in-out',
       border: '1px solid transparent',
       '&:hover': {
-        borderColor: 'var(--accent-gold)',
+        borderColor: '#1C2A44', // Updated to match the navy theme
         backgroundColor: 'var(--bg-card)',
       }
     }}
@@ -86,7 +85,7 @@ const DescriptionCard: React.FC<{ item: DescriptionItem }> = ({ item }) => (
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'var(--accent-gold)',
+        color: '#1C2A44', // Updated icon color to deep navy
         flexShrink: 0,
         boxShadow: '0px 1px 2px rgba(0,0,0,0.02)',
       }}
@@ -107,11 +106,6 @@ const DescriptionCard: React.FC<{ item: DescriptionItem }> = ({ item }) => (
 const UnitDescription: React.FC = () => {
   const [tabValue, setTabValue] = React.useState<DescriptionTab>('basicInfo');
 
-  const descriptionTabs: PremiumTabOption<DescriptionTab>[] = descriptionGroups.map((group) => ({
-    label: group.title,
-    value: group.id,
-  }));
-
   const activeGroup = descriptionGroups.find((group) => group.id === tabValue) ?? descriptionGroups[0];
 
   return (
@@ -130,16 +124,53 @@ const UnitDescription: React.FC = () => {
             fontSize: '0.875rem',
             fontWeight: 600,
             color: 'var(--text-main)',
-            marginBottom: '4px',
+            marginBottom: '6px',
             paddingLeft: '4px',
           }}
         >
           Unit description
         </Typography>
 
-        <Box sx={{ mb: '4px' }}>
-          <PremiumTabs tabs={descriptionTabs} value={tabValue} onChange={setTabValue} />
-        </Box>
+        <Stack 
+          direction="row" 
+          spacing={1} 
+          sx={{ 
+            mb: '8px', 
+            overflowX: 'auto',
+            '&::-webkit-scrollbar': { display: 'none' },
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {descriptionGroups.map((group) => {
+            const isActive = group.id === tabValue;
+            return (
+              <Box
+                key={group.id}
+                onClick={() => setTabValue(group.id)}
+                sx={{
+                  padding: '6px 14px',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  // Updated: Navy gradient for active, refined gray for inactive
+                  background: isActive ? 'linear-gradient(to bottom right, #1C2A44, #154eb1)' : '#F3F4F6', 
+                  color: isActive ? '#FFFFFF' : '#4B5563',
+                  fontWeight: 700,
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.02em',
+                  whiteSpace: 'nowrap',
+                  transition: 'background 0.2s ease, color 0.2s ease',
+                  userSelect: 'none',
+                  '&:hover': {
+                    background: isActive ? 'linear-gradient(to bottom right, #1C2A44, #154eb1)' : '#E5E7EB',
+                  }
+                }}
+              >
+                {group.title}
+              </Box>
+            );
+          })}
+        </Stack>
 
         <Box
           sx={{

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box } from '@mui/material';
-import PremiumTabs, { type PremiumTabOption } from '../../../ui/PremiumTabs';
+import { Box, Stack } from '@mui/material';
 
 export type SpecTab = 'readiness' | 'furnishing' | 'interiors';
 
@@ -9,7 +8,7 @@ interface SpecTabNavigationProps {
   onTabChange: (tab: SpecTab) => void;
 }
 
-const specTabs: PremiumTabOption<SpecTab>[] = [
+const specTabs: { value: SpecTab; label: string }[] = [
   { value: 'readiness', label: 'Readiness' },
   { value: 'furnishing', label: 'Furnishing' },
   { value: 'interiors', label: 'Interiors' },
@@ -18,7 +17,44 @@ const specTabs: PremiumTabOption<SpecTab>[] = [
 const SpecTabNavigation: React.FC<SpecTabNavigationProps> = ({ activeTab, onTabChange }) => {
   return (
     <Box sx={{ mb: '4px' }}>
-      <PremiumTabs tabs={specTabs} value={activeTab} onChange={onTabChange} />
+      <Stack 
+        direction="row" 
+        spacing={1} 
+        sx={{ 
+          overflowX: 'auto',
+          '&::-webkit-scrollbar': { display: 'none' },
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        }}
+      >
+        {specTabs.map((tab) => {
+          const isActive = tab.value === activeTab;
+          return (
+            <Box
+              key={tab.value}
+              onClick={() => onTabChange(tab.value)}
+              sx={{
+                padding: '6px 14px',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                background: isActive ? 'linear-gradient(to bottom right, #1C2A44, #154eb1)' : '#F3F4F6', 
+                color: isActive ? '#FFFFFF' : '#4B5563',
+                fontWeight: 700,
+                fontSize: '0.75rem',
+                letterSpacing: '0.02em',
+                whiteSpace: 'nowrap',
+                transition: 'background 0.2s ease, color 0.2s ease',
+                userSelect: 'none',
+                '&:hover': {
+                  background: isActive ? 'linear-gradient(to bottom right, #1C2A44, #154eb1)' : '#E5E7EB',
+                }
+              }}
+            >
+              {tab.label}
+            </Box>
+          );
+        })}
+      </Stack>
     </Box>
   );
 };

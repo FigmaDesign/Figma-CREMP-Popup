@@ -17,21 +17,14 @@ const premiumTabOptions: PremiumTabOption<TabType>[] = [
 
 const TabNavigation: React.FC<TabNavigationProps> = ({ selectedTab, onTabChange }) => {
   return (
-    <Box
-      sx={{
-        p: '4px',
-        mt: '4px',
-        mb: '4px',
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'flex-start',
-      }}
-    >
-      <PremiumTabs
-        tabs={premiumTabOptions}
-        value={selectedTab}
-        onChange={onTabChange}
-      />
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ width: '100%' }}>
+        <PremiumTabs
+          tabs={premiumTabOptions}
+          value={selectedTab}
+          onChange={onTabChange}
+        />
+      </Box>
     </Box>
   );
 };
