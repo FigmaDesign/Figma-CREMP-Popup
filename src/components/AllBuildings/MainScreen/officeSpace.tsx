@@ -62,10 +62,10 @@ const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
         </div>
       )}
 
-      <div className="absolute top-1/2 left-1 -translate-y-1/2 bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full p-[2px] cursor-pointer z-20 transition-colors">
+    <div className="absolute top-1/2 left-1 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full cursor-pointer z-20 transition-colors">
         <ChevronLeftIcon sx={{ color: '#FFFFFF', fontSize: 16 }} />
       </div>
-      <div className="absolute top-1/2 right-1 -translate-y-1/2 bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full p-[2px] cursor-pointer z-20 transition-colors">
+      <div className="absolute top-1/2 right-1 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full cursor-pointer z-20 transition-colors">
         <ChevronRightIcon sx={{ color: '#FFFFFF', fontSize: 16 }} />
       </div>
 

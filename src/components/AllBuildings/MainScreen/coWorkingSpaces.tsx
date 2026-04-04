@@ -7,11 +7,11 @@ import LocalCafeIcon from '@mui/icons-material/LocalCafe';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 
 const FeaturedCoWorking: React.FC = () => (
-  <div className="relative flex items-stretch m-1 p-1 rounded-md border border-[#1c2a44]/10 border-t-0 shadow-md shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-[#1c2a44]/10 group overflow-hidden">
+  <div className="relative flex items-stretch  rounded-[4px] border border-[#1c2a44]/10 border-t-0 shadow-md shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-[#1c2a44]/10 group overflow-hidden">
     <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#1c2a44] via-[#3b5998] to-[#D4AF37] z-10" />
 
     <div className="flex flex-1 gap-1">
-      <div className="flex-1 flex flex-col justify-between p-1">
+      <div className="flex-1 flex flex-col justify-between p-2">
         <div>
           <h3 className="text-[0.9rem] font-bold text-[#1c2a44] leading-tight">
             Co-Work Hub 305
@@ -108,12 +108,14 @@ const CoWorkCard: React.FC<{ unit: CoWorkUnit }> = ({ unit }) => (
         </span>
       </div>
 
+       <div className="flex items-baseline gap-1 mt-1">
+      <span className="text-[0.8rem] font-semibold text-[#1c2a44]/70 tracking-wide">
+        {unit.priceLabel}: 
+      </span>
       <span className="text-[0.9rem] font-bold text-[#1c2a44] mt-1">
         {unit.price}
       </span>
-      <span className="text-[0.6rem] text-[#1c2a44]/70 tracking-wide">
-        {unit.priceLabel}
-      </span>
+       </div>
 
       <div className="mt-1 flex items-center justify-center gap-6 p-1 rounded bg-[#1c2a44] text-white cursor-pointer hover:bg-[#111A2B] transition-colors group [&:hover_.chevron-icon]:!hidden [&:hover_.arrow-icon]:!block">
         <span className="text-[0.7rem] font-semibold tracking-wide text-white">

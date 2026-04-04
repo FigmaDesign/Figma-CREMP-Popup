@@ -10,7 +10,7 @@ interface StatsBarProps {
 const StatsBar: React.FC<StatsBarProps> = ({ expanded, onToggle }) => {
   return (
     <div
-      className={`flex justify-around items-center p-1 bg-white shadow-xl shadow-[#1c2a44]/10 transition-all duration-500 ease-out ${
+      className={`flex justify-around items-center py-2 bg-white shadow-xl shadow-[#1c2a44]/10 transition-all duration-500 ease-out ${
         expanded ? 'rounded-none shadow-none' : 'rounded-none'
       }`}
     >
@@ -21,7 +21,7 @@ const StatsBar: React.FC<StatsBarProps> = ({ expanded, onToggle }) => {
             <span className="text-[0.75rem] font-bold text-[#1c2a44] leading-none">
               {stat.value}
             </span>
-            <span className="text-[0.55rem] text-[#1c2a44]/60  tracking-[0.15em] font-medium leading-none">
+            <span className="text-[0.55rem] text-[#1c2a44]/60 tracking-[0.15em] font-medium leading-none">
               {stat.label}
             </span>
           </div>
@@ -29,19 +29,22 @@ const StatsBar: React.FC<StatsBarProps> = ({ expanded, onToggle }) => {
         </React.Fragment>
       ))}
 
-      <div
-        className="flex flex-col items-center flex-1 cursor-pointer rounded-[4px] p-1 space-y-1 transition-colors duration-500 hover:bg-[#1c2a44]/5 group"
-        onClick={onToggle}
-      >
-        <ExpandMoreIcon
-          sx={{ fontSize: 18 }}
-          className={`text-[#D4AF37] transition-transform duration-500 ease-out group-hover:scale-110 ${
-            expanded ? 'rotate-180' : 'rotate-0'
-          }`}
-        />
-        <span className="text-[0.55rem] font-semibold text-[#1c2a44]  tracking-[0.15em] leading-none">
-          {expanded ? 'View Less' : 'View More'}
-        </span>
+      {/* DISTINCT INTERACTIVE BUTTON */}
+      <div className="flex items-center justify-center flex-1 px-1">
+        <div
+          className="flex flex-row items-center justify-center gap-1 w-full max-w-[85px] cursor-pointer rounded-md bg-[#1c2a44] py-1.5 transition-all duration-300 hover:bg-[#111A2B] shadow-sm hover:shadow-md shadow-[#1c2a44]/20 group"
+          onClick={onToggle}
+        >
+          <span className="text-[0.55rem] font-bold text-white tracking-[0.1em]  leading-none mt-[1px]">
+            {expanded ? 'View Less' : 'View More'}
+          </span>
+          <ExpandMoreIcon
+            sx={{ fontSize: 16 }}
+            className={`text-[#D4AF37] transition-transform duration-500 ease-out group-hover:scale-110 ${
+              expanded ? 'rotate-180' : 'rotate-0'
+            }`}
+          />
+        </div>
       </div>
     </div>
   );

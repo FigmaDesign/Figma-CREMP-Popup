@@ -16,9 +16,7 @@ const LandMainFrame: React.FC<LandMainFrameProps> = ({ initialPage = 'main', onB
     setActivePage(initialPage);
   }, [initialPage]);
 
-  const handleViewAll = () => {
-    setActivePage('viewAll');
-  };
+
 
   const handleBack = () => {
     setActivePage('main');
@@ -34,11 +32,7 @@ const LandMainFrame: React.FC<LandMainFrameProps> = ({ initialPage = 'main', onB
         backgroundColor: 'var(--bg-app)',
       }}
     >
-      {activePage === 'main' ? (
-        {/* LandMainScreen removed */}
-      ) : (
-        <LandViewAll onBack={handleBack} />
-      )}
+      {activePage === 'main' ? null : <LandViewAll onBack={handleBack} />}
     </Box>
   );
 };
