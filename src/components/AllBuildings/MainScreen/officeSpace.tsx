@@ -1,14 +1,8 @@
 import React from 'react';
-import { Box, Typography, Stack } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-
-// Use the established consistent colors
-const navyPrimary = '#1C2A44'; 
-const navyMuted = '#334155';
-const goldAccent = '#D4AF37';
 
 interface OfficeUnitData {
   name: string;
@@ -53,189 +47,74 @@ const officeUnits: OfficeUnitData[] = [
 ];
 
 const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
-  <Box
-    sx={{
-      borderRadius: '6px',
-      overflow: 'hidden',
-      border: '1px solid rgba(10, 17, 32, 0.08)',
-      boxShadow: '0 4px 12px rgba(10, 17, 32, 0.05)',
-      backgroundColor: '#FFFFFF',
-      transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-      display: 'flex',
-      flexDirection: 'column',
-      '&:hover': {
-        transform: 'translateY(-2px)',
-        boxShadow: '0 8px 20px rgba(10, 17, 32, 0.08), 0 4px 8px rgba(212, 175, 55, 0.1)',
-      }
-    }}
-  >
-    <Box sx={{ position: 'relative', height: 110, backgroundColor: '#F8FAFC' }}>
-      <Box
-        component="img"
+  <div className="flex flex-col rounded-md border border-[#1c2a44]/10 shadow-sm shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[2px] hover:shadow-md hover:shadow-[#1c2a44]/10">
+    <div className="relative h-[110px] bg-[#f8fafc]">
+      <img
         src={unit.image}
         alt={unit.name}
-        sx={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          display: 'block',
-        }}
+        className="w-full h-full object-cover block"
       />
 
-      {/* Just Viewed - Centered overlay */}
       {unit.justViewed && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(28, 42, 68, 0.45)', // Dimmed overlay
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 2, // Above the arrows
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: '0.8rem',
-              fontWeight: 700,
-              color: '#FFFFFF',
-              fontStyle: 'italic',
-              letterSpacing: '0.02em',
-              textShadow: '0 2px 4px rgba(0,0,0,0.5)', // Gives text pop without needing a solid box
-            }}
-          >
+        <div className="absolute inset-0 bg-[#1c2a44]/45 flex items-center justify-center z-10">
+          <span className="text-[0.8rem] font-bold text-white italic tracking-wide drop-shadow-md">
             Just Viewed
-          </Typography>
-        </Box>
+          </span>
+        </div>
       )}
 
-      {/* Image Slider Controls (Left/Right Arrows) */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '4px',
-          transform: 'translateY(-50%)',
-          backgroundColor: 'rgba(10, 17, 32, 0.4)',
-          borderRadius: '50%',
-          display: 'flex',
-          padding: '2px',
-          cursor: 'pointer',
-          zIndex: 1,
-          transition: 'background-color 0.2s ease',
-          '&:hover': { backgroundColor: 'rgba(10, 17, 32, 0.8)' }
-        }}
-      >
+      <div className="absolute top-1/2 left-1 -translate-y-1/2 bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full p-[2px] cursor-pointer z-20 transition-colors">
         <ChevronLeftIcon sx={{ color: '#FFFFFF', fontSize: 16 }} />
-      </Box>
-
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          right: '4px',
-          transform: 'translateY(-50%)',
-          backgroundColor: 'rgba(10, 17, 32, 0.4)',
-          borderRadius: '50%',
-          display: 'flex',
-          padding: '2px',
-          cursor: 'pointer',
-          zIndex: 1,
-          transition: 'background-color 0.2s ease',
-          '&:hover': { backgroundColor: 'rgba(10, 17, 32, 0.8)' }
-        }}
-      >
+      </div>
+      <div className="absolute top-1/2 right-1 -translate-y-1/2 bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full p-[2px] cursor-pointer z-20 transition-colors">
         <ChevronRightIcon sx={{ color: '#FFFFFF', fontSize: 16 }} />
-      </Box>
+      </div>
 
-      {/* Image Count - Gold Color */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '4px',
-          right: '4px',
-          padding: '2px 6px',
-          borderRadius: '4px',
-          backgroundColor: 'rgba(28, 42, 68, 0.9)',
-          zIndex: 1,
-        }}
-      >
-        <Typography sx={{ fontSize: '0.65rem', color: goldAccent, fontWeight: 700 }}>
-          {unit.imageCount}
-        </Typography>
-      </Box>
-    </Box>
+      {unit.imageCount && (
+        <div className="absolute bottom-1 right-1 px-1 py-[2px] rounded bg-[#1c2a44]/90 z-20">
+          <span className="text-[0.65rem] text-[#D4AF37] font-bold">
+            {unit.imageCount}
+          </span>
+        </div>
+      )}
+    </div>
 
-    <Box sx={{ padding: '8px' }}>
-      <Typography sx={{ fontSize: '0.85rem', fontWeight: 700, color: navyPrimary, lineHeight: 1.2 }}>
+    <div className="p-1 flex flex-col">
+      <h4 className="text-[0.85rem] font-bold text-[#1c2a44] leading-tight">
         {unit.name}
-      </Typography>
-      <Stack direction="row" alignItems="center" spacing="4px" sx={{ marginTop: '4px' }}>
-        <LocationOnIcon sx={{ fontSize: 12, color: goldAccent }} />
-        <Typography sx={{ fontSize: '0.65rem', color: navyMuted }}>
+      </h4>
+      
+      <div className="flex items-center gap-1 mt-1">
+        <span className="text-[0.65rem] text-[#1c2a44]/70">
           {unit.floor} | {unit.area}
-        </Typography>
-      </Stack>
+        </span>
+      </div>
 
-      <Typography sx={{ fontSize: '0.9rem', fontWeight: 700, color: navyPrimary, marginTop: '8px' }}>
+      <span className="text-[0.9rem] font-bold text-[#1c2a44] mt-1">
         {unit.price}
-      </Typography>
-      <Typography sx={{ fontSize: '0.6rem', color: navyMuted }}>
+      </span>
+      <span className="text-[0.6rem] text-[#1c2a44]/70">
         {unit.priceLabel}
-      </Typography>
+      </span>
 
-      <Box
-        sx={{
-          marginTop: '10px',
-          borderRadius: '4px',
-          padding: '4px 8px',
-          backgroundColor: navyPrimary, 
-          color: '#FFFFFF',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '16px',
-          transition: 'all 0.2s ease',
-          '&:hover': {
-            backgroundColor: '#111A2B', 
-          },
-          '&:hover .chevron-icon': {
-            display: 'none',
-          },
-          '&:hover .arrow-icon': {
-            display: 'block',
-          }
-        }}
-      >
-        <Typography sx={{ fontSize: '0.7rem', fontWeight: 600, color: 'inherit', letterSpacing: '0.02em' }}>
+      <div className="mt-1 flex items-center justify-center gap-6 p-1 rounded bg-[#1c2a44] text-white cursor-pointer hover:bg-[#111A2B] transition-colors group [&:hover_.chevron-icon]:!hidden [&:hover_.arrow-icon]:!block">
+        <span className="text-[0.7rem] font-semibold tracking-wide text-white">
           View Details
-        </Typography>
+        </span>
         <ChevronRightIcon className="chevron-icon" sx={{ fontSize: 16, display: 'block', color: '#FFFFFF' }} />
         <ArrowForwardIcon className="arrow-icon" sx={{ fontSize: 16, display: 'none', color: '#FFFFFF' }} />
-      </Box>
-    </Box>
-  </Box>
+      </div>
+    </div>
+  </div>
 );
 
 const OfficeSpace: React.FC = () => {
   return (
-    <Box
-      sx={{
-        padding: '4px',
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '8px',
-      }}
-    >
+    <div className="grid grid-cols-2 gap-1 p-1">
       {officeUnits.map((unit, idx) => (
         <OfficeCard key={idx} unit={unit} />
       ))}
-    </Box>
+    </div>
   );
 };
 

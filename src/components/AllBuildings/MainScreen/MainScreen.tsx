@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import TopSection from './topsection';
+import TopSection from './TopSection';
 import TabNavigation from './tabNavigation';
 import RetailSpaces from './retailSpaces';
 import OfficeSpace from './officeSpace';

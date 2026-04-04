@@ -23,6 +23,14 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ activeTab, onTabChange })
       sx={{
         p: '4px',
         backgroundColor: 'var(--bg-card)',
+        borderBottom: '1px solid var(--border-default)',
+        textAlign: 'center',
+        gap: '4px',
+        display: 'flex',
+        justifyContent: 'center',
+        textDecoration: 'underline',
+        textUnderlineOffset: '6px',
+        textDecorationColor: 'var(--accent-gold)',
       }}
     >
       <PremiumTabs tabs={tabs} value={activeTab} onChange={onTabChange} />

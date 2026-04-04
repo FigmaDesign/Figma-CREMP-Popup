@@ -1,5 +1,5 @@
 export { default as Left } from './left';
-export { default as TopSection } from './topsection';
+export { default as TopSection } from './TopSection';
 export { default as TabNavigation } from './tabNavigation';
 export { default as RetailSpaces } from './retailSpaces';
 export { default as OfficeSpace } from './officeSpace';

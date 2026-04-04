@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
 
 interface LeftPanelProps {
   activePage: string;
@@ -14,68 +13,31 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ label, isActive, onClick }) => {
   return (
-    <Typography
+    <div
       onClick={onClick}
-      sx={{
-        padding: '4px 8px',
-        cursor: 'pointer',
-        borderRadius: '4px',
-        backgroundColor: isActive ? '#fff' : 'transparent',
-        color: isActive ? '#181c32' : '#7a7a7a',
-        fontWeight: 600,
-        fontSize: '0.875rem',
-        borderLeft: isActive ? '2px solid var(--accent-gold)' : '2px solid transparent',
-        display: 'flex',
-        alignItems: 'center',
-        transition: 'background 0.2s, color 0.2s',
-      }}
+      className={`flex items-center p-1 cursor-pointer rounded-[4px] text-[0.875rem] font-semibold transition-all duration-200 border-l-[2px] ${
+        isActive
+          ? 'bg-white text-[#1c2a44] border-[#D4AF37] shadow-sm shadow-[#1c2a44]/5'
+          : 'text-[#1c2a44]/60 border-transparent hover:bg-[#1c2a44]/5 hover:text-[#1c2a44]'
+      }`}
     >
       {label}
-    </Typography>
+    </div>
   );
 };
 
 const LeftPanel: React.FC<LeftPanelProps> = ({ activePage, onPageSelect }) => {
   return (
-    <Box
-      className="left-panel"
-      sx={{
-        width: '25%',
-        minWidth: '240px',
-        padding: '16px',
-        backgroundColor: '#f3f2ee',
-        borderRight: '1px solid #e0ded9',
-        height: '100%',
-        overflow: 'auto',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <Typography 
-        sx={{ 
-          fontSize: '1.125rem', 
-          fontWeight: 600, 
-          color: '#181c32',
-          marginBottom: '16px' 
-        }}
-      >
+    <div className="w-[25%] min-w-[240px] p-1 bg-[#f8f9fa] border-r border-[#1c2a44]/10 h-full overflow-auto flex flex-col">
+      <h2 className="text-[1.125rem] font-semibold text-[#1c2a44] mb-1 px-1">
         Pages
-      </Typography>
+      </h2>
 
-      <Typography
-        sx={{ 
-          fontSize: '0.75rem', 
-          fontWeight: 600, 
-          color: '#b7a97a',
-          marginTop: '8px', 
-          marginBottom: '8px',
-          letterSpacing: '0.5px'
-        }}
-      >
+      <h3 className="text-[0.65rem] font-semibold text-[#D4AF37]  tracking-[0.15em] mt-1 mb-1 px-1">
         All buildings
-      </Typography>
+      </h3>
       
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+      <div className="flex flex-col gap-1">
         <NavItem
           label="1. Main screen"
           isActive={activePage === 'main'}
@@ -86,22 +48,13 @@ const LeftPanel: React.FC<LeftPanelProps> = ({ activePage, onPageSelect }) => {
           isActive={activePage === 'viewAll'}
           onClick={() => onPageSelect('viewAll')}
         />
-      </Box>
+      </div>
 
-      <Typography
-        sx={{ 
-          fontSize: '0.75rem', 
-          fontWeight: 600, 
-          color: '#b7a97a',
-          marginTop: '24px', 
-          marginBottom: '8px',
-          letterSpacing: '0.5px'
-        }}
-      >
+      <h3 className="text-[0.65rem] font-semibold text-[#D4AF37]  tracking-[0.15em] mt-1 mb-1 px-1">
         Land
-      </Typography>
+      </h3>
       
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+      <div className="flex flex-col gap-1">
         <NavItem
           label="1. Main screen"
           isActive={activePage === 'landMain'}
@@ -112,8 +65,8 @@ const LeftPanel: React.FC<LeftPanelProps> = ({ activePage, onPageSelect }) => {
           isActive={activePage === 'landViewAll'}
           onClick={() => onPageSelect('landViewAll')}
         />
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

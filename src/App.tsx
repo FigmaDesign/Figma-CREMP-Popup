@@ -11,9 +11,9 @@ export default function App() {
 
   return (
     <Box className="min-h-screen flex flex-col bg-[#f5f6f8] overflow-x-hidden font-['Outfit']">
-      <AppBar 
-        position="sticky" 
-        elevation={0} 
+      <AppBar
+        position="sticky"
+        elevation={0}
         className="bg-[#ffffff] border-b border-[#eef0f3] z-50 shadow-[0px_4px_20px_rgba(15,31,61,0.02)]"
       >
         <Toolbar className="justify-between px-6 py-3 min-h-[64px]">
@@ -30,31 +30,29 @@ export default function App() {
             <Box className="hidden lg:flex bg-[#f5f6f8] border border-[#eef0f3] rounded-[6px] p-[2px]">
               <Button
                 onClick={() => setViewMode('desktop')}
-                className={`px-4 py-1.5 min-w-0 rounded-[4px] flex items-center gap-[4px] text-xs font-semibold transition-all duration-300 ${
-                  isDesktop 
-                    ? 'bg-gradient-to-br from-[#c9a34e] to-[#b8903c] text-[#ffffff] shadow-[0px_2px_8px_rgba(201,163,78,0.25)]' 
+                className={`px-4 py-1.5 min-w-0 rounded-[4px] flex items-center gap-[4px] text-xs font-semibold transition-all duration-300 ${isDesktop
+                    ? 'bg-gradient-to-br from-[#c9a34e] to-[#b8903c] text-[#ffffff] shadow-[0px_2px_8px_rgba(201,163,78,0.25)]'
                     : 'text-[#637089] hover:bg-[#eef0f3] hover:text-[#0f1f3d] bg-transparent'
-                }`}
+                  }`}
               >
                 <DesktopWindows sx={{ fontSize: 16 }} />
                 Desktop View
               </Button>
               <Button
                 onClick={() => setViewMode('mobile')}
-                className={`px-4 py-1.5 min-w-0 rounded-[4px] flex items-center gap-[4px] text-xs font-semibold transition-all duration-300 ${
-                  !isDesktop 
-                    ? 'bg-gradient-to-br from-[#c9a34e] to-[#b8903c] text-[#ffffff] shadow-[0px_2px_8px_rgba(201,163,78,0.25)]' 
+                className={`px-4 py-1.5 min-w-0 rounded-[4px] flex items-center gap-[4px] text-xs font-semibold transition-all duration-300 ${!isDesktop
+                    ? 'bg-gradient-to-br from-[#c9a34e] to-[#b8903c] text-[#ffffff] shadow-[0px_2px_8px_rgba(201,163,78,0.25)]'
                     : 'text-[#637089] hover:bg-[#eef0f3] hover:text-[#0f1f3d] bg-transparent'
-                }`}
+                  }`}
               >
                 <Smartphone sx={{ fontSize: 16 }} />
                 Mobile View
               </Button>
             </Box>
           )}
-          
+
           <Box className="flex items-center gap-[4px]">
-            <Typography className="text-[11px] font-semibold text-[#637089] hidden sm:block uppercase tracking-widest mr-2">
+            <Typography className="text-[11px] font-semibold text-[#637089] hidden sm:block tracking-widest mr-2">
               Current View
             </Typography>
             <FormControl size="small">

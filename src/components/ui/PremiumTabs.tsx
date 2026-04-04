@@ -1,3 +1,4 @@
+import React from 'react';
 
 export type PremiumTabOption<T> = {
   label: string;
@@ -8,11 +9,12 @@ interface PremiumTabsProps<T> {
   tabs: PremiumTabOption<T>[];
   value: T;
   onChange: (value: T) => void;
+  className?: string; // Added so parent wrappers can pass styles
 }
 
-const PremiumTabs = <T extends string>({ tabs, value, onChange }: PremiumTabsProps<T>) => {
+const PremiumTabs = <T extends string>({ tabs, value, onChange, className = '' }: PremiumTabsProps<T>) => {
   return (
-    <div className="flex items-end w-full space-x-[-20px] sm:space-x-[-28px] px-2 pt-2 overflow-hidden">
+    <div className={`flex items-end w-full space-x-[-20px] sm:space-x-[-28px] px-1 pt-1 overflow-hidden shadow-none drop-shadow-none ${className}`}>
       {tabs.map((tab, index) => {
         const isActive = tab.value === value;
         const activeGradId = `grad-active-${tab.value}`;
@@ -22,12 +24,10 @@ const PremiumTabs = <T extends string>({ tabs, value, onChange }: PremiumTabsPro
             key={tab.value}
             onClick={() => onChange(tab.value)}
             style={{ zIndex: isActive ? 50 : 40 - index }}
-            // 1. Decreased height (h-[32px] sm:h-[36px])
-            // 2. Removed max-w to let flex-1 stretch the tabs across the full line
-            className="relative h-[32px] sm:h-[36px] flex-1 min-w-[80px] outline-none group transition-transform duration-200"
+            className="relative h-[32px] sm:h-[36px] flex-1 min-w-[80px] outline-none group transition-transform duration-200  bg-transparent"
           >
             <svg 
-              className={`absolute inset-0 block size-full ${isActive ? '' : 'drop-shadow-[-4px_0px_8px_rgba(0,0,0,0.12)]'}`} 
+              className={`absolute inset-0 block size-full ${isActive ? '' : ''}`} 
               fill="none" 
               preserveAspectRatio="none" 
               viewBox="0 0 200 40"
@@ -45,8 +45,11 @@ const PremiumTabs = <T extends string>({ tabs, value, onChange }: PremiumTabsPro
             </svg>
             
             <span 
-              // Slightly reduced text size to fit the shorter height gracefully
-              className={`relative z-10 flex items-center justify-center w-full h-full text-[12px] sm:text-[14px] tracking-wide ${isActive ? 'text-white font-semibold' : 'text-[#626168] font-medium'}`}
+              className={`relative z-10 flex items-center justify-center w-full h-full text-[12px] sm:text-[14px] tracking-wide ${
+                isActive 
+                  ? 'text-white font-semibold underline underline-offset-8 decoration-2 decoration-[#C69C44]' 
+                  : 'text-[#626168] font-medium underline underline-offset-8 decoration-1 decoration-[#e0e0e0]'
+              }`}
             >
               {tab.label}
             </span>

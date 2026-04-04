@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box, Typography, Stack } from '@mui/material';
 import GroupsIcon from '@mui/icons-material/Groups';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -8,98 +7,53 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import LocalCafeIcon from '@mui/icons-material/LocalCafe';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 
-const navyPrimary = '#1C2A44'; 
-const navyMuted = '#334155';
-const goldAccent = '#D4AF37';
-
 const FeaturedCoWorking: React.FC = () => (
-  <Box
-    sx={{
-      margin: '2px',
-      padding: '6px', 
-      borderRadius: '6px',
-      border: `1px solid rgba(10, 17, 32, 0.08)`, 
-      borderTop: 'none', 
-      position: 'relative',
-      overflow: 'hidden', 
-      boxShadow: '0 4px 16px rgba(10, 17, 32, 0.06)', 
-      backgroundColor: '#FFFFFF',
-      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: '4px', 
-        background: 'linear-gradient(90deg, #1C2A44 0%, #3b5998 50%, #C89B3C 100%)',
-        zIndex: 1,
-      },
-      '&:hover': {
-        transform: 'translateY(-1px)',
-        boxShadow: '0 8px 24px rgba(10, 17, 32, 0.1), 0 2px 8px rgba(212, 175, 55, 0.15)',
-      }
-    }}
-  >
-    <Stack direction="row" sx={{ display: 'flex', alignItems: 'stretch' }}>
-      <Box sx={{ flex: 1, padding: '4px' }}>
-        <Typography
-          sx={{ fontSize: '0.9rem', fontWeight: 700, color: navyPrimary, lineHeight: 1.2, letterSpacing: '0.01em' }}
-        >
-          Co-Work Hub 305
-        </Typography>
-        <Typography sx={{ fontSize: '0.75rem', color: navyMuted, letterSpacing: '0.01em', mt: '2px' }}>
-          3rd Floor <span style={{ color: goldAccent }}>•</span> 50 Seats
-        </Typography>
+  <div className="relative flex items-stretch m-1 p-1 rounded-md border border-[#1c2a44]/10 border-t-0 shadow-md shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-[#1c2a44]/10 group overflow-hidden">
+    <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#1c2a44] via-[#3b5998] to-[#D4AF37] z-10" />
 
-        <Stack direction="row" spacing="8px" sx={{ marginTop: '6px' }}>
-          <Stack direction="row" alignItems="center" spacing="4px">
-            <WifiIcon sx={{ fontSize: 14, color: goldAccent }} />
-            <Typography sx={{ fontSize: '0.6rem', color: navyMuted, letterSpacing: '0.02em' }}>High-Speed</Typography>
-          </Stack>
-          <Stack direction="row" alignItems="center" spacing="4px">
-            <LocalCafeIcon sx={{ fontSize: 14, color: goldAccent }} />
-            <Typography sx={{ fontSize: '0.6rem', color: navyMuted, letterSpacing: '0.02em' }}>Cafeteria</Typography>
-          </Stack>
-          <Stack direction="row" alignItems="center" spacing="4px">
-            <MeetingRoomIcon sx={{ fontSize: 14, color: goldAccent }} />
-            <Typography sx={{ fontSize: '0.6rem', color: navyMuted, letterSpacing: '0.02em' }}>Meeting</Typography>
-          </Stack>
-        </Stack>
+    <div className="flex flex-1 gap-1">
+      <div className="flex-1 flex flex-col justify-between p-1">
+        <div>
+          <h3 className="text-[0.9rem] font-bold text-[#1c2a44] leading-tight">
+            Co-Work Hub 305
+          </h3>
+          <p className="text-[0.75rem] text-[#1c2a44]/70 mt-1">
+            3rd Floor <span className="text-[#D4AF37]">•</span> 50 Seats
+          </p>
 
-        <Stack direction="row" spacing="12px" sx={{ marginTop: '10px' }}>
-          <Box>
-            <Typography sx={{ fontSize: '0.6rem', color: navyMuted, letterSpacing: '0.02em' }}>Per Seat</Typography>
-            <Typography sx={{ fontSize: '0.8rem', fontWeight: 700, color: navyPrimary }}>
-              ₹ 8,500/mo
-            </Typography>
-          </Box>
-          <Box>
-            <Typography sx={{ fontSize: '0.6rem', color: navyMuted, letterSpacing: '0.02em' }}>Full Floor</Typography>
-            <Typography sx={{ fontSize: '0.8rem', fontWeight: 700, color: navyPrimary }}>
-              ₹ 3.5 Lakh/mo
-            </Typography>
-          </Box>
-        </Stack>
-      </Box>
+          <div className="flex items-center gap-1 mt-1">
+            <div className="flex items-center gap-1">
+              <WifiIcon sx={{ fontSize: 14 }} className="text-[#D4AF37]" />
+              <span className="text-[0.6rem] text-[#1c2a44]/70 tracking-wide">High-Speed</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <LocalCafeIcon sx={{ fontSize: 14 }} className="text-[#D4AF37]" />
+              <span className="text-[0.6rem] text-[#1c2a44]/70 tracking-wide">Cafeteria</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <MeetingRoomIcon sx={{ fontSize: 14 }} className="text-[#D4AF37]" />
+              <span className="text-[0.6rem] text-[#1c2a44]/70 tracking-wide">Meeting</span>
+            </div>
+          </div>
+        </div>
 
-      <Box
-        sx={{
-          width: 80,
-          borderRadius: '4px',
-          overflow: 'hidden',
-          flexShrink: 0,
-          backgroundColor: '#F8FAFC', 
-          border: '1px solid rgba(10, 17, 32, 0.05)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <GroupsIcon sx={{ fontSize: 28, color: goldAccent }} />
-      </Box>
-    </Stack>
-  </Box>
+        <div className="flex gap-1 mt-1">
+          <div className="pr-1">
+            <span className="block text-[0.6rem] text-[#1c2a44]/70 tracking-wide">Per Seat</span>
+            <span className="block text-[0.8rem] font-bold text-[#1c2a44]">₹ 8,500/mo</span>
+          </div>
+          <div>
+            <span className="block text-[0.6rem] text-[#1c2a44]/70 tracking-wide">Full Floor</span>
+            <span className="block text-[0.8rem] font-bold text-[#1c2a44]">₹ 3.5 Lakh/mo</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-[80px] shrink-0 rounded border border-[#1c2a44]/5 bg-[#f8fafc] flex items-center justify-center">
+        <GroupsIcon sx={{ fontSize: 28 }} className="text-[#D4AF37]" />
+      </div>
+    </div>
+  </div>
 );
 
 interface CoWorkUnit {
@@ -135,108 +89,54 @@ const coWorkUnits: CoWorkUnit[] = [
 ];
 
 const CoWorkCard: React.FC<{ unit: CoWorkUnit }> = ({ unit }) => (
-  <Box
-    sx={{
-      borderRadius: '6px',
-      overflow: 'hidden',
-      backgroundColor: '#FFFFFF', 
-      border: '1px solid rgba(10, 17, 32, 0.08)',
-      boxShadow: '0 4px 12px rgba(10, 17, 32, 0.05)',
-      transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-      display: 'flex',
-      flexDirection: 'column',
-      '&:hover': {
-        transform: 'translateY(-2px)',
-        boxShadow: '0 8px 20px rgba(10, 17, 32, 0.08), 0 4px 8px rgba(212, 175, 55, 0.1)',
-      }
-    }}
-  >
-    <Box
-      sx={{
-        height: 110, 
-        position: 'relative',
-        overflow: 'hidden',
-        backgroundColor: '#F8FAFC',
-      }}
-    >
-      <Box
-        component="img"
+  <div className="flex flex-col rounded-md border border-[#1c2a44]/10 shadow-sm shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[2px] hover:shadow-md hover:shadow-[#1c2a44]/10">
+    <div className="relative h-[110px] bg-[#f8fafc] overflow-hidden">
+      <img
         src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=400&q=80"
         alt={unit.name}
-        sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        className="w-full h-full object-cover block"
       />
-    </Box>
+    </div>
 
-    <Box sx={{ padding: '8px' }}>
-      <Typography sx={{ fontSize: '0.85rem', fontWeight: 700, color: navyPrimary, lineHeight: 1.2 }}>
+    <div className="p-1 flex flex-col">
+      <h4 className="text-[0.85rem] font-bold text-[#1c2a44] leading-tight">
         {unit.name}
-      </Typography>
-      <Stack direction="row" alignItems="center" spacing="4px" sx={{ marginTop: '4px' }}>
-        <LocationOnIcon sx={{ fontSize: 12, color: goldAccent }} />
-        <Typography sx={{ fontSize: '0.65rem', color: navyMuted }}>
-          {unit.floor} <span style={{ color: goldAccent }}>•</span> {unit.seats}
-        </Typography>
-      </Stack>
+      </h4>
+      
+      <div className="flex items-center gap-1 mt-1">
+        <span className="text-[0.65rem] text-[#1c2a44]/70">
+          {unit.floor} <span className="text-[#D4AF37]">•</span> {unit.seats}
+        </span>
+      </div>
 
-      <Typography sx={{ fontSize: '0.9rem', fontWeight: 700, marginTop: '8px', color: navyPrimary }}>
+      <span className="text-[0.9rem] font-bold text-[#1c2a44] mt-1">
         {unit.price}
-      </Typography>
-      <Typography sx={{ fontSize: '0.6rem', color: navyMuted, letterSpacing: '0.02em' }}>
+      </span>
+      <span className="text-[0.6rem] text-[#1c2a44]/70 tracking-wide">
         {unit.priceLabel}
-      </Typography>
+      </span>
 
-      <Box
-        sx={{
-          marginTop: '10px',
-          borderRadius: '4px',
-          padding: '4px 8px',
-          backgroundColor: navyPrimary, 
-          color: '#FFFFFF',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '16px',
-          transition: 'all 0.2s ease',
-          '&:hover': {
-            backgroundColor: '#111A2B', 
-          },
-          '&:hover .chevron-icon': {
-            display: 'none',
-              gap: '20px',
-          },
-          '&:hover .arrow-icon': {
-            display: 'block',
-             gap: '20px',
-          }
-        }}
-      >
-        <Typography sx={{ fontSize: '0.7rem', fontWeight: 600, color: 'inherit', letterSpacing: '0.02em' }}>
+      <div className="mt-1 flex items-center justify-center gap-6 p-1 rounded bg-[#1c2a44] text-white cursor-pointer hover:bg-[#111A2B] transition-colors group [&:hover_.chevron-icon]:!hidden [&:hover_.arrow-icon]:!block">
+        <span className="text-[0.7rem] font-semibold tracking-wide text-white">
           View Details
-        </Typography>
+        </span>
         <ChevronRightIcon className="chevron-icon" sx={{ fontSize: 16, display: 'block', color: '#FFFFFF' }} />
         <ArrowForwardIcon className="arrow-icon" sx={{ fontSize: 16, display: 'none', color: '#FFFFFF' }} />
-      </Box>
-    </Box>
-  </Box>
+      </div>
+    </div>
+  </div>
 );
 
 const CoWorkingSpaces: React.FC = () => {
   return (
-    <Stack spacing="8px" sx={{ padding: '4px' }}> 
+    <div className="flex flex-col gap-1 p-1">
       <FeaturedCoWorking />
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '8px',
-        }}
-      >
+      <div className="grid grid-cols-2 gap-1">
         {coWorkUnits.map((unit, idx) => (
           <CoWorkCard key={idx} unit={unit} />
         ))}
-      </Box>
-    </Stack>
+      </div>
+    </div>
   );
 };
 

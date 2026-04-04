@@ -198,31 +198,36 @@ const ViewAll: React.FC<ViewAllProps> = ({ onBack }) => {
             scrollbarWidth: 'none',
           }}
         >
-          {tabItems
-            // THIS FILTER REMOVES THE CURRENTLY FOCUSED TAB
-            .filter((tab) => tab.id !== activeTab)
-            .map(tab => (
-               <Box
-                 key={tab.id}
-                 onClick={() => handleTabClick(tab.id, tab.ref)}
-                 sx={{
-                   paddingBottom: '8px',
-                   borderBottom: '2px solid transparent',
-                   cursor: 'pointer',
-                   whiteSpace: 'nowrap',
-
-                 }}
-               >
-                 <Typography 
-                   sx={{ 
-                     fontSize: '0.875rem', 
-                     fontWeight: 500, 
-                     color: '#6B7280',
-                   }}
-                 >
-                   {tab.label}
-                 </Typography>
-               </Box>
+          {tabItems.map(tab => (
+            <Box
+              key={tab.id}
+              onClick={() => handleTabClick(tab.id, tab.ref)}
+              sx={{
+                paddingBottom: '8px',
+                borderBottom: tab.id === activeTab
+                  ? '2.5px solid #C69C44'
+                  : '2.5px solid transparent',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                transition: 'border-color 0.2s',
+                '&:hover': {
+                  borderBottom: '2.5px solid #a67c2c',
+                },
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: '0.875rem',
+                  fontWeight: 500,
+                  color: tab.id === activeTab ? '#C69C44' : '#6B7280',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '6px',
+                  textDecorationColor: '#C69C44',
+                }}
+              >
+                {tab.label}
+              </Typography>
+            </Box>
           ))}
         </Stack>
 

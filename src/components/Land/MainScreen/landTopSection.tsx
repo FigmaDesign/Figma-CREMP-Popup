@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Stack } from '@mui/material';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import TerrainIcon from '@mui/icons-material/Terrain';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -77,7 +77,7 @@ const LandTopSection: React.FC = () => {
             boxShadow: '0 2px 8px rgba(198, 156, 68, 0.15)',
           }}
         >
-          <FavoriteBorderIcon sx={{ fontSize: 16, color: 'var(--text-main)' }} />
+          <BookmarkBorderIcon sx={{ fontSize: 16, color: 'var(--text-main)' }} />
         </Box>
 
         <Box

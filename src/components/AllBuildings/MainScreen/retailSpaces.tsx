@@ -1,167 +1,56 @@
 import React from 'react';
-import { Box, Typography, Stack } from '@mui/material';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
-// Use the established consistent colors
-const navyPrimary = '#1C2A44'; 
-const navyMuted = '#334155';
-const goldAccent = '#D4AF37';
-
 const FeaturedCard: React.FC = () => (
-  <Box
-    sx={{
-      margin: '2px',
-      padding: '6px', 
-      borderRadius: '6px',
-      border: `1px solid rgba(10, 17, 32, 0.08)`, 
-      borderTop: 'none', 
-      position: 'relative',
-      overflow: 'hidden', 
-      boxShadow: '0 4px 16px rgba(10, 17, 32, 0.06)', 
-      backgroundColor: '#FFFFFF',
-      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-      display: 'flex', 
-      alignItems: 'stretch',
-      height: 140, // Explicitly lock height so it doesn't expand vertically
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: '4px', 
-        background: 'linear-gradient(90deg, #1C2A44 0%, #3b5998 50%, #C89B3C 100%)',
-        zIndex: 1,
-      },
-      '&:hover': {
-        transform: 'translateY(-1px)',
-        boxShadow: '0 8px 24px rgba(10, 17, 32, 0.1), 0 2px 8px rgba(212, 175, 55, 0.15)',
-      },
-      // Target the view details overlay inside the image container on card hover
-      '&:hover .featured-view-details': {
-        opacity: 1,
-        pointerEvents: 'auto',
-      }
-    }}
-  >
-    {/* Text Section (Left) */}
-    <Box sx={{ flex: 1, padding: '8px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-      <Box>
-        <Typography
-          sx={{ fontSize: '1rem', fontWeight: 700, color: navyPrimary, lineHeight: 1.2 }}
-        >
+  <div className="relative flex items-stretch h-[140px] m-1 p-1 rounded-md border border-[#1c2a44]/10 border-t-0 shadow-md shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-[#1c2a44]/10 group overflow-hidden">
+    <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#1c2a44] via-[#3b5998] to-[#D4AF37] z-10" />
+
+    <div className="flex-1 flex flex-col justify-between p-1">
+      <div>
+        <h3 className="text-[1rem] font-bold text-[#1c2a44] leading-tight">
           Retail Unit A105
-        </Typography>
-        <Typography
-          sx={{ fontSize: '0.8rem', color: navyMuted, marginTop: '4px' }}
-        >
+        </h3>
+        <p className="text-[0.8rem] text-[#1c2a44]/70 mt-1">
           Ground Floor | 1,200 sq.ft.
-        </Typography>
+        </p>
 
-        <Box
-          sx={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            marginTop: '10px',
-            padding: '6px 10px',
-            borderRadius: '4px',
-            backgroundColor: '#F8FAFC',
-            border: '1px solid rgba(10, 17, 32, 0.05)',
-          }}
-        >
-          <Box
-            sx={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '4px',
-              backgroundColor: goldAccent,
-            }}
-          />
-          <Typography sx={{ fontSize: '0.7rem', fontWeight: 600, color: navyPrimary }}>
+        <div className="inline-flex items-center gap-1 mt-1 p-1 rounded bg-[#f8fafc] border border-[#1c2a44]/5">
+          <div className="w-[6px] h-[6px] rounded-full bg-[#D4AF37]" />
+          <span className="text-[0.7rem] font-semibold text-[#1c2a44]">
             Tenant: Starbucks
-          </Typography>
-        </Box>
-      </Box>
+          </span>
+        </div>
+      </div>
 
-      <Box sx={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '4px' }}>
-        <Typography sx={{ fontSize: '0.7rem', color: navyMuted }}>Sale Value:</Typography>
-        <Typography sx={{ fontSize: '0.9rem', fontWeight: 700, color: navyPrimary }}>
-          ₹ 2.5 Crore
-        </Typography>
-      </Box>
-    </Box>
+      <div className="mt-auto flex items-center gap-1">
+        <span className="text-[0.7rem] text-[#1c2a44]/70">Sale Value:</span>
+        <span className="text-[0.9rem] font-bold text-[#1c2a44]">₹ 2.5 Crore</span>
+      </div>
+    </div>
 
-    {/* Image Section (Right) */}
-    <Box
-      sx={{
-        width: 160, // Increased width exclusively
-        borderRadius: '4px',
-        overflow: 'hidden',
-        flexShrink: 0,
-        position: 'relative',
-        backgroundColor: '#F8FAFC',
-      }}
-    >
-      <Box
-        component="img"
+    <div className="w-[160px] rounded overflow-hidden shrink-0 relative bg-[#f8fafc]">
+      <img
         src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80"
         alt="Retail Unit A105"
-        sx={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          display: 'block',
-        }}
+        className="w-full h-full object-cover block"
       />
 
-      {/* Hover Overlay with "View Details" */}
-      <Box
-        className="featured-view-details"
-        sx={{
-          position: 'absolute',
-          top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(28, 42, 68, 0.6)', 
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          opacity: 0, 
-          pointerEvents: 'none', 
-          transition: 'opacity 0.3s ease',
-          zIndex: 2,
-        }}
-      >
-        <Box
-          sx={{
-            borderRadius: '4px',
-            padding: '6px 12px',
-            backgroundColor: navyPrimary,
-            color: '#FFFFFF',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '4px',
-            transition: 'background-color 0.2s ease',
-            pointerEvents: 'auto', 
-            '&:hover': { backgroundColor: '#111A2B' },
-            '&:hover .chevron-icon': { display: 'none' },
-            '&:hover .arrow-icon': { display: 'block' }
-          }}
-        >
-          <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'inherit', letterSpacing: '0.02em' }}>
+      <div className="absolute inset-0 bg-[#1c2a44]/60 flex items-center justify-center opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300 z-20">
+        {/* Added Tailwind arbitrary targeting to override MUI inline styles */}
+        <div className="flex items-center justify-center gap-6 px-2 py-1 rounded bg-[#1c2a44] text-white cursor-pointer transition-colors duration-200 hover:bg-[#111A2B] group [&:hover_.chevron-icon]:!hidden [&:hover_.arrow-icon]:!block">
+          <span className="text-[0.75rem] font-semibold tracking-wide text-white">
             View Details
-          </Typography>
+          </span>
           <ChevronRightIcon className="chevron-icon" sx={{ fontSize: 16, display: 'block', color: '#FFFFFF' }} />
           <ArrowForwardIcon className="arrow-icon" sx={{ fontSize: 16, display: 'none', color: '#FFFFFF' }} />
-        </Box>
-      </Box>
-    </Box>
-  </Box>
+        </div>
+      </div>
+    </div>
+  </div>
 );
 
 interface UnitCardData {
@@ -203,145 +92,77 @@ const retailCards: UnitCardData[] = [
 ];
 
 const UnitCard: React.FC<{ unit: UnitCardData }> = ({ unit }) => (
-  <Box
-    sx={{
-      borderRadius: '6px',
-      overflow: 'hidden',
-      border: '1px solid rgba(10, 17, 32, 0.08)',
-      boxShadow: '0 4px 12px rgba(10, 17, 32, 0.05)',
-      backgroundColor: '#FFFFFF',
-      transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-      display: 'flex',
-      flexDirection: 'column',
-      '&:hover': {
-        transform: 'translateY(-2px)',
-        boxShadow: '0 8px 20px rgba(10, 17, 32, 0.08), 0 4px 8px rgba(212, 175, 55, 0.1)',
-      }
-    }}
-  >
-    <Box sx={{ position: 'relative', height: 110, backgroundColor: '#F8FAFC' }}>
-      <Box
-        component="img"
+  <div className="flex flex-col rounded-md border border-[#1c2a44]/10 shadow-sm shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[2px] hover:shadow-md hover:shadow-[#1c2a44]/10">
+    <div className="relative h-[110px] bg-[#f8fafc]">
+      <img
         src={unit.image}
         alt={unit.name}
-        sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        className="w-full h-full object-cover block"
       />
 
       {unit.justViewed && (
-        <Box
-          sx={{
-            position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-            backgroundColor: 'rgba(28, 42, 68, 0.45)', display: 'flex',
-            alignItems: 'center', justifyContent: 'center', zIndex: 2, 
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: '0.8rem', fontWeight: 700, color: '#FFFFFF', fontStyle: 'italic',
-              letterSpacing: '0.02em', textShadow: '0 2px 4px rgba(0,0,0,0.5)', 
-            }}
-          >
+        <div className="absolute inset-0 bg-[#1c2a44]/45 flex items-center justify-center z-10">
+          <span className="text-[0.8rem] font-bold text-white italic tracking-wide drop-shadow-md">
             Just Viewed
-          </Typography>
-        </Box>
+          </span>
+        </div>
       )}
 
-      <Box
-        sx={{
-          position: 'absolute', top: '50%', left: '4px', transform: 'translateY(-50%)',
-          backgroundColor: 'rgba(10, 17, 32, 0.4)', borderRadius: '50%', p: '2px', cursor: 'pointer', zIndex: 1,
-          transition: 'background-color 0.2s ease', '&:hover': { backgroundColor: 'rgba(10, 17, 32, 0.8)' }
-        }}
-      >
+      <div className="absolute top-1/2 left-1 -translate-y-1/2 bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full p-[2px] cursor-pointer z-20 transition-colors">
         <ChevronLeftIcon sx={{ color: '#FFFFFF', fontSize: 16 }} />
-      </Box>
-      <Box
-        sx={{
-          position: 'absolute', top: '50%', right: '4px', transform: 'translateY(-50%)',
-          backgroundColor: 'rgba(10, 17, 32, 0.4)', borderRadius: '50%', p: '2px', cursor: 'pointer', zIndex: 1,
-          transition: 'background-color 0.2s ease', '&:hover': { backgroundColor: 'rgba(10, 17, 32, 0.8)' }
-        }}
-      >
+      </div>
+      <div className="absolute top-1/2 right-1 -translate-y-1/2 bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full p-[2px] cursor-pointer z-20 transition-colors">
         <ChevronRightIcon sx={{ color: '#FFFFFF', fontSize: 16 }} />
-      </Box>
+      </div>
 
       {unit.imageCount && (
-        <Box
-          sx={{
-            position: 'absolute', bottom: '4px', right: '4px', padding: '2px 6px',
-            borderRadius: '4px', backgroundColor: 'rgba(28, 42, 68, 0.9)', zIndex: 1,
-          }}
-        >
-          <Typography sx={{ fontSize: '0.65rem', color: goldAccent, fontWeight: 700 }}>
+        <div className="absolute bottom-1 right-1 px-1 py-[2px] rounded bg-[#1c2a44]/90 z-20">
+          <span className="text-[0.65rem] text-[#D4AF37] font-bold">
             {unit.imageCount}
-          </Typography>
-        </Box>
+          </span>
+        </div>
       )}
-    </Box>
+    </div>
 
-    <Box sx={{ padding: '8px' }}>
-      <Typography sx={{ fontSize: '0.85rem', fontWeight: 700, color: navyPrimary, lineHeight: 1.2 }}>
+    <div className="p-1 flex flex-col">
+      <h4 className="text-[0.85rem] font-bold text-[#1c2a44] leading-tight">
         {unit.name}
-      </Typography>
-      <Stack direction="row" alignItems="center" spacing="4px" sx={{ marginTop: '4px' }}>
-        <LocationOnIcon sx={{ fontSize: 12, color: goldAccent }} />
-        <Typography sx={{ fontSize: '0.65rem', color: navyMuted }}>
+      </h4>
+      
+      <div className="flex items-center gap-1 mt-1">
+        <span className="text-[0.65rem] text-[#1c2a44]/70">
           {unit.floor}
           {unit.area ? ` | ${unit.area}` : ''}
-        </Typography>
-      </Stack>
+        </span>
+      </div>
 
-      <Typography sx={{ fontSize: '0.9rem', fontWeight: 700, color: navyPrimary, marginTop: '8px' }}>
+      <span className="text-[0.9rem] font-bold text-[#1c2a44] mt-1">
         {unit.price}
-      </Typography>
-      <Typography sx={{ fontSize: '0.6rem', color: navyMuted }}>
+      </span>
+      <span className="text-[0.6rem] text-[#1c2a44]/70">
         {unit.priceLabel}
-      </Typography>
-
-      <Box
-        sx={{
-          marginTop: '10px',
-          borderRadius: '4px',
-          padding: '4px 8px',
-          backgroundColor: navyPrimary, 
-          color: '#FFFFFF',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '4px',
-          transition: 'all 0.2s ease',
-          '&:hover': { backgroundColor: '#111A2B' },
-          '&:hover .chevron-icon': { display: 'none' },
-          '&:hover .arrow-icon': { display: 'block' }
-        }}
-      >
-        <Typography sx={{ fontSize: '0.7rem', fontWeight: 600, color: 'inherit', letterSpacing: '0.02em' }}>
+      </span>
+      <div className="mt-1 flex items-center justify-center gap-6 p-1  rounded bg-[#1c2a44] text-white cursor-pointer hover:bg-[#111A2B] transition-colors group [&:hover_.chevron-icon]:!hidden [&:hover_.arrow-icon]:!block">
+        <span className="text-[0.7rem] font-semibold tracking-wide text-white">
           View Details
-        </Typography>
+        </span>
         <ChevronRightIcon className="chevron-icon" sx={{ fontSize: 16, display: 'block', color: '#FFFFFF' }} />
         <ArrowForwardIcon className="arrow-icon" sx={{ fontSize: 16, display: 'none', color: '#FFFFFF' }} />
-      </Box>
-    </Box>
-  </Box>
+      </div>
+    </div>
+  </div>
 );
 
 const RetailSpaces: React.FC = () => {
   return (
-    <Stack spacing="8px" sx={{ padding: '4px' }}>
+    <div className="flex flex-col gap-1 p-1">
       <FeaturedCard />
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '8px',
-        }}
-      >
+      <div className="grid grid-cols-2 gap-1">
         {retailCards.map((unit, idx) => (
           <UnitCard key={idx} unit={unit} />
         ))}
-      </Box>
-    </Stack>
+      </div>
+    </div>
   );
 };
 

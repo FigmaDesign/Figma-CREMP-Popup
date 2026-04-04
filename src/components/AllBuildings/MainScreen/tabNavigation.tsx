@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@mui/material';
 import PremiumTabs, { type PremiumTabOption } from '../../ui/PremiumTabs';
 
 type TabType = 'retail' | 'office' | 'coworking';
@@ -17,15 +16,14 @@ const premiumTabOptions: PremiumTabOption<TabType>[] = [
 
 const TabNavigation: React.FC<TabNavigationProps> = ({ selectedTab, onTabChange }) => {
   return (
-    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ width: '100%' }}>
-        <PremiumTabs
-          tabs={premiumTabOptions}
-          value={selectedTab}
-          onChange={onTabChange}
-        />
-      </Box>
-    </Box>
+    <div className="w-full flex flex-col">
+      <PremiumTabs
+        tabs={premiumTabOptions}
+        value={selectedTab}
+        onChange={onTabChange}
+        className="shadow-none drop-shadow-none" 
+      />
+    </div>
   );
 };
 
