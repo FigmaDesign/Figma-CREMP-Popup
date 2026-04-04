@@ -78,13 +78,7 @@ const coWorkUnits: CoWorkUnit[] = [
     price: '₹ 1.2 Lakh/mo',
     priceLabel: 'Full Suite',
   },
-  {
-    name: 'Hot Desk Area',
-    floor: '2nd Floor',
-    seats: '80 Seats',
-    price: '₹ 4,500/mo',
-    priceLabel: 'Per Seat',
-  },
+
 ];
 
 const CoWorkCard: React.FC<{ unit: CoWorkUnit }> = ({ unit }) => (
