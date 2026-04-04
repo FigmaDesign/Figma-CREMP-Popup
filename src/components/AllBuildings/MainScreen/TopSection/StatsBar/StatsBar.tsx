@@ -10,7 +10,7 @@ interface StatsBarProps {
 const StatsBar: React.FC<StatsBarProps> = ({ expanded, onToggle }) => {
   return (
     <div
-      className={`flex justify-around items-center py-2 bg-white shadow-xl shadow-[#1c2a44]/10 transition-all duration-500 ease-out ${expanded ? 'rounded-none shadow-none' : 'rounded-none'
+      className={`flex justify-around items-center py-2 bg-white transition-all duration-500 ease-out ${expanded ? 'rounded-none shadow-none' : 'rounded-none'
         }`}
     >
       {stats.map((stat, idx) => (

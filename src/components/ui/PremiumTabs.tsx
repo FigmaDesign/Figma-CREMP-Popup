@@ -12,7 +12,7 @@ interface PremiumTabsProps<T> {
 
 const PremiumTabs = <T extends string>({ tabs, value, onChange, className = '' }: PremiumTabsProps<T>) => {
   return (
-    <div className={`flex items-end w-full space-x-[-8px] px-1 pt-2 overflow-hidden isolate ${className}`}>
+    <div className={`flex items-end w-full space-x-[-8px] px-1 pt-1 overflow-hidden isolate ${className}`}>
       {tabs.map((tab, index) => {
         const isActive = tab.value === value;
         const activeGradId = `grad-active-${tab.value}`;

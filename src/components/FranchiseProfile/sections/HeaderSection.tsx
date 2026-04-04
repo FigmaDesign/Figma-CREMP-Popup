@@ -1,28 +1,33 @@
-// ...existing code...
+import React from 'react';
 import { Storefront, CheckCircle, Language, Instagram, LinkedIn } from '@mui/icons-material';
 import { data } from '../data';
 import { Card, Pill } from '../SharedUI';
 
 export default function HeaderSection({ isDesktop }: { isDesktop: boolean }) {
   return (
-    <>
+    <div className="flex flex-col gap-3">
       <Card>
-        <div className="flex items-start gap-[12px]">
-          <div className={`shrink-0 rounded-[6px] border border-[#d9dde3] flex items-center justify-center bg-gradient-to-br from-[#f5f6f8] to-[#eef0f3] ${isDesktop ? 'w-[64px] h-[64px]' : 'w-[52px] h-[52px]'}`}>
-            <Storefront style={{ fontSize: isDesktop ? 28 : 22, color: '#c9a34e' }} />
+        <div className={`flex items-start ${isDesktop ? 'gap-5' : 'gap-3'} mb-5`}>
+
+          {/* Brand Logo / Icon Box */}
+          <div className={`shrink-0 rounded border border-[#d9dde3] flex items-center justify-center bg-gradient-to-br from-[#f5f6f8] to-[#eef0f3] ${isDesktop ? 'w-[5rem] h-[5rem]' : 'w-[3.5rem] h-[3.5rem]'}`}>
+            <Storefront sx={{ fontSize: isDesktop ? '2.5rem' : '1.75rem', color: '#c9a34e' }} />
           </div>
 
-          <div className="flex-1 min-w-0 flex flex-col gap-[4px]">
-            <div className="flex items-center gap-[6px]">
-              <h1 className={`font-bold text-[#0f1f3d] m-0 leading-none truncate ${isDesktop ? 'text-[20px]' : 'text-[18px]'}`}>
+          {/* Brand Title & Categories */}
+          <div className="flex-1 min-w-0 flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <h1 className={`font-extrabold text-[#0f1f3d] m-0 leading-none truncate ${isDesktop ? 'text-[1.875rem]' : 'text-[1.25rem]'}`}>
                 {data.basicInfo.brandName}
               </h1>
-              <CheckCircle style={{ fontSize: 14, color: '#1f3b73', flexShrink: 0 }} />
+              <CheckCircle sx={{ fontSize: isDesktop ? '1.25rem' : '1rem', color: '#1f3b73', flexShrink: 0 }} />
             </div>
-            <p className="text-[#6b7280] text-[12px] font-normal m-0 leading-snug">
+
+            <p className={`text-[#6b7280] font-bold m-0 leading-snug ${isDesktop ? 'text-[1rem]' : 'text-[0.875rem]'}`}>
               {data.basicInfo.tagline}
             </p>
-            <div className="flex flex-wrap gap-[4px] mt-[4px]">
+
+            <div className={`flex flex-wrap ${isDesktop ? 'gap-3 mt-2' : 'gap-2 mt-1'}`}>
               {[data.basicInfo.category, data.basicInfo.subcategory, data.basicInfo.microCategory].map(t => (
                 <Pill key={t} text={t} />
               ))}
@@ -30,34 +35,39 @@ export default function HeaderSection({ isDesktop }: { isDesktop: boolean }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-[4px] text-[11px] text-[#6b7280] font-normal">
-          <span>Est. {data.basicInfo.establishedYear}</span>
-          <span className="text-[#d9dde3]">·</span>
-          <span>{data.basicInfo.headquarters}</span>
-        </div>
+        {/* Metadata & Socials Row */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#f1f5f9]">
 
-        <div className="flex flex-wrap items-center gap-x-[12px] gap-y-[4px]">
-          {[
-            { icon: <Language style={{ fontSize: 13 }} />, label: data.basicInfo.website },
-            { icon: <Instagram style={{ fontSize: 13 }} />, label: data.basicInfo.socialLinks.instagram },
-            { icon: <LinkedIn style={{ fontSize: 13 }} />, label: data.basicInfo.socialLinks.linkedin },
-          ].map((item, i) => (
-            <a key={i} href="#" className="flex items-center gap-[4px] text-[#c9a34e] text-[11px] font-medium hover:text-[#b8903c] transition-colors leading-none">
-              {item.icon}
-              {item.label}
-            </a>
-          ))}
+          <ul className={`flex items-center gap-6 text-[#6b7280] font-bold list-disc list-inside m-0 p-0 ${isDesktop ? 'text-[0.875rem]' : 'text-[0.75rem]'}`}>
+            <li>Est. {data.basicInfo.establishedYear}</li>
+            <li>{data.basicInfo.headquarters}</li>
+          </ul>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+            {[
+              { icon: <Language sx={{ fontSize: isDesktop ? '1.25rem' : '1rem' }} />, label: data.basicInfo.website },
+              { icon: <Instagram sx={{ fontSize: isDesktop ? '1.25rem' : '1rem' }} />, label: data.basicInfo.socialLinks.instagram },
+              { icon: <LinkedIn sx={{ fontSize: isDesktop ? '1.25rem' : '1rem' }} />, label: data.basicInfo.socialLinks.linkedin },
+            ].map((item, i) => (
+              <a key={i} href="#" className={`flex items-center gap-1.5 text-[#c9a34e] font-extrabold hover:text-[#b8903c] transition-colors leading-none ${isDesktop ? 'text-[0.875rem]' : 'text-[0.75rem]'}`}>
+                {item.icon}
+                {item.label}
+              </a>
+            ))}
+          </div>
+
         </div>
       </Card>
 
-      <div className="flex flex-wrap gap-[4px]">
+      {/* Concept Tags */}
+      <div className={`flex flex-wrap ${isDesktop ? 'gap-3' : 'gap-2'}`}>
         {data.conceptTags.map((tag, idx) => (
-          <div key={idx} className="inline-flex items-center gap-[4px] bg-white border border-[#d9dde3] rounded-[4px] px-[8px] h-[26px] text-[11px] font-semibold text-[#0f1f3d] shadow-[0_1px_2px_rgba(15,31,61,0.05)]">
-            <span className="w-[5px] h-[5px] rounded-full bg-gradient-to-br from-[#c9a34e] to-[#b8903c] shrink-0" />
+          <div key={idx} className={`inline-flex items-center gap-2 bg-white border border-[#d9dde3] rounded px-3 py-1.5 font-extrabold text-[#0f1f3d] shadow-sm ${isDesktop ? 'text-[0.875rem]' : 'text-[0.75rem]'}`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-[#c9a34e] to-[#b8903c] shrink-0" />
             {tag}
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }

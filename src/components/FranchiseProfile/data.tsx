@@ -73,6 +73,19 @@ export const data = {
     email: "franchise@brewandbites.demo",
     whatsapp: "+91 98765 43210"
   },
+  mapLocations: [
+    { city: "Mumbai", lat: 19.07, lng: 72.88, outlets: 8, active: true },
+    { city: "Delhi", lat: 28.61, lng: 77.21, outlets: 6, active: true },
+    { city: "Bengaluru", lat: 12.97, lng: 77.59, outlets: 5, active: true },
+    { city: "Pune", lat: 18.52, lng: 73.86, outlets: 4, active: true },
+    { city: "Hyderabad", lat: 17.39, lng: 78.49, outlets: 3, active: true },
+    { city: "Chennai", lat: 13.08, lng: 80.27, outlets: 3, active: true },
+    { city: "Ahmedabad", lat: 23.02, lng: 72.57, outlets: 2, active: true },
+    { city: "Jaipur", lat: 26.91, lng: 75.79, outlets: 2, active: false },
+    { city: "Kolkata", lat: 22.57, lng: 88.36, outlets: 1, active: false },
+    { city: "Lucknow", lat: 26.85, lng: 80.95, outlets: 0, active: false },
+    { city: "Chandigarh", lat: 30.74, lng: 76.79, outlets: 0, active: false },
+  ],
   support: [
     {
       category: "Setup & Launch",

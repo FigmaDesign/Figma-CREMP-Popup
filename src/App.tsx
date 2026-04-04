@@ -14,7 +14,7 @@ export default function App() {
   const isMobile = isMobileScreen || viewMode === 'mobile';
 
   return (
-    <Box className="min-h-screen flex flex-col bg-[#f5f6f8] overflow-x-hidden font-['Outfit']">
+    <Box className="flex flex-col h-screen bg-[#f5f6f8] overflow-hidden font-['Outfit']">
       <AppBar
         position="sticky"
         elevation={0}
@@ -30,37 +30,30 @@ export default function App() {
             </Typography>
           </Box>
 
-          {isMobile ? (
-            <Box className="flex-1 flex justify-center px-2">
-              <MainFrameNav 
-                activePage={activePage}
-                onPageChange={setActivePage}
-                activeSubPage={activeSubPage}
-                onSubPageChange={setActiveSubPage}
-              />
-            </Box>
-          ) : (
+          {!isMobileScreen ? (
             <>
               {activePage === 'franchise' && (
-                <Box className="flex bg-[#f5f6f8] border border-[#eef0f3] rounded-[6px] p-[2px] ml-4">
+                <Box className="absolute left-1/2 -translate-x-1/2 flex bg-[#f5f6f8] border border-[#eef0f3] rounded-[10px] p-[4px] shadow-sm">
                   <Button
                     onClick={() => setViewMode('desktop')}
-                    className={`px-4 py-1.5 min-w-0 rounded-[4px] flex items-center gap-[4px] text-xs font-semibold transition-all duration-300 ${viewMode === 'desktop'
-                        ? 'bg-gradient-to-br from-[#c9a34e] to-[#b8903c] text-[#ffffff] shadow-[0px_2px_8px_rgba(201,163,78,0.25)]'
-                        : 'text-[#637089] hover:bg-[#eef0f3] hover:text-[#0f1f3d] bg-transparent'
+                    className={`px-5 py-2 min-w-0 rounded-[8px] flex items-center gap-[8px] text-[0.75rem] font-bold transition-all duration-300 ${viewMode === 'desktop'
+                      ? 'bg-gradient-to-br from-[#c9a34e] to-[#b8903c] text-[#ffffff] shadow-md'
+                      : 'text-[#0f1f3d] hover:bg-[#c9a34e]/10 bg-transparent'
                       }`}
+                    sx={{ textTransform: 'none', fontFamily: 'Outfit' }}
                   >
-                    <DesktopWindows sx={{ fontSize: 16 }} />
+                    <DesktopWindows sx={{ fontSize: 18 }} />
                     Desktop View
                   </Button>
                   <Button
                     onClick={() => setViewMode('mobile')}
-                    className={`px-4 py-1.5 min-w-0 rounded-[4px] flex items-center gap-[4px] text-xs font-semibold transition-all duration-300 ${(viewMode as string) === 'mobile'
-                        ? 'bg-gradient-to-br from-[#c9a34e] to-[#b8903c] text-[#ffffff] shadow-[0px_2px_8px_rgba(201,163,78,0.25)]'
-                        : 'text-[#637089] hover:bg-[#eef0f3] hover:text-[#0f1f3d] bg-transparent'
+                    className={`px-5 py-2 min-w-0 rounded-[8px] flex items-center gap-[8px] text-[0.75rem] font-bold transition-all duration-300 ${viewMode === 'mobile'
+                      ? 'bg-gradient-to-br from-[#c9a34e] to-[#b8903c] text-[#ffffff] shadow-md'
+                      : 'text-[#0f1f3d] hover:bg-[#c9a34e]/10 bg-transparent'
                       }`}
+                    sx={{ textTransform: 'none', fontFamily: 'Outfit' }}
                   >
-                    <Smartphone sx={{ fontSize: 16 }} />
+                    <Smartphone sx={{ fontSize: 18 }} />
                     Mobile View
                   </Button>
                 </Box>
@@ -99,23 +92,38 @@ export default function App() {
                       Franchise Profile
                     </MenuItem>
                     <MenuItem value="mainframe" className="font-['Outfit'] text-sm font-medium text-[#0f1f3d]">
-                      Main Frame (All Buildings)
+                      POPUP(Dialog)
                     </MenuItem>
                   </Select>
                 </FormControl>
               </Box>
             </>
+          ) : (
+            <Box className="flex-1 flex justify-center px-2">
+              <MainFrameNav
+                activePage={activePage}
+                onPageChange={setActivePage}
+                activeSubPage={activeSubPage}
+                onSubPageChange={setActiveSubPage}
+              />
+            </Box>
           )}
         </Toolbar>
       </AppBar>
 
-      <Box component="main" className="flex-1 flex flex-col w-full relative">
+      <Box
+        component="main"
+        className="flex-1 flex flex-col w-full relative overflow-y-auto"
+        sx={{ height: 'calc(100vh - 64px)' }}
+      >
         {activePage === 'franchise' ? (
-          <FranchiseProfile viewMode={viewMode} />
+          <Box className="flex-1 flex flex-col">
+            <FranchiseProfile viewMode={viewMode} />
+          </Box>
         ) : (
-          <MainFrame 
-            subPage={activeSubPage} 
-            onSubPageChange={setActiveSubPage} 
+          <MainFrame
+            subPage={activeSubPage}
+            onSubPageChange={setActiveSubPage}
             isMobile={isMobile}
           />
         )}

@@ -30,7 +30,7 @@ const MainScreen: React.FC = () => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: 'var(--bg-app)',
+        backgroundColor: 'var(--bg-app, #ffffff)',
       }}
     >
       <Box
@@ -42,29 +42,29 @@ const MainScreen: React.FC = () => {
           flexDirection: 'column',
           gap: '4px',
           padding: '4px',
-          '&::-webkit-scrollbar': { 
-            width: '4px' 
+          '&::-webkit-scrollbar': {
+            width: '4px'
           },
           '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'var(--border-default)',
+            backgroundColor: 'var(--border-default, #cbd5e1)',
             borderRadius: '4px',
           },
         }}
       >
         <TopSection />
-        
+
+        <div className="pt-1 pb-1 px-2 flex items-center gap-2">
+          <div className="w-1 h-[18px] bg-gradient-to-b from-[#1c2a44] to-[#D4AF37] rounded" />
+          <h1 className="m-0 text-[1.1rem] font-extrabold text-[#1c2a44] tracking-tight">
+            Active Listings
+          </h1>
+        </div>
+
         <TabNavigation selectedTab={selectedTab} onTabChange={setSelectedTab} />
-        
-        <Box 
-          sx={{ 
-            paddingBottom: '12px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '4px',
-          }}
-        >
+
+        <div className="pb-3 flex flex-col gap-1">
           {renderTabContent()}
-        </Box>
+        </div>
       </Box>
     </Box>
   );
