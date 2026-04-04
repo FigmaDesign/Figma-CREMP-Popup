@@ -84,17 +84,17 @@ const Specifications: React.FC = () => {
   const activeGroup = specificationGroups.find((g) => g.id === tabValue) ?? specificationGroups[0];
 
   return (
-    <div className="w-full max-w-lg border-none">
-      <div className="bg-white flex flex-col">
+    <div className="w-full border-none">
+      <div className="bg-white flex flex-col rounded-none">
 
-        <div className="px-1 pt-1 pb-[2px] flex items-center gap-1.5 bg-white z-10 relative">
+        <div className="px-4 pt-1 pb-[2px] flex items-center gap-1.5 bg-white z-10 relative">
           <div className="w-1 h-4 bg-[#1c2a44] rounded-[2px]" />
-          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight">
+          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight ">
             Specifications
           </h3>
         </div>
 
-        <div className="flex items-end w-full space-x-[-12px] px-1 pt-[2px] pb-[2px] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] bg-[#ffffff] mb-1">
+        <div className="flex items-end w-full space-x-[-12px] px-2 pt-[2px] pb-[2px] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] bg-[#ffffff] mb-1">
           {specificationGroups.map((group, index) => {
             const isActive = group.id === tabValue;
             const activeGradId = `grad-spec-${group.id}`;
@@ -144,7 +144,7 @@ const Specifications: React.FC = () => {
         </div>
 
         {/* Added Border properties here for the "Table" Grid */}
-        <div className="p-2 grid grid-cols-2 gap-x-1 gap-y-1 bg-white relative z-10 ">
+        <div className="px-4 pb-2 grid grid-cols-2 gap-x-2 gap-y-1 bg-white relative z-10">
           {activeGroup.items.map((item, idx) => (
             <SpecificationCard key={idx} item={item} />
           ))}

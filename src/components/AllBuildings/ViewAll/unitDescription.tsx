@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {
-  SquareFoot, Straighten, Layers, Height, Explore, AspectRatio,
-  DashboardCustomize, Map, Storefront, Signpost, LocalParking,
+  SquareFoot, Height, Explore, AspectRatio,
+  DashboardCustomize, Storefront, LocalParking,
   BatteryChargingFull, Wc, FireExtinguisher, EventAvailable,
-  Numbers, LocationCity, Power, WaterDrop
+  Numbers, Power, WaterDrop
 } from '@mui/icons-material';
 
 type DescriptionTab = 'size' | 'facilities' | 'availability';
@@ -80,17 +80,17 @@ const UnitDescription: React.FC = () => {
   const activeGroup = descriptionGroups.find((g) => g.id === tabValue) ?? descriptionGroups[0];
 
   return (
-    <div className="p-[2px] w-full max-w-lg">
-      <div className="bg-white rounded-[4px]  overflow-hidden flex flex-col">
+    <div className="p-0 w-full">
+      <div className="bg-white rounded-none overflow-hidden flex flex-col">
 
-        <div className="px-1 pt-1 pb-[2px] flex items-center gap-1.5 bg-white z-10 relative">
+        <div className="px-4 pt-1 pb-[2px] flex items-center gap-1.5 bg-white z-10 relative">
           <div className="w-1 h-4 bg-[#1c2a44] rounded-[2px]" />
-          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight">
-            Unit Specifications
+          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight ">
+            Unit Details
           </h3>
         </div>
 
-        <div className="flex items-end w-full space-x-[-12px] px-1 pt-[2px] pb-[2px] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] bg-[#ffffff] mb-1">
+        <div className="flex items-end w-full space-x-[-12px] px-2 pt-[4px] pb-[2px] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] bg-[#ffffff] mb-1">
           {descriptionGroups.map((group, index) => {
             const isActive = group.id === tabValue;
             const activeGradId = `grad-active-${group.id}`;
@@ -139,7 +139,7 @@ const UnitDescription: React.FC = () => {
           })}
         </div>
 
-        <div className="px-1 pb-1 grid grid-cols-2 gap-x-1 gap-y-[2px] bg-white relative z-10">
+        <div className="px-4 pb-1 grid grid-cols-2 gap-x-2 gap-y-[6px] bg-white relative z-10">
           {activeGroup.items.map((item, idx) => (
             <DescriptionCard key={idx} item={item} />
           ))}

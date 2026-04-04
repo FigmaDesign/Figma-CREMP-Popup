@@ -15,17 +15,17 @@ const summaryItems: SummaryItem[] = [
 
 const InvestmentSummary: React.FC = () => {
   return (
-    <div className="p-[2px] w-full max-w-lg">
-      <div className="bg-white rounded-[4px] p-1 flex flex-col">
+    <div className="p-0 w-full">
+      <div className="bg-white rounded-none flex flex-col">
 
-        <div className="px-1 pt-1 pb-[2px] flex items-center gap-1.5 mb-1">
+        <div className="px-4 pt-1 pb-[2px] flex items-center gap-1.5 mb-1">
           <div className="w-1 h-4 bg-[#1c2a44] rounded-[2px]" />
-          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight">
+          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight ">
             Investment Summary
           </h3>
         </div>
 
-        <div className="grid grid-cols-2 gap-1 px-1 pb-1">
+        <div className="grid grid-cols-2 gap-1.5 px-4 pb-2">
           {summaryItems.map((item, idx) => (
             <div
               key={idx}
@@ -34,7 +34,7 @@ const InvestmentSummary: React.FC = () => {
                 : ' hover:bg-white hover:hover:border-[#1c2a44]/10 bg-[#f8fafc]'
                 }`}
             >
-              <span className="text-[0.55rem] font-bold text-[#6B7280] tracking-wider uppercase mb-0.5 leading-tight">
+              <span className="text-[0.55rem] font-bold text-[#6B7280] tracking-wider  mb-0.5 leading-tight">
                 {item.label}
               </span>
               <span

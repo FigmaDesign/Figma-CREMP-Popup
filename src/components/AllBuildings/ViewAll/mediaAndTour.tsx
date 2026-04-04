@@ -10,19 +10,19 @@ const thumbnails = [
 
 const MediaAndTour: React.FC = () => {
   return (
-    <div className="p-[2px] w-full max-w-lg">
-      <div className="bg-white rounded-[4px] p-1 flex flex-col">
+    <div className="p-0 w-full">
+      <div className="bg-white rounded-none flex flex-col pb-2">
 
         {/* Header */}
-        <div className="px-1 pt-1 pb-[2px] flex items-center gap-1.5">
+        <div className="px-4 pt-1 pb-[2px] flex items-center gap-1.5">
           <div className="w-1 h-4 bg-[#1c2a44] rounded-[2px]" />
-          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight">
+          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight ">
             Media & Tours
           </h3>
         </div>
 
         {/* Main Featured Image / Video */}
-        <div className="relative w-full h-[180px] rounded-[4px] border border-[#1c2a44]/10 overflow-hidden mb-1 mt-1">
+        <div className="relative w-full h-[180px] border-y border-[#1c2a44]/10 overflow-hidden mb-1 mt-1">
           <img
             src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
             alt="Media Preview"
@@ -41,7 +41,7 @@ const MediaAndTour: React.FC = () => {
         </div>
 
         {/* Thumbnails Row */}
-        <div className="flex gap-1 p-[2px] w-full">
+        <div className="flex gap-1 p-0 w-full px-4">
           {thumbnails.map((thumb, idx) => (
             <div
               key={idx}

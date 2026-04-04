@@ -13,16 +13,16 @@ const SuitedFor: React.FC = () => {
   const tagsToShow = expanded ? allTags : allTags.slice(0, 4);
 
   return (
-    <div className="p-[2px] w-full max-w-lg">
-      <div className="bg-white rounded-[4px]  p-1 flex flex-col">
-        <div className="px-1 pt-1 pb-[2px] flex items-center gap-1.5 mb-1">
+    <div className="p-0 w-full">
+      <div className="bg-white rounded-none flex flex-col">
+        <div className="px-4 pt-1 pb-[2px] flex items-center gap-1.5 mb-1">
           <div className="w-1 h-4 bg-[#1c2a44] rounded-[2px]" />
-          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight">
+          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight ">
             Suited For
           </h3>
         </div>
 
-        <div className="flex flex-wrap gap-1.5 px-1 pb-1">
+        <div className="flex flex-wrap gap-1.5 px-4 pb-1">
           {tagsToShow.map((tag, idx) => (
             <div
               key={idx}

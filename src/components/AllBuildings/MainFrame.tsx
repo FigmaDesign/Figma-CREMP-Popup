@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 import LeftPanel from './MainScreen/left';
 import MainScreen from './MainScreen';
 import { ViewAll } from './ViewAll';
 import LandMainFrame from '../Land/LandMainFrame';
 
-const MainFrame: React.FC = () => {
-  const [activePage, setActivePage] = useState<string>('main');
+interface MainFrameProps {
+  subPage: string;
+  onSubPageChange: (page: string) => void;
+  isMobile: boolean;
+}
+
+const MainFrame: React.FC<MainFrameProps> = ({ subPage, onSubPageChange, isMobile }) => {
 
   const renderContent = () => {
-    switch (activePage) {
+    switch (subPage) {
       case 'main':
         return <MainScreen />;
       case 'viewAll':
-        return <ViewAll onBack={() => setActivePage('main')} />;
+        return <ViewAll onBack={() => onSubPageChange('main')} />;
       case 'landMain':
-        return <LandMainFrame initialPage="main" onBack={() => setActivePage('landMain')} />;
+        return <LandMainFrame initialPage="main" onBack={() => onSubPageChange('landMain')} />;
       case 'landViewAll':
-        return <LandMainFrame initialPage="viewAll" onBack={() => setActivePage('landMain')} />;
+        return <LandMainFrame initialPage="viewAll" onBack={() => onSubPageChange('landMain')} />;
       default:
         return <MainScreen />;
     }
@@ -35,7 +40,9 @@ const MainFrame: React.FC = () => {
       }}
     >
       {/* LEFT NAVIGATION PANEL */}
-      <LeftPanel activePage={activePage} onPageSelect={setActivePage} />
+      {!isMobile && (
+        <LeftPanel activePage={subPage} onPageSelect={onSubPageChange} />
+      )}
 
       {/* CENTER MOBILE VIEWPORT AREA */}
       <Box
@@ -44,22 +51,25 @@ const MainFrame: React.FC = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '20px',
+          padding: isMobile ? '0px' : '20px',
           height: '100%',
+          backgroundColor: '#f8fafc',
         }}
       >
         {/* THE "MOBILE PHONE" BOX */}
         <Box
           sx={{
-            width: 360,
-            height: '100%',
-            maxHeight: '800px',
+            width: isMobile ? '100%' : 360,
+            maxWidth: isMobile ? '450px' : 360,
+            minWidth: isMobile ? '320px' : 360,
+            height: isMobile ? '100%' : 'calc(100% - 40px)',
+            maxHeight: isMobile ? '100%' : '800px',
             backgroundColor: 'var(--bg-card)',
-            border: '1px solid rgba(198, 156, 68, 0.25)',
-            borderRadius: '16px',
+            border: isMobile ? 'none' : '1px solid rgba(198, 156, 68, 0.25)',
+            borderRadius: isMobile ? '0' : '16px',
             display: 'flex',
             flexDirection: 'column',
-            boxShadow: '0 32px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(198, 156, 68, 0.12), inset 0 1px 0 rgba(255,255,255,0.06)',
+            boxShadow: isMobile ? 'none' : '0 32px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(198, 156, 68, 0.12), inset 0 1px 0 rgba(255,255,255,0.06)',
             position: 'relative',
             overflow: 'hidden',
           }}

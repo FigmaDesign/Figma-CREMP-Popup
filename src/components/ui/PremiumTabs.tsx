@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 export type PremiumTabOption<T> = {
   label: string;

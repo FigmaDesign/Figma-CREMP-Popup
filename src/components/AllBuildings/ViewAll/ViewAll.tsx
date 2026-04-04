@@ -1,11 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import {
-  SquareFoot, Straighten, Layers, Height, Explore, AspectRatio,
-  DashboardCustomize, Map, Storefront, Signpost, LocalParking,
-  BatteryChargingFull, Wc, FireExtinguisher, EventAvailable,
-  Numbers, LocationCity, Power, WaterDrop
-} from '@mui/icons-material';
+import { Layers } from '@mui/icons-material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -202,36 +197,35 @@ const ViewAll: React.FC<ViewAllProps> = ({ onBack }) => {
 
 
         {/* Unit Summary Section */}
-        <div className="p-1 bg-white mb-1">
-          <div className="flex justify-between items-start mb-1 px-1">
+        <div className="p-0 bg-white mb-2 pb-2">
+          <div className="flex justify-between items-start mb-2 px-4">
             <div>
-              <h2 className="text-[1.125rem] font-bold text-[#1c2a44] leading-tight">
+              <h2 className="text-[1.125rem] font-extrabold text-[#1c2a44] leading-tight">
                 Retail Unit A105
               </h2>
               <div className="flex items-center gap-1 mt-[2px]">
-                <span className="text-[0.75rem] text-[#1c2a44]/70">
+                <span className="text-[0.75rem] text-[#1c2a44]/70 font-medium">
                   XYZ Mall, Manhattan
                 </span>
               </div>
             </div>
 
-            <div className="px-1 py-[2px] bg-[#D4AF37]/10 rounded border border-[#D4AF37]/30">
-              <span className="text-[0.65rem] font-bold text-[#D4AF37]  tracking-wider">
+            <div className="px-2 py-[2px] bg-[#D4AF37]/10 rounded border border-[#D4AF37]/30">
+              <span className="text-[0.65rem] font-bold text-[#D4AF37] tracking-wider ">
                 Available
               </span>
             </div>
           </div>
 
-          <div className="flex gap-1 mt-1">
+          <div className="flex gap-1.5 mt-2 px-4">
             <KeyIconItem icon={<StorefrontIcon sx={{ fontSize: 16 }} />} value="25 ft" label="Frontage" />
-
             <KeyIconItem icon={<Layers sx={{ fontSize: 14 }} />} value="Ground" label="Floor" />
             <KeyIconItem icon={<VisibilityIcon sx={{ fontSize: 16 }} />} value="Main Road" label="Visibility" />
           </div>
         </div>
 
         {/* Detailed Sections */}
-        <div className="flex flex-col gap-1 pb-4">
+        <div className="flex flex-col gap-2 pb-6">
           <div ref={unitDescRef}>
             <UnitDescription />
           </div>
