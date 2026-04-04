@@ -46,7 +46,7 @@ const officeUnits: OfficeUnitData[] = [
 ];
 
 const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
-  <div className="flex flex-col rounded-md border border-[#1c2a44]/10 shadow-sm shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[2px] hover:shadow-md hover:shadow-[#1c2a44]/10">
+  <div className="flex flex-col rounded-md border border-[#1c2a44]/10 shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[2px] hover:shadow-md hover:shadow-[#1c2a44]/10">
     <div className="relative h-[110px] bg-[#f8fafc]">
       <img
         src={unit.image}
@@ -62,7 +62,7 @@ const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
         </div>
       )}
 
-    <div className="absolute top-1/2 left-1 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full cursor-pointer z-20 transition-colors">
+      <div className="absolute top-1/2 left-1 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full cursor-pointer z-20 transition-colors">
         <ChevronLeftIcon sx={{ color: '#FFFFFF', fontSize: 16 }} />
       </div>
       <div className="absolute top-1/2 right-1 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full cursor-pointer z-20 transition-colors">
@@ -82,7 +82,7 @@ const OfficeCard: React.FC<{ unit: OfficeUnitData }> = ({ unit }) => (
       <h4 className="text-[0.85rem] font-bold text-[#1c2a44] leading-tight">
         {unit.name}
       </h4>
-      
+
       <div className="flex items-center gap-1 mt-1">
         <span className="text-[0.65rem] text-[#1c2a44]/70">
           {unit.floor} | {unit.area}

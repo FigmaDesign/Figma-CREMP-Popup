@@ -3,7 +3,6 @@ export { default as Highlights } from './highlights';
 export { default as TabNavigation } from './tabNavigation';
 export { default as UnitDescription } from './unitDescription';
 export { default as MediaAndTour } from './mediaAndTour';
-export { default as Facilities } from './facilities';
 export { default as SuitedFor } from './suitedFor';
 export { default as InvestmentSummary } from './investmentSummary';
 export { default as Footer } from './footer';

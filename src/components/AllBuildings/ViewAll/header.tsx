@@ -1,5 +1,4 @@
-// ...existing code...
-import { Box, IconButton } from '@mui/material';
+import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface HeaderProps {
@@ -8,60 +7,46 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onBack }) => {
   return (
-    <Box sx={{ padding: '4px' }}>
-      <Box
-        sx={{
-          position: 'relative',
-          width: '100%',
-          height: 220,
-          overflow: 'hidden',
-          borderRadius: '4px',
-          border: '1px solid var(--border-default)',
-        }}
-      >
-        <Box
-          component="img"
+    <div className="p-1">
+      <div className="relative w-full h-[260px] overflow-hidden rounded-md border border-[#1c2a44]/10 shadow-md group">
+
+        <img
           src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80"
-          alt="Retail Unit Hero, XYZ Plaza Hyderabad"
-          sx={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            display: 'block',
-          }}
+          alt="Retail Unit Hero"
+          className="w-full h-full object-cover block transition-transform duration-1000 group-hover:scale-105"
         />
 
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: '50%',
-            background: 'linear-gradient(to top, rgba(15, 26, 44, 0.85) 0%, transparent 100%)',
-          }}
-        />
-
-        <IconButton
-          disableRipple
+        <button
           onClick={onBack}
-          sx={{
-            position: 'absolute',
-            top: '4px',
-            left: '4px',
-            backgroundColor: 'var(--bg-card)',
-            width: 32,
-            height: 32,
-            borderRadius: '4px',
-            border: '1px solid var(--border-default)',
-            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
-            color: 'var(--text-main)',
-          }}
+          className="absolute top-2 left-2 w-7 h-7 flex items-center justify-center rounded bg-[#1c2a44]/40 backdrop-blur-md border border-white/20 text-white cursor-pointer transition-all hover:bg-[#1c2a44]/60 z-20"
+          aria-label="Go Back"
         >
-          <ArrowBackIcon sx={{ fontSize: 16, color: 'inherit' }} />
-        </IconButton>
-      </Box>
-    </Box>
+          <ArrowBackIcon sx={{ fontSize: 16, color: 'white' }} />
+        </button>
+
+        <div className="absolute bottom-0 left-0 right-0 bg-[#1A376C]/60 backdrop-blur-md flex items-center py-2 px-1 text-white z-10 border-t border-white/10 rounded-b-md">
+
+          <div className="flex-1 flex flex-col items-center border-r border-white/10">
+            <div className="flex items-baseline">
+              <span className="text-[1rem] font-bold leading-none tracking-tight drop-shadow-md">1,200</span>
+              <span className="text-[0.5rem] font-semibold opacity-90 drop-ml-0.5">sq.ft.</span>
+            </div>
+            <span className="text-[0.55rem] font-medium opacity-90 leading-none mt-0.5">Size</span>
+          </div>
+
+          <div className="flex-1 flex flex-col items-center border-r border-white/10">
+            <span className="text-[1rem] font-bold leading-none tracking-tight drop-shadow-md">₹ 2.5 Cr</span>
+            <span className="text-[0.55rem] font-medium opacity-90 leading-none mt-0.5">Sale Value</span>
+          </div>
+
+          <div className="flex-1 flex flex-col items-center">
+            <span className="text-[1rem] font-bold leading-none tracking-tight text-[#D4AF37] drop-shadow-md">8%</span>
+            <span className="text-[0.55rem] font-medium opacity-90 leading-none mt-0.5">Yield</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
   );
 };
 

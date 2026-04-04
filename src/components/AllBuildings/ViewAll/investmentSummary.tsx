@@ -1,5 +1,4 @@
-// ...existing code...
-import { Box, Typography, Stack } from '@mui/material';
+import React from 'react';
 
 interface SummaryItem {
   label: string;
@@ -11,78 +10,45 @@ const summaryItems: SummaryItem[] = [
   { label: 'Sale price', value: '₹ 1,250,000' },
   { label: 'Monthly income', value: '₹ 80,000' },
   { label: 'Net yield', value: '8%', highlight: true },
-  { label: 'Stamp Duty & Registration', value: 'Applicable' },
+  { label: 'Stamp Duty & Reg.', value: 'Applicable' },
 ];
 
 const InvestmentSummary: React.FC = () => {
   return (
-    <Box sx={{ padding: '4px', textAlign: 'left' }}>
-      <Box
-        sx={{
-          padding: '12px',
-          borderRadius: '6px',
-          border: '1px solid #E5E7EB',
-          backgroundColor: '#FFFFFF',
-          boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.03)',
-          transition: 'all 0.3s ease',
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: '0.875rem',
-            fontWeight: 600,
-            color: '#1C2A44', // Premium Navy
-            marginBottom: '12px',
-            letterSpacing: '0.01em',
-            paddingLeft: '4px',
-          }}
-        >
-          Investment summary
-        </Typography>
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '8px',
-          }}
-        >
+    <div className="p-[2px] w-full max-w-lg">
+      <div className="bg-white rounded-[4px] p-1 flex flex-col">
+
+        <div className="px-1 pt-1 pb-[2px] flex items-center gap-1.5 mb-1">
+          <div className="w-1 h-4 bg-[#1c2a44] rounded-[2px]" />
+          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight">
+            Investment Summary
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-2 gap-1 px-1 pb-1">
           {summaryItems.map((item, idx) => (
-            <Stack 
-              key={idx} 
-              spacing="4px"
-              sx={{
-                padding: '10px 12px',
-                borderRadius: '6px',
-              border: item.highlight ? '1px solid rgba(200, 155, 60, 0.2)' : '1px solid var(--border-default)',
-              backgroundColor: item.highlight ? '#FFFCF5' : '#F9FAFB',
-              cursor: 'default',
-              }}
+            <div
+              key={idx}
+              className={`flex flex-col justify-center px-2 py-1.5 rounded-[4px] cursor-default transition-all duration-200 ${item.highlight
+                ? 'hover:border-[#C89B3C]/30 bg-[#FFFCF5] shadow-[0_1px_2px_rgba(200,155,60,0.05)]'
+                : ' hover:bg-white hover:hover:border-[#1c2a44]/10 bg-[#f8fafc]'
+                }`}
             >
-              <Typography 
-                sx={{ 
-                  fontSize: '0.65rem', 
-                  color: '#6B7280', // Refined muted gray
-                  letterSpacing: '0.04em',
-                  fontWeight: 600,
-                }}
-              >
+              <span className="text-[0.55rem] font-bold text-[#6B7280] tracking-wider uppercase mb-0.5 leading-tight">
                 {item.label}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: '0.95rem',
-                  fontWeight: 700,
-                  color: item.highlight ? '#C89B3C' : '#1C2A44', // Gold for highlight, Navy for standard
-                  transition: 'color 150ms ease-in-out',
-                }}
+              </span>
+              <span
+                className={`text-[0.85rem] font-extrabold tracking-tight leading-none ${item.highlight ? 'text-[#C89B3C]' : 'text-[#1c2a44]'
+                  }`}
               >
                 {item.value}
-              </Typography>
-            </Stack>
+              </span>
+            </div>
           ))}
-        </Box>
-      </Box>
-    </Box>
+        </div>
+
+      </div>
+    </div>
   );
 };
 

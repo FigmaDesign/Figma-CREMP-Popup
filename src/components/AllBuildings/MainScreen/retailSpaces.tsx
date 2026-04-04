@@ -6,7 +6,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 const FeaturedCard: React.FC = () => (
   <div className="relative flex items-stretch h-[140px]  rounded-[4px] border border-[#1c2a44]/10 border-t-0 shadow-md shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-[#1c2a44]/10 group overflow-hidden">
-    <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#1c2a44] via-[#3b5998] to-[#D4AF37] z-10 "  />
+    <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#1c2a44] via-[#3b5998] to-[#D4AF37] z-10 " />
 
     <div className="flex-1 flex flex-col justify-between p-2">
       <div>
@@ -92,7 +92,7 @@ const retailCards: UnitCardData[] = [
 ];
 
 const UnitCard: React.FC<{ unit: UnitCardData }> = ({ unit }) => (
-  <div className="flex flex-col rounded-md border border-[#1c2a44]/10 shadow-sm shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[2px] hover:shadow-md hover:shadow-[#1c2a44]/10">
+  <div className="flex flex-col rounded-md border border-[#1c2a44]/10 shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[2px] hover:shadow-md hover:shadow-[#1c2a44]/10">
     <div className="relative h-[110px] bg-[#f8fafc]">
       <img
         src={unit.image}
@@ -108,7 +108,7 @@ const UnitCard: React.FC<{ unit: UnitCardData }> = ({ unit }) => (
         </div>
       )}
 
-    <div className="absolute top-1/2 left-1 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full cursor-pointer z-20 transition-colors">
+      <div className="absolute top-1/2 left-1 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full cursor-pointer z-20 transition-colors">
         <ChevronLeftIcon sx={{ color: '#FFFFFF', fontSize: 16 }} />
       </div>
       <div className="absolute top-1/2 right-1 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#1c2a44]/40 hover:bg-[#1c2a44]/80 rounded-full cursor-pointer z-20 transition-colors">
@@ -128,7 +128,7 @@ const UnitCard: React.FC<{ unit: UnitCardData }> = ({ unit }) => (
       <h4 className="text-[0.85rem] font-bold text-[#1c2a44] leading-tight">
         {unit.name}
       </h4>
-      
+
       <div className="flex items-center gap-1 mt-1">
         <span className="text-[0.65rem] text-[#1c2a44]/70">
           {unit.floor}
@@ -136,14 +136,14 @@ const UnitCard: React.FC<{ unit: UnitCardData }> = ({ unit }) => (
         </span>
       </div>
 
-        <div className="flex items-baseline gap-1 mt-1">
-      <span className="text-[0.8rem] font-semibold text-[#1c2a44]/70">
-        {unit.priceLabel}:
-      </span>
-      <span className="text-[0.9rem] font-bold text-[#1c2a44]">
-        {unit.price}
-      </span>
-    </div>
+      <div className="flex items-baseline gap-1 mt-1">
+        <span className="text-[0.8rem] font-semibold text-[#1c2a44]/70">
+          {unit.priceLabel}:
+        </span>
+        <span className="text-[0.9rem] font-bold text-[#1c2a44]">
+          {unit.price}
+        </span>
+      </div>
 
       <div className="mt-1 flex items-center justify-center gap-6 p-1  rounded bg-[#1c2a44] text-white cursor-pointer hover:bg-[#111A2B] transition-colors group [&:hover_.chevron-icon]:!hidden [&:hover_.arrow-icon]:!block">
         <span className="text-[0.7rem] font-semibold tracking-wide text-white">

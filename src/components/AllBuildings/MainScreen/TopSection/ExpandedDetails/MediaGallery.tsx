@@ -29,7 +29,7 @@ const MediaGallery: React.FC = () => {
         {mediaThumbs.images.slice(0, 4).map((src, i) => (
           <div
             key={i}
-            className="relative aspect-[4/3] rounded-[4px] overflow-hidden cursor-pointer shadow-sm shadow-[#1c2a44]/10 group bg-gray-100"
+            className="relative aspect-[4/3] rounded-[4px] overflow-hidden cursor-pointer shadow-[#1c2a44]/10 group bg-gray-100"
           >
             <img
               src={src}

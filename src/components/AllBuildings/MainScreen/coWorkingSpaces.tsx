@@ -82,7 +82,7 @@ const coWorkUnits: CoWorkUnit[] = [
 ];
 
 const CoWorkCard: React.FC<{ unit: CoWorkUnit }> = ({ unit }) => (
-  <div className="flex flex-col rounded-md border border-[#1c2a44]/10 shadow-sm shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[2px] hover:shadow-md hover:shadow-[#1c2a44]/10">
+  <div className="flex flex-col rounded-md border border-[#1c2a44]/10 shadow-[#1c2a44]/5 bg-white transition-all duration-300 hover:-translate-y-[2px] hover:shadow-md hover:shadow-[#1c2a44]/10">
     <div className="relative h-[110px] bg-[#f8fafc] overflow-hidden">
       <img
         src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=400&q=80"
@@ -95,21 +95,21 @@ const CoWorkCard: React.FC<{ unit: CoWorkUnit }> = ({ unit }) => (
       <h4 className="text-[0.85rem] font-bold text-[#1c2a44] leading-tight">
         {unit.name}
       </h4>
-      
+
       <div className="flex items-center gap-1 mt-1">
         <span className="text-[0.65rem] text-[#1c2a44]/70">
           {unit.floor} <span className="text-[#D4AF37]">•</span> {unit.seats}
         </span>
       </div>
 
-       <div className="flex items-baseline gap-1 mt-1">
-      <span className="text-[0.8rem] font-semibold text-[#1c2a44]/70 tracking-wide">
-        {unit.priceLabel}: 
-      </span>
-      <span className="text-[0.9rem] font-bold text-[#1c2a44] mt-1">
-        {unit.price}
-      </span>
-       </div>
+      <div className="flex items-baseline gap-1 mt-1">
+        <span className="text-[0.8rem] font-semibold text-[#1c2a44]/70 tracking-wide">
+          {unit.priceLabel}:
+        </span>
+        <span className="text-[0.9rem] font-bold text-[#1c2a44] mt-1">
+          {unit.price}
+        </span>
+      </div>
 
       <div className="mt-1 flex items-center justify-center gap-6 p-1 rounded bg-[#1c2a44] text-white cursor-pointer hover:bg-[#111A2B] transition-colors group [&:hover_.chevron-icon]:!hidden [&:hover_.arrow-icon]:!block">
         <span className="text-[0.7rem] font-semibold tracking-wide text-white">

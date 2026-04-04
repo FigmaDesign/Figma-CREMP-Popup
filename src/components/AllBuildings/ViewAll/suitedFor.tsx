@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Chip } from '@mui/material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { CheckCircle, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 
 const allTags = [
   'Apparel & Fashion', 'Luxury Watches', 'Electronics', 'F&B', 'Salon / Spa', 'Pharmacy',
@@ -13,99 +10,53 @@ const allTags = [
 const SuitedFor: React.FC = () => {
   const [expanded, setExpanded] = useState(false);
 
-  // Show 4 items initially to form a nice grid-like wrap before hiding the rest
   const tagsToShow = expanded ? allTags : allTags.slice(0, 4);
 
   return (
-    <Box sx={{ padding: '4px', textAlign: 'left' }}>
-      <Box
-        sx={{
-          padding: '12px',
-          borderRadius: '6px',
-          backgroundColor: '#FFFFFF',
-          border: '1px solid #E5E7EB',
-          boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.03)',
-          transition: 'all 0.3s ease',
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: '0.875rem',
-            fontWeight: 600,
-            color: '#1C2A44',
-            marginBottom: '10px',
-            letterSpacing: '0.01em',
-          }}
-        >
-          Suited for
-        </Typography>
+    <div className="p-[2px] w-full max-w-lg">
+      <div className="bg-white rounded-[4px]  p-1 flex flex-col">
+        <div className="px-1 pt-1 pb-[2px] flex items-center gap-1.5 mb-1">
+          <div className="w-1 h-4 bg-[#1c2a44] rounded-[2px]" />
+          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight">
+            Suited For
+          </h3>
+        </div>
 
-        <Box
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '8px',
-          }}
-        >
+        <div className="flex flex-wrap gap-1.5 px-1 pb-1">
           {tagsToShow.map((tag, idx) => (
-            <Chip
+            <div
               key={idx}
-              icon={<CheckCircleIcon sx={{ fontSize: 16, color: '#C89B3C !important' }} />}
-              label={tag}
-              variant="outlined"
-              sx={{
-                borderRadius: '6px',
-                borderColor: '#E5E7EB',
-                backgroundColor: '#F9FAFB',
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                color: '#4B5563',
-                height: 30,
-                transition: 'all 0.2s ease-in-out',
-                cursor: 'default',
-                '& .MuiChip-label': {
-                  paddingLeft: '6px',
-                  paddingRight: '10px',
-                },
-                '& .MuiChip-icon': {
-                  marginLeft: '8px',
-                },
-              }}
-            />
+              className="flex items-center gap-1 px-1.5 py-[3px] bg-[#f8fafc] rounded-[4px] hover:border-[#C69C44]/40 hover:bg-white transition-all duration-200 cursor-default group"
+            >
+              <CheckCircle
+                sx={{ fontSize: 13 }}
+                className="text-[#C69C44] opacity-80 group-hover:opacity-100 transition-opacity"
+              />
+              <span className="text-[0.65rem] font-bold text-[#1c2a44]/70 group-hover:text-[#1c2a44] tracking-tight whitespace-nowrap transition-colors">
+                {tag}
+              </span>
+            </div>
           ))}
-          
+
           {allTags.length > 4 && (
-            <Chip
-              label={expanded ? 'View Less' : 'View More'}
-              icon={
-                expanded ? 
-                <KeyboardArrowUpIcon sx={{ fontSize: 16, color: 'inherit !important' }} /> : 
-                <KeyboardArrowDownIcon sx={{ fontSize: 16, color: 'inherit !important' }} />
-              }
+            <button
               onClick={() => setExpanded((prev) => !prev)}
-              // Removed variant="outlined" and explicitly removed the border
-              sx={{
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: 'transparent',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                color: '#1C2A44',
-                height: 30,
-                cursor: 'pointer',
-                '& .MuiChip-label': {
-                  paddingLeft: '6px',
-                  paddingRight: '10px',
-                },
-                '& .MuiChip-icon': {
-                  marginLeft: '8px',
-                },
-              }}
-            />
+              className="flex items-center gap-0.5 px-1.5 py-[3px] rounded-[4px] text-[#1c2a44] hover:bg-[#f1f5f9] transition-colors outline-none"
+            >
+              <span className="text-[0.65rem] font-bold tracking-tight whitespace-nowrap">
+                {expanded ? 'View Less' : 'View More'}
+              </span>
+              {expanded ? (
+                <KeyboardArrowUp sx={{ fontSize: 14 }} />
+              ) : (
+                <KeyboardArrowDown sx={{ fontSize: 14 }} />
+              )}
+            </button>
           )}
-        </Box>
-      </Box>
-    </Box>
+        </div>
+
+      </div>
+    </div>
   );
 };
 
