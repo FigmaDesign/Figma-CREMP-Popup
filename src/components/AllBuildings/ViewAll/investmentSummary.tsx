@@ -19,7 +19,7 @@ const InvestmentSummary: React.FC = () => {
       <div className="bg-white rounded-none flex flex-col">
 
         <div className="px-4 pt-1 pb-[2px] flex items-center gap-1.5 mb-1">
-          <div className="w-1 h-4 bg-[#1c2a44] rounded-[2px]" />
+          <div className="w-1 h-4 bg-gradient-to-b from-[#1c2a44] to-[#D4AF37] rounded" />
           <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight ">
             Investment Summary
           </h3>

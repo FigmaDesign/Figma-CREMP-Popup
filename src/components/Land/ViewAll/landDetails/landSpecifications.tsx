@@ -1,16 +1,14 @@
-import React from 'react';
-import { Box, Typography, Stack } from '@mui/material';
+import React, { useState } from 'react';
 import GavelIcon from '@mui/icons-material/Gavel';
-import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import ArchitectureIcon from '@mui/icons-material/Architecture';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import WarningIcon from '@mui/icons-material/Warning';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SecurityIcon from '@mui/icons-material/Security';
-import WaterIcon from '@mui/icons-material/Water';
-import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import LandscapeIcon from '@mui/icons-material/Landscape';
+import PremiumTabs from '../../../ui/PremiumTabs';
+
+type SpecTab = 'legal' | 'technical';
 
 interface SpecItem {
   icon: React.ReactNode;
@@ -25,177 +23,87 @@ interface SpecGroup {
   items: SpecItem[];
 }
 
-type SpecTab = 'legal' | 'technical' | 'environmental';
-
 const specGroups: SpecGroup[] = [
   {
     id: 'legal',
     title: 'Legal',
     items: [
-      { icon: <GavelIcon sx={{ fontSize: 16 }} />, label: 'Title Clear', value: 'Yes', status: 'positive' },
-      { icon: <AccountBalanceIcon sx={{ fontSize: 16 }} />, label: 'Litigation', value: 'None', status: 'positive' },
-      { icon: <SecurityIcon sx={{ fontSize: 16 }} />, label: 'Encumbrance', value: 'Free', status: 'positive' },
-      { icon: <CheckCircleIcon sx={{ fontSize: 16 }} />, label: 'RERA Reg.', value: 'Approved', status: 'positive' },
+      { icon: <GavelIcon sx={{ fontSize: 14 }} />, label: 'Title Clear', value: 'Yes', status: 'positive' },
+      { icon: <AccountBalanceIcon sx={{ fontSize: 14 }} />, label: 'Litigation', value: 'None', status: 'positive' },
+      { icon: <SecurityIcon sx={{ fontSize: 14 }} />, label: 'Encumbrance', value: 'Free', status: 'positive' },
+      { icon: <CheckCircleIcon sx={{ fontSize: 14 }} />, label: 'RERA Reg.', value: 'Approved', status: 'positive' },
     ],
   },
   {
     id: 'technical',
     title: 'Technical',
     items: [
-      { icon: <ArchitectureIcon sx={{ fontSize: 16 }} />, label: 'FSI Allowed', value: '2.5' },
-      { icon: <HomeWorkIcon sx={{ fontSize: 16 }} />, label: 'Ground Coverage', value: '60%' },
-      { icon: <LandscapeIcon sx={{ fontSize: 16 }} />, label: 'Height Limit', value: '45m' },
-      { icon: <GavelIcon sx={{ fontSize: 16 }} />, label: 'Setback', value: '15m' },
-    ],
-  },
-  {
-    id: 'environmental',
-    title: 'Environmental',
-    items: [
-      { icon: <LocalFloristIcon sx={{ fontSize: 16 }} />, label: 'Green Belt', value: 'Required', status: 'neutral' },
-      { icon: <WaterIcon sx={{ fontSize: 16 }} />, label: 'Water Table', value: '40 ft', status: 'positive' },
-      { icon: <FormatColorFillIcon sx={{ fontSize: 16 }} />, label: 'Soil Type', value: 'Rocky', status: 'neutral' },
-      { icon: <WarningIcon sx={{ fontSize: 16 }} />, label: 'Flood Zone', value: 'No', status: 'positive' },
+      { icon: <ArchitectureIcon sx={{ fontSize: 14 }} />, label: 'FSI Allowed', value: '2.5' },
+      { icon: <HomeWorkIcon sx={{ fontSize: 14 }} />, label: 'Ground Coverage', value: '60%' },
+      { icon: <LandscapeIcon sx={{ fontSize: 14 }} />, label: 'Height Limit', value: '45m' },
+      { icon: <GavelIcon sx={{ fontSize: 14 }} />, label: 'Setback', value: '15m' },
     ],
   },
 ];
 
-const SpecCard: React.FC<{ item: SpecItem }> = ({ item }) => {
-  const getStatusColor = (status?: string) => {
-    switch (status) {
-      case 'positive':
-        return '#10B981';
-      case 'negative':
-        return '#EF4444';
-      default:
-        return '#1C2A44';
-    }
-  };
-
-  return (
-    <Box
-      sx={{
-        backgroundColor: 'var(--bg-app)',
-        borderRadius: '4px',
-        padding: '4px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '4px',
-        border: '1px solid var(--border-default)',
-      }}
-    >
-      <Box
-        sx={{
-          width: 28,
-          height: 28,
-          borderRadius: '4px',
-          backgroundColor: 'var(--bg-card)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: getStatusColor(item.status),
-          flexShrink: 0,
-          boxShadow: '0px 1px 2px rgba(0,0,0,0.02)',
-        }}
-      >
-        {item.icon}
-      </Box>
-      <Stack spacing={0}>
-        <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)', lineHeight: 1.2 }}>
-          {item.label}
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            lineHeight: 1.2,
-            color: getStatusColor(item.status),
-          }}
-        >
-          {item.value}
-        </Typography>
-      </Stack>
-    </Box>
-  );
+const getStatusClass = (status?: string) => {
+  switch (status) {
+    case 'positive': return 'text-[#10B981]';
+    case 'negative': return 'text-[#EF4444]';
+    default: return 'text-[#1c2a44]';
+  }
 };
 
-const LandSpecifications: React.FC = () => {
-  const [tabValue, setTabValue] = React.useState<SpecTab>('legal');
+const SpecCard: React.FC<{ item: SpecItem }> = ({ item }) => (
+  <div className="flex items-center gap-1.5 p-[2px] rounded-[4px] bg-transparent hover:bg-[#f8fafc] transition-all group overflow-hidden cursor-default">
+    <div className={`w-7 h-7 flex items-center justify-center rounded-[4px] bg-[#f8fafc] shrink-0 border border-[#f1f5f9] group-hover:bg-[#1c2a44] transition-all duration-200 ${getStatusClass(item.status)} group-hover:text-white`}>
+      {React.cloneElement(item.icon as React.ReactElement<any>, {
+        color: 'inherit',
+        className: 'transition-colors duration-200 text-inherit'
+      })}
+    </div>
+    <div className="flex flex-col min-w-0">
+      <span className="text-[0.55rem] font-bold text-[#1c2a44]/50 tracking-wider truncate">
+        {item.label}
+      </span>
+      <span className={`text-[0.7rem] font-bold truncate leading-tight ${getStatusClass(item.status)}`}>
+        {item.value}
+      </span>
+    </div>
+  </div>
+);
 
-  const activeGroup = specGroups.find((group) => group.id === tabValue) ?? specGroups[0];
+const LandSpecifications: React.FC = () => {
+  const [tabValue, setTabValue] = useState<SpecTab>('legal');
+  const activeGroup = specGroups.find((g) => g.id === tabValue) ?? specGroups[0];
+
+  const tabs = specGroups.map((g) => ({ label: g.title, value: g.id }));
 
   return (
-    <Box sx={{ padding: '4px', textAlign: 'left' }}>
-      <Box
-        sx={{
-          backgroundColor: 'var(--bg-card)',
-          borderRadius: '4px',
-          border: '1px solid var(--border-default)',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
-          padding: '4px',
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: '0.875rem',
-            fontWeight: 600,
-            color: 'var(--text-main)',
-            marginBottom: '6px',
-            paddingLeft: '4px',
-          }}
-        >
-          Specifications
-        </Typography>
+    <div className="w-full border-none">
+      <div className="bg-white flex flex-col rounded-none">
 
-        <Stack
-          direction="row"
-          spacing={1}
-          sx={{
-            mb: '8px',
-            overflowX: 'auto',
-            '&::-webkit-scrollbar': { display: 'none' },
-            msOverflowStyle: 'none',
-            scrollbarWidth: 'none',
-          }}
-        >
-          {specGroups.map((group) => {
-            const isActive = group.id === tabValue;
-            return (
-              <Box
-                key={group.id}
-                onClick={() => setTabValue(group.id)}
-                sx={{
-                  padding: '6px 14px',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  background: isActive ? 'linear-gradient(to bottom right, #1C2A44, #154eb1)' : '#F3F4F6',
-                  color: isActive ? '#FFFFFF' : '#4B5563',
-                  fontWeight: 700,
-                  fontSize: '0.75rem',
-                  letterSpacing: '0.02em',
-                  whiteSpace: 'nowrap',
-                  userSelect: 'none',
-                }}
-              >
-                {group.title}
-              </Box>
-            );
-          })}
-        </Stack>
+        <div className="px-4 pt-1 pb-[2px] flex items-center gap-1.5 bg-white z-10 relative">
+          <div className="w-1 h-4 bg-gradient-to-b from-[#1c2a44] to-[#D4AF37] rounded" />
+          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight">
+            Specifications
+          </h3>
+        </div>
 
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '4px',
-          }}
-        >
+        <PremiumTabs
+          tabs={tabs}
+          value={tabValue}
+          onChange={(v) => setTabValue(v as SpecTab)}
+          className="px-2 mb-1"
+        />
+
+        <div className="px-4 pb-2 grid grid-cols-2 gap-x-2 gap-y-1 bg-white relative z-10">
           {activeGroup.items.map((item, idx) => (
             <SpecCard key={idx} item={item} />
           ))}
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

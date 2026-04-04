@@ -1,9 +1,9 @@
-// ...existing code...
-import { Box, Typography, Stack } from '@mui/material';
+import React from 'react';
 import ShareIcon from '@mui/icons-material/Share';
 import PhoneIcon from '@mui/icons-material/Phone';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 interface FooterAction {
   icon: React.ReactNode;
@@ -12,76 +12,44 @@ interface FooterAction {
 
 const footerActions: FooterAction[] = [
   {
-    icon: <ShareIcon sx={{ fontSize: 16, color: 'inherit' }} />,
+    icon: <ShareIcon sx={{ fontSize: 16, color: 'white' }} />,
     label: 'Share',
   },
   {
-    icon: <PhoneIcon sx={{ fontSize: 16, color: 'inherit' }} />,
-    label: 'Contact',
-  },
-  {
-    icon: <CalendarMonthIcon sx={{ fontSize: 16, color: 'inherit' }} />,
+    icon: <CalendarMonthIcon sx={{ fontSize: 16, color: 'white' }} />,
     label: 'Site Visit',
   },
   {
-    icon: <BookmarkBorderIcon sx={{ fontSize: 16, color: 'inherit' }} />,
+    icon: <BookmarkBorderIcon sx={{ fontSize: 16, color: 'white' }} />,
     label: 'Save',
+  },
+  {
+    icon: <VisibilityOffIcon sx={{ fontSize: 16, color: 'white' }} />,
+    label: 'Hide',
+  },
+  {
+    icon: <PhoneIcon sx={{ fontSize: 16, color: '#4caf50' }} />,
+    label: 'Contact',
   },
 ];
 
 const LandFooter: React.FC = () => {
   return (
-    <Box
-      sx={{
-        position: 'sticky',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: 'var(--bg-card)',
-        borderTop: '1px solid var(--border-default)',
-        padding: '4px',
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        zIndex: 10,
-        boxShadow: '0px -2px 4px rgba(0, 0, 0, 0.04)',
-      }}
-    >
+    <div className="sticky bottom-0 left-0 right-0 bg-[#1c2a44] border-t border-[#1c2a44] p-1 flex justify-around items-center z-10 shadow-[0_-4px_16px_rgba(28,42,68,0.2)]">
       {footerActions.map((action, idx) => (
-        <Stack
+        <div
           key={idx}
-          alignItems="center"
-          spacing="4px"
-          sx={{
-            cursor: 'pointer',
-            flex: 1,
-            padding: '4px',
-            borderRadius: '4px',
-            color: 'var(--text-main)',
-          }}
+          className="flex flex-col items-center flex-1 p-1 gap-1 cursor-pointer rounded text-white hover:text-[#D4AF37] hover:bg-white/5 transition-all duration-300 group"
         >
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+          <div className="flex items-center justify-center group-hover:scale-110 transition-all duration-300">
             {action.icon}
-          </Box>
-          <Typography
-            sx={{
-              fontSize: '0.65rem',
-              fontWeight: 600,
-              color: 'inherit',
-              transition: 'color 150ms ease-in-out',
-            }}
-          >
+          </div>
+          <span className="text-[0.6rem] font-bold tracking-wide transition-colors duration-300">
             {action.label}
-          </Typography>
-        </Stack>
+          </span>
+        </div>
       ))}
-    </Box>
+    </div>
   );
 };
 

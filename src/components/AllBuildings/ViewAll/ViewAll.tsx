@@ -225,7 +225,7 @@ const ViewAll: React.FC<ViewAllProps> = ({ onBack }) => {
         </div>
 
         {/* Detailed Sections */}
-        <div className="flex flex-col gap-2 pb-6">
+        <div className="flex flex-col gap-2 pb-2">
           <div ref={unitDescRef}>
             <UnitDescription />
           </div>

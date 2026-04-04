@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import TrainIcon from '@mui/icons-material/Train';
 import LocalAirportIcon from '@mui/icons-material/LocalAirport';
@@ -15,100 +14,58 @@ interface LocationItem {
 }
 
 const nearbyPlaces: LocationItem[] = [
-  { icon: <TrainIcon sx={{ fontSize: 16 }} />, label: 'Metro Station', value: 'Green Valley Metro', distance: '2.5 km' },
-  { icon: <LocalAirportIcon sx={{ fontSize: 16 }} />, label: 'Airport', value: 'Rajiv Gandhi Intl', distance: '18 km' },
-  { icon: <SchoolIcon sx={{ fontSize: 16 }} />, label: 'Schools', value: '5+ Institutions', distance: '3 km' },
-  { icon: <LocalHospitalIcon sx={{ fontSize: 16 }} />, label: 'Hospital', value: 'Care Hospital', distance: '4 km' },
-  { icon: <ShoppingCartIcon sx={{ fontSize: 16 }} />, label: 'Shopping', value: 'City Center Mall', distance: '5 km' },
-  { icon: <DirectionsCarIcon sx={{ fontSize: 16 }} />, label: 'Highway', value: 'ORR Exit 15', distance: '1.5 km' },
+  { icon: <TrainIcon sx={{ fontSize: 14 }} />, label: 'Metro Station', value: 'Green Valley Metro', distance: '2.5 km' },
+  { icon: <LocalAirportIcon sx={{ fontSize: 14 }} />, label: 'Airport', value: 'Rajiv Gandhi Intl', distance: '18 km' },
+  { icon: <SchoolIcon sx={{ fontSize: 14 }} />, label: 'Schools', value: '5+ Institutions', distance: '3 km' },
+  { icon: <LocalHospitalIcon sx={{ fontSize: 14 }} />, label: 'Hospital', value: 'Care Hospital', distance: '4 km' },
+  { icon: <ShoppingCartIcon sx={{ fontSize: 14 }} />, label: 'Shopping', value: 'City Center Mall', distance: '5 km' },
+  { icon: <DirectionsCarIcon sx={{ fontSize: 14 }} />, label: 'Highway', value: 'ORR Exit 15', distance: '1.5 km' },
 ];
 
 const LandLocation: React.FC = () => {
   return (
-    <Box sx={{ padding: '4px', textAlign: 'left' }}>
-      <Box
-        sx={{
-          backgroundColor: 'var(--bg-card)',
-          borderRadius: '4px',
-          border: '1px solid var(--border-default)',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.04)',
-          padding: '4px',
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: '0.875rem',
-            fontWeight: 600,
-            color: 'var(--text-main)',
-            marginBottom: '6px',
-            paddingLeft: '4px',
-          }}
-        >
-          Location & Connectivity
-        </Typography>
+    <div className="p-0 w-full">
+      <div className="bg-white rounded-none flex flex-col pb-2">
 
-        {/* Nearby Places List */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '4px',
-          }}
-        >
+        <div className="px-4 pt-1 pb-[2px] flex items-center gap-1.5">
+          <div className="w-1 h-4 bg-gradient-to-b from-[#1c2a44] to-[#D4AF37] rounded" />
+          <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight">
+            Location &amp; Connectivity
+          </h3>
+        </div>
+
+        <div className="flex flex-col gap-1 px-4 pt-1">
           {nearbyPlaces.map((place, idx) => (
-            <Box
+            <div
               key={idx}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '6px',
-                borderRadius: '4px',
-                backgroundColor: 'var(--bg-app)',
-              }}
+              className="flex items-center gap-2 p-1.5 rounded-[4px] hover:bg-[#f1f5f9] hover:border-[#1c2a44]/10 transition-all duration-200 group cursor-default"
             >
-              <Box
-                sx={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: '4px',
-                  backgroundColor: 'var(--bg-card)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--accent-gold)',
-                  flexShrink: 0,
-                }}
-              >
-                {place.icon}
-              </Box>
+              <div className="w-7 h-7 flex items-center justify-center rounded-[4px] bg-white  text-[#1c2a44] shrink-0 group-hover:bg-[#1c2a44] group-hover:text-white transition-all duration-200">
+                {React.cloneElement(place.icon as React.ReactElement<any>, {
+                  color: 'inherit',
+                  className: 'transition-colors duration-200 group-hover:text-white text-inherit'
+                })}
+              </div>
 
-              <Box sx={{ flex: 1 }}>
-                <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)' }}>
+              <div className="flex flex-col flex-1 min-w-0">
+                <span className="text-[0.7rem] font-bold text-[#1c2a44] truncate leading-tight">
                   {place.value}
-                </Typography>
-                <Typography sx={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
+                </span>
+                <span className="text-[0.55rem] font-bold text-[#1c2a44]/50 tracking-wider truncate">
                   {place.label}
-                </Typography>
-              </Box>
+                </span>
+              </div>
 
-              <Typography
-                sx={{
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  color: 'var(--accent-gold)',
-                  padding: '2px 8px',
-                  borderRadius: '4px',
-                  backgroundColor: 'var(--bg-card)',
-                }}
-              >
-                {place.distance}
-              </Typography>
-            </Box>
+              <div className="w-12 h-[22px] flex items-center justify-center bg-white rounded border border-[#D4AF37]/30 shrink-0">
+                <span className="text-[0.65rem] font-bold text-[#D4AF37] tracking-tight whitespace-nowrap">
+                  {place.distance}
+                </span>
+              </div>
+            </div>
           ))}
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

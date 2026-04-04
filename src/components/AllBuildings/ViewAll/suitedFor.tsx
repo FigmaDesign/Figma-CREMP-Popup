@@ -16,7 +16,7 @@ const SuitedFor: React.FC = () => {
     <div className="p-0 w-full">
       <div className="bg-white rounded-none flex flex-col">
         <div className="px-4 pt-1 pb-[2px] flex items-center gap-1.5 mb-1">
-          <div className="w-1 h-4 bg-[#1c2a44] rounded-[2px]" />
+          <div className="w-1 h-4 bg-gradient-to-b from-[#1c2a44] to-[#D4AF37] rounded" />
           <h3 className="text-[0.85rem] font-extrabold text-[#1c2a44] tracking-tight ">
             Suited For
           </h3>
@@ -41,15 +41,15 @@ const SuitedFor: React.FC = () => {
           {allTags.length > 4 && (
             <button
               onClick={() => setExpanded((prev) => !prev)}
-              className="flex items-center gap-0.5 px-1.5 py-[3px] rounded-[4px] text-[#1c2a44] hover:bg-[#f1f5f9] transition-colors outline-none"
+              className="inline-flex items-center gap-1 p-1 rounded-[4px] text-[0.55rem] font-bold bg-[#1c2a44] text-[#f8fafc] tracking-[0.1em] leading-none mt-[1px]"
             >
               <span className="text-[0.65rem] font-bold tracking-tight whitespace-nowrap">
                 {expanded ? 'View Less' : 'View More'}
               </span>
               {expanded ? (
-                <KeyboardArrowUp sx={{ fontSize: 14 }} />
+                <KeyboardArrowUp sx={{ fontSize: 14, color: '#C69C44' }} />
               ) : (
-                <KeyboardArrowDown sx={{ fontSize: 14 }} />
+                <KeyboardArrowDown sx={{ fontSize: 14, color: '#C69C44' }} />
               )}
             </button>
           )}

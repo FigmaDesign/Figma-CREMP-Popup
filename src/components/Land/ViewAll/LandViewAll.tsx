@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Typography, Stack, Divider, IconButton } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import TerrainIcon from '@mui/icons-material/Terrain';
 import StraightenIcon from '@mui/icons-material/Straighten';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -8,9 +6,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 import LandHeader from './landHeader';
-import LandHighlights from './landHighlights';
-import LandOverview from './landDetails/landOverview';
+
 import LandMedia from './landMedia';
+import LandOverview from './landDetails/landOverview';
 import LandSpecifications from './landDetails/landSpecifications';
 import LandLocation from './landDetails/landLocation';
 import LandTerms from './landDetails/landTerms';
@@ -21,30 +19,19 @@ interface LandViewAllProps {
 }
 
 const KeyIconItem: React.FC<{ icon: React.ReactNode; value: string; label: string }> = ({ icon, value, label }) => (
-  <Stack
-    direction="row"
-    alignItems="center"
-    spacing="4px"
-    sx={{
-      flex: 1,
-      padding: '4px',
-      borderRadius: '4px',
-      backgroundColor: 'var(--bg-app)',
-      border: '1px solid var(--border-default)',
-    }}
-  >
-    <Box sx={{ width: 28, height: 28, borderRadius: '4px', backgroundColor: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-gold)', flexShrink: 0 }}>
+  <div className="flex flex-1 items-center gap-1 p-1 rounded border border-[#1c2a44]/10 bg-white shadow-[#1c2a44]/5">
+    <div className="w-7 h-7 rounded bg-[#f8fafc] flex items-center justify-center text-[#D4AF37] shrink-0">
       {icon}
-    </Box>
-    <Stack spacing={0}>
-      <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.2 }}>
+    </div>
+    <div className="flex flex-col">
+      <span className="text-[0.75rem] font-bold text-[#1c2a44] leading-tight">
         {value}
-      </Typography>
-      <Typography sx={{ fontSize: '0.6rem', color: 'var(--text-muted)', lineHeight: 1.2 }}>
+      </span>
+      <span className="text-[0.6rem] text-[#1c2a44]/70 leading-tight">
         {label}
-      </Typography>
-    </Stack>
-  </Stack>
+      </span>
+    </div>
+  </div>
 );
 
 const LandViewAll: React.FC<LandViewAllProps> = ({ onBack }) => {
@@ -138,177 +125,126 @@ const LandViewAll: React.FC<LandViewAllProps> = ({ onBack }) => {
   };
 
   return (
-    <Box sx={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#F9FAFB', overflow: 'hidden' }}>
+    <div className="relative h-full flex flex-col bg-[#f8fafc] overflow-hidden">
 
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          backgroundColor: '#FFFFFF',
-          borderBottom: '1px solid #E5E7EB',
-          display: 'flex',
-          alignItems: 'center',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-          transform: isScrolled ? 'translateY(0)' : 'translateY(-100%)',
-          opacity: isScrolled ? 1 : 0,
-          pointerEvents: isScrolled ? 'auto' : 'none',
-          transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease',
-        }}
+      {/* Sticky Tab Bar */}
+      <div
+        className={`absolute top-0 left-0 right-0 z-50 bg-white border-b border-[#1c2a44]/10 flex items-center shadow-md shadow-[#1c2a44]/5 transition-all duration-300 ease-out ${isScrolled ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-full opacity-0 pointer-events-none'
+          }`}
       >
         {showLeftArrow && (
-          <Box
-            sx={{
-              position: 'absolute', left: 0, top: 0, bottom: 0, zIndex: 10,
-              display: 'flex', alignItems: 'center', px: '2px',
-              background: 'linear-gradient(to right, #FFFFFF 60%, transparent)',
-            }}
-          >
-            <IconButton size="small" onClick={() => scrollTabBar('left')} sx={{ color: '#1C2A44', backgroundColor: '#FFFFFF', boxShadow: '1px 0 4px rgba(0,0,0,0.05)' }}>
-              <ChevronLeftIcon fontSize="small" />
-            </IconButton>
-          </Box>
+          <div className="absolute left-0 top-0 bottom-0 z-10 flex items-center px-1 bg-gradient-to-r from-white via-white to-transparent w-8">
+            <button
+              onClick={() => scrollTabBar('left')}
+              className="flex items-center justify-center w-5 h-5 rounded-full bg-white border border-[#1c2a44]/10 text-[#1c2a44] hover:bg-[#f8fafc] transition-colors"
+            >
+              <ChevronLeftIcon sx={{ fontSize: 16 }} />
+            </button>
+          </div>
         )}
 
-        <Stack
+        <div
           ref={tabBarRef}
           onScroll={handleTabBarScroll}
-          direction="row"
-          spacing={3}
-          sx={{
-            flex: 1,
-            overflowX: 'auto',
-            px: showLeftArrow ? '36px' : '16px',
-            pr: showRightArrow ? '36px' : '16px',
-            pt: '8px',
-            scrollBehavior: 'smooth',
-            '&::-webkit-scrollbar': { display: 'none' },
-            msOverflowStyle: 'none',
-            scrollbarWidth: 'none',
-          }}
+          className={`flex-1 flex overflow-x-auto gap-3 pt-2 scroll-smooth ${showLeftArrow ? 'pl-8' : 'pl-2'} ${showRightArrow ? 'pr-8' : 'pr-2'} [&::-webkit-scrollbar]:hidden`}
+          style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}
         >
-          {tabItems
-            .filter((tab) => tab.id !== activeTab)
-            .map(tab => (
-               <Box
-                 key={tab.id}
-                 onClick={() => handleTabClick(tab.id, tab.ref)}
-                 sx={{
-                   paddingBottom: '8px',
-                   borderBottom: '2px solid transparent',
-                   cursor: 'pointer',
-                   whiteSpace: 'nowrap',
-
-                 }}
-               >
-                 <Typography
-                   sx={{
-                     fontSize: '0.875rem',
-                     fontWeight: 500,
-                     color: '#6B7280',
-
-                   }}
-                 >
-                   {tab.label}
-                 </Typography>
-               </Box>
+          {tabItems.map(tab => (
+            <div
+              key={tab.id}
+              onClick={() => handleTabClick(tab.id, tab.ref)}
+              className={`pb-1 cursor-pointer whitespace-nowrap border-b-[2.5px] transition-colors duration-200 group ${tab.id === activeTab ? 'border-[#D4AF37]' : 'border-transparent hover:border-[#D4AF37]/50'
+                }`}
+            >
+              <span
+                className={`text-[0.8rem] font-semibold tracking-wide transition-colors duration-200 ${tab.id === activeTab ? 'text-[#D4AF37]' : 'text-[#1c2a44]/60 group-hover:text-[#1c2a44]'
+                  }`}
+              >
+                {tab.label}
+              </span>
+            </div>
           ))}
-        </Stack>
+        </div>
 
         {showRightArrow && (
-          <Box
-            sx={{
-              position: 'absolute', right: 0, top: 0, bottom: 0, zIndex: 10,
-              display: 'flex', alignItems: 'center', px: '2px',
-              background: 'linear-gradient(to left, #FFFFFF 60%, transparent)',
-            }}
-          >
-            <IconButton size="small" onClick={() => scrollTabBar('right')} sx={{ color: '#1C2A44', backgroundColor: '#FFFFFF', boxShadow: '-1px 0 4px rgba(0,0,0,0.05)' }}>
-              <ChevronRightIcon fontSize="small" />
-            </IconButton>
-          </Box>
+          <div className="absolute right-0 top-0 bottom-0 z-10 flex items-center justify-end px-1 bg-gradient-to-l from-white via-white to-transparent w-8">
+            <button
+              onClick={() => scrollTabBar('right')}
+              className="flex items-center justify-center w-5 h-5 rounded-full bg-white border border-[#1c2a44]/10 text-[#1c2a44] hover:bg-[#f8fafc] transition-colors"
+            >
+              <ChevronRightIcon sx={{ fontSize: 16 }} />
+            </button>
+          </div>
         )}
-      </Box>
+      </div>
 
-      <Box
+      {/* Main Scroll Container */}
+      <div
         ref={scrollContainerRef}
         onScroll={handleMainScroll}
-        sx={{
-          flex: 1,
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-          WebkitOverflowScrolling: 'touch',
-          '&::-webkit-scrollbar': { width: '4px' },
-          '&::-webkit-scrollbar-thumb': { backgroundColor: '#D1D5DB', borderRadius: '4px' },
-        }}
+        className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:bg-[#1c2a44]/20 [&::-webkit-scrollbar-thumb]:rounded-full"
+        style={{ WebkitOverflowScrolling: 'touch' }}
       >
         <LandHeader onBack={onBack} />
-        <LandHighlights />
 
-        <Box sx={{ padding: '8px 2px', backgroundColor: '#FFFFFF', mb: '4px' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: '4px' }}>
-            <Box>
-              <Typography sx={{ fontSize: '1.125rem', fontWeight: 600, color: '#1C2A44', lineHeight: 1.2 }}>
+        {/* Summary Section */}
+        <div className="p-0 bg-white mb-2 pb-2">
+          <div className="flex justify-between items-start mb-2 px-4">
+            <div>
+              <h2 className="text-[1.125rem] font-extrabold text-[#1c2a44] leading-tight">
                 Plot GV-101
-              </Typography>
-              <Stack direction="row" alignItems="center" spacing="4px" sx={{ mt: '2px' }}>
-                <LocationOnIcon sx={{ fontSize: 14, color: '#C89B3C' }} />
-                <Typography sx={{ fontSize: '0.75rem', color: '#6B7280' }}>
+              </h2>
+              <div className="flex items-center gap-1 mt-[2px]">
+                <span className="text-[0.75rem] text-[#1c2a44]/70 font-medium">
                   Sector 12, Green Valley, Hyderabad
-                </Typography>
-              </Stack>
-            </Box>
-            <Box sx={{ px: '4px', py: '2px', backgroundColor: '#FFFCF5', borderRadius: '4px', border: '1px solid #C89B3C' }}>
-              <Typography sx={{ fontSize: '0.65rem', fontWeight: 600, color: '#C89B3C'}}>
-                Available
-              </Typography>
-            </Box>
-          </Box>
+                </span>
+              </div>
+            </div>
 
-          <Box sx={{ display: 'flex', gap: '4px' }}>
+            <div className="px-2 py-[2px] bg-[#D4AF37]/10 rounded border border-[#D4AF37]/30">
+              <span className="text-[0.65rem] font-bold text-[#D4AF37] tracking-wider">
+                Available
+              </span>
+            </div>
+          </div>
+
+          <div className="flex gap-1.5 mt-2 px-4">
             <KeyIconItem icon={<TerrainIcon sx={{ fontSize: 16 }} />} value="2.5 Acres" label="Plot Size" />
             <KeyIconItem icon={<StraightenIcon sx={{ fontSize: 16 }} />} value="200 ft" label="Frontage" />
             <KeyIconItem icon={<VisibilityIcon sx={{ fontSize: 16 }} />} value="Main Road" label="Access" />
-          </Box>
-        </Box>
+          </div>
+        </div>
 
-        <Box sx={{ px: '2px', pt: '4px', pb: '40px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
 
-          <Box ref={overviewRef}>
+
+        {/* Detailed Sections */}
+        <div className="flex flex-col gap-2 pb-2">
+          <div ref={overviewRef}>
             <LandOverview />
-          </Box>
-          <Divider sx={{ mx: '2px', borderColor: '#E5E7EB' }} />
+          </div>
 
-          <Box ref={mediaRef}>
+          <div ref={mediaRef}>
             <LandMedia />
-          </Box>
-          <Divider sx={{ mx: '2px', borderColor: '#E5E7EB' }} />
+          </div>
 
-          <Box ref={specsRef}>
+          <div ref={specsRef}>
             <LandSpecifications />
-          </Box>
-          <Divider sx={{ mx: '2px', borderColor: '#E5E7EB' }} />
+          </div>
 
-          <Box ref={locationRef}>
+          <div ref={locationRef}>
             <LandLocation />
-          </Box>
-          <Divider sx={{ mx: '2px', borderColor: '#E5E7EB' }} />
+          </div>
 
-          <Box ref={termsRef}>
+          <div ref={termsRef}>
             <LandTerms />
-          </Box>
+          </div>
+        </div>
+      </div>
 
-        </Box>
-      </Box>
-
-      <Box sx={{ flexShrink: 0, borderTop: '1px solid #E5E7EB', backgroundColor: '#FFFFFF' }}>
+      <div className="shrink-0 border-t border-[#1c2a44]/10 bg-white">
         <LandFooter />
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

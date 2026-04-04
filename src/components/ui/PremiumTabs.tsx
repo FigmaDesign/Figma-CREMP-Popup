@@ -1,5 +1,3 @@
-
-
 export type PremiumTabOption<T> = {
   label: string;
   value: T;
@@ -14,7 +12,7 @@ interface PremiumTabsProps<T> {
 
 const PremiumTabs = <T extends string>({ tabs, value, onChange, className = '' }: PremiumTabsProps<T>) => {
   return (
-    <div className={`flex items-end w-full space-x-[-12px] px-1 pt-2 overflow-hidden bg-[#f0f2f5] ${className}`}>
+    <div className={`flex items-end w-full space-x-[-8px] px-1 pt-2 overflow-hidden isolate ${className}`}>
       {tabs.map((tab, index) => {
         const isActive = tab.value === value;
         const activeGradId = `grad-active-${tab.value}`;
@@ -23,13 +21,13 @@ const PremiumTabs = <T extends string>({ tabs, value, onChange, className = '' }
           <button
             key={tab.value}
             onClick={() => onChange(tab.value)}
-            style={{ zIndex: isActive ? 50 : 40 - index }}
-            className="relative h-[36px] flex-1 min-w-[100px] outline-none group transition-all duration-300 bg-transparent"
+            style={{ zIndex: isActive ? 10 : 5 - index }}
+            className="relative h-[30px] flex-1 min-w-[90px] max-w-[140px] outline-none group transition-all duration-300 bg-transparent"
           >
-            <svg 
-              className="absolute inset-0 block size-full" 
-              fill="none" 
-              preserveAspectRatio="none" 
+            <svg
+              className="absolute inset-0 block size-full"
+              fill="none"
+              preserveAspectRatio="none"
               viewBox="0 0 200 40"
             >
               <defs>
@@ -38,27 +36,27 @@ const PremiumTabs = <T extends string>({ tabs, value, onChange, className = '' }
                   <stop offset="100%" stopColor="#152C5B" />
                 </linearGradient>
               </defs>
-              <path 
-                d="M 0 40 L 20 5 C 22 2 25 0 30 0 L 170 0 C 175 0 178 2 180 5 L 200 40 Z" 
-                fill={isActive ? `url(#${activeGradId})` : '#FFFFFF'} 
-                className="transition-colors duration-300"
+              <path
+                d="M 12 40 L 25 5 C 27 2 30 0 35 0 L 165 0 C 170 0 173 2 175 5 L 188 40 Z"
+                fill={isActive ? `url(#${activeGradId})` : '#f0f2f5'}
+                stroke={isActive ? 'none' : '#cbd5e1'}
+                strokeWidth="1"
+                vectorEffect="non-scaling-stroke"
+                className="transition-all duration-300"
               />
             </svg>
-            
+
             <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
-              <span 
-                className={`text-[14px] font-bold tracking-tight transition-colors duration-300 ${
-                  isActive ? 'text-white' : 'text-[#595959]'
-                }`}
+              <span
+                className={`text-[13px] font-bold tracking-tight transition-colors duration-300 ${isActive ? 'text-white ' : 'text-[#595959] '
+                  }`}
               >
                 {tab.label}
               </span>
-              
-           
-              <div 
-                className={`h-[3px] w-8 mt-1 rounded-full transition-all duration-300 ${
-                  isActive ? 'bg-[#C69C44] opacity-100' : 'bg-transparent opacity-0'
-                }`} 
+
+              <div
+                className={`h-[2.5px] w-6 mt-[2px] rounded-full transition-all duration-300 ${isActive ? 'bg-[#C69C44] opacity-100' : 'bg-transparent opacity-0'
+                  }`}
               />
             </div>
           </button>
