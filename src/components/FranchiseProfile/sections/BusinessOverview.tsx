@@ -7,29 +7,35 @@ interface BusinessOverviewProps {
 
 const BusinessOverview: React.FC<BusinessOverviewProps> = ({ isDesktop }) => {
   return (
-    <div className={isDesktop ? '' : 'px-4 py-5'}>
+    <div className={isDesktop ? 'py-[0.5rem]' : 'px-[1rem] py-[0.75rem]'}>
       <h3
-        className={`font-semibold text-[#1c2a44] m-0 mb-3 ${
-          isDesktop ? 'text-[1rem]' : 'text-[0.95rem]'
+        className={`font-semibold text-[#1c2a44] m-0 mb-[0.5rem] ${
+          isDesktop ? 'text-[1rem]' : 'text-[0.9rem]'
         }`}
       >
         Overview
       </h3>
 
-      <p className="text-[0.9rem] text-[#4b5563] font-medium leading-[1.65] m-0 max-w-[55ch]">
+      <p className={`text-[#475569] font-medium leading-[1.6] m-0 max-w-[65ch] ${
+        isDesktop ? 'text-[0.875rem]' : 'text-[0.8rem]'
+      }`}>
         {data.businessOverview.description}
       </p>
 
-      <div className="mt-4 px-3.5 py-3 rounded bg-[#f8fafc] border-l-2 border-l-[#1c2a44] border border-[#f1f5f9]">
-        <span className="text-[0.7rem] text-[#1c2a44]/50 font-semibold block mb-1">
+      {/* Business Model Callout */}
+      <div className="mt-[1rem] p-[0.75rem] rounded-[0.25rem] bg-[#f8fafc] border border-[#e2e8f0] border-l-[0.125rem] border-l-[#c9a34e] shadow-sm">
+        <span className="text-[0.85rem] text-[#64748b] font-bold block mb-[0.25rem]  tracking-wider">
           Business Model
         </span>
-        <p className="text-[0.875rem] text-[#1c2a44] font-medium leading-[1.6] m-0">
+        <p className={`text-[#1c2a44] font-medium leading-relaxed m-0 ${
+          isDesktop ? 'text-[0.875rem]' : 'text-[0.8rem]'
+        }`}>
           {data.businessOverview.modelSummary}
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-2 mt-4">
+      {/* Tags */}
+      <div className="flex flex-wrap gap-[0.5rem] mt-[1rem]">
         {[
           data.franchiseModel.modelType,
           data.franchiseModel.unitType,
@@ -37,7 +43,7 @@ const BusinessOverview: React.FC<BusinessOverviewProps> = ({ isDesktop }) => {
         ].map(tag => (
           <span
             key={tag}
-            className="px-2.5 py-1 rounded bg-[#eef0f3] border border-[#e2e8f0] text-[0.75rem] font-semibold text-[#1c2a44]"
+            className="px-[0.625rem] py-[0.375rem] rounded-[0.25rem] bg-white border border-[#e2e8f0] text-[0.75rem] font-semibold text-[#1c2a44] shadow-sm hover:border-[#c9a34e]/40 transition-colors"
           >
             {tag}
           </span>

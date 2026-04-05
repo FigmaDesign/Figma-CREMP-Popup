@@ -81,7 +81,7 @@ export default function FranchiseProfile({ viewMode }: { viewMode: 'desktop' | '
         className={`transition-all duration-500 mx-auto overflow-hidden shadow-2xl bg-white ${
           isDesktop
             ? 'max-w-[100%] w-[100%] rounded-none border border-[#1c2a44]/10'
-            : 'w-[24.375rem] shrink-0 pt-4 rounded-none'
+            : 'w-[24.375rem] shrink-0 pt-2 rounded-none'
         }`}
         style={{ height: isDesktop ? 'calc(100vh - 6.25rem)' : '48.75rem' }}
       >
@@ -144,8 +144,8 @@ export default function FranchiseProfile({ viewMode }: { viewMode: 'desktop' | '
             <MetricsGrid isDesktop={isDesktop} />
 
             {/* ── Sticky Tab Nav ── */}
-            <div className="sticky top-0 z-40 bg-white border-b border-[#e2e8f0]">
-              <div className={isDesktop ? 'max-w-[80rem] mx-auto px-6' : 'px-2'}>
+            <div className="sticky top-0 z-40 bg-white ">
+              <div className={isDesktop ? 'max-w-[80rem] mx-auto px-6' : 'px-1'}>
                 <PremiumTabs
                   tabs={tabs}
                   value={activeTab}
@@ -156,29 +156,29 @@ export default function FranchiseProfile({ viewMode }: { viewMode: 'desktop' | '
 
             {/* ── Desktop: 2-column layout ── */}
             {isDesktop ? (
-              <div className="max-w-[80rem] mx-auto px-10 py-8 pb-20">
-                <div className="grid grid-cols-[1fr_22rem] gap-8 items-start">
+              <div className="max-w-[80rem] mx-auto px-10 py-2 pb-10">
+                <div className="grid grid-cols-[1fr_22rem] gap-2 items-start">
 
                   {/* Left: stacked sections */}
-                  <div className="flex flex-col gap-8">
-                    <section id="section-overview" className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-2">
+                    <section id="section-overview" className="flex flex-col gap-2">
                       <BusinessOverview isDesktop={isDesktop} />
                       <USPSection isDesktop={isDesktop} />
                     </section>
 
-                    <section id="section-investment" className="pt-6 border-t border-[#f1f5f9]">
+                    <section id="section-investment" className="pt-2">
                       <FinancialRequirements isDesktop={isDesktop} />
                     </section>
 
-                    <section id="section-support" className="pt-6 border-t border-[#f1f5f9]">
+                    <section id="section-support" className="pt-2 ">
                       <SetupSupport isDesktop={isDesktop} />
                     </section>
 
-                    <section id="section-territory" className="pt-6 border-t border-[#f1f5f9]">
+                    <section id="section-territory" className="pt-2 ">
                       <TerritoryNetwork isDesktop={isDesktop} />
                     </section>
 
-                    <section id="section-media" className="pt-6 border-t border-[#f1f5f9]">
+                    <section id="section-media" className="pt-2 ">
                       <MediaSection isDesktop={isDesktop} />
                     </section>
                   </div>
@@ -199,30 +199,30 @@ export default function FranchiseProfile({ viewMode }: { viewMode: 'desktop' | '
                   <BusinessOverview isDesktop={isDesktop} />
 
                   {/* Map full-width, positioned after overview */}
-                  <div className="px-4 pb-5 border-t border-[#f1f5f9] pt-4">
+                  <div className="px-1 pb-2 sample pt-1">
                     <Suspense fallback={<MapFallback isDesktop={isDesktop} />}>
                       <MapView isDesktop={isDesktop} />
                     </Suspense>
                   </div>
 
-                  <div className="border-t border-[#f1f5f9]">
+                  <div className="sample">
                     <USPSection isDesktop={isDesktop} />
                   </div>
                 </div>
 
-                <div id="section-investment" className="border-t border-[#f1f5f9]">
+                <div id="section-investment" className="sample">
                   <FinancialRequirements isDesktop={isDesktop} />
                 </div>
 
-                <div id="section-support" className="border-t border-[#f1f5f9]">
+                <div id="section-support" className="sample">
                   <SetupSupport isDesktop={isDesktop} />
                 </div>
 
-                <div id="section-territory" className="border-t border-[#f1f5f9]">
+                <div id="section-territory" className="sample">
                   <TerritoryNetwork isDesktop={isDesktop} />
                 </div>
 
-                <div id="section-media" className="border-t border-[#f1f5f9]">
+                <div id="section-media" className="sample">
                   <MediaSection isDesktop={isDesktop} />
                 </div>
               </div>

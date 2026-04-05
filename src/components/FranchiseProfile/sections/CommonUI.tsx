@@ -7,10 +7,10 @@ interface SectionHeadingProps {
 
 // ─── Section Heading ───────────────────────────────────────────────────────────
 export const SectionHeading: React.FC<SectionHeadingProps> = ({ title, isDesktop = false }) => (
-  <div className={`flex items-center gap-2 ${isDesktop ? 'pb-2' : 'pb-1'}`}>
+  <div className={`flex items-center gap-[0.5rem] ${isDesktop ? 'mb-[0.75rem]' : 'mb-[0.5rem]'}`}>
     {/* Accent Indicator */}
-    <div className={`${isDesktop ? 'w-1.5 h-6' : 'w-1 h-5'} bg-[#1c2a44] rounded-sm shrink-0`} />
-    <h3 className={`${isDesktop ? 'text-[1.25rem]' : 'text-[1rem]'} font-extrabold text-[#1c2a44] tracking-tight m-0`}>
+    <div className={`${isDesktop ? 'w-[0.25rem] h-[1.25rem]' : 'w-[0.25rem] h-[1.125rem]'} bg-[#1c2a44] rounded-[0.125rem] shrink-0`} />
+    <h3 className={`${isDesktop ? 'text-[1.125rem]' : 'text-[1rem]'} font-semibold text-[#1c2a44] tracking-tight m-0 leading-none`}>
       {title}
     </h3>
   </div>
@@ -25,11 +25,11 @@ interface InfoRowProps {
 
 // ─── Info Row ──────────────────────────────────────────────────────────────────
 export const InfoRow: React.FC<InfoRowProps> = ({ label, value, isDesktop = false }) => (
-  <div className={`flex justify-between items-center ${isDesktop ? 'min-h-[3rem] py-2' : 'min-h-[2.5rem] py-1.5'} border-b border-[#f1f5f9] last:border-0`}>
-    <span className={`${isDesktop ? 'text-[0.875rem]' : 'text-[0.75rem]'} font-bold text-[#1c2a44]/60`}>
+  <div className={`flex justify-between items-center ${isDesktop ? 'py-[0.625rem]' : 'py-[0.5rem]'} border-b border-[#e2e8f0] last:border-0`}>
+    <span className={`${isDesktop ? 'text-[0.875rem]' : 'text-[0.75rem]'} font-medium text-[#64748b]`}>
       {label}
     </span>
-    <span className={`${isDesktop ? 'text-[1rem]' : 'text-[0.875rem]'} font-extrabold text-[#1c2a44] text-right ml-4`}>
+    <span className={`${isDesktop ? 'text-[0.875rem]' : 'text-[0.8rem]'} font-semibold text-[#1c2a44] text-right ml-[1rem]`}>
       {value}
     </span>
   </div>

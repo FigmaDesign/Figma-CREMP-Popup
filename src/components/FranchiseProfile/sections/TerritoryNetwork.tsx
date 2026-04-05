@@ -7,17 +7,17 @@ interface TerritoryNetworkProps {
 
 const TerritoryNetwork: React.FC<TerritoryNetworkProps> = ({ isDesktop }) => {
   return (
-    <div className={isDesktop ? '' : 'px-4 py-5'}>
+    <div className={isDesktop ? 'py-[0.5rem]' : 'px-[1rem] py-[0.75rem]'}>
       <h3
-        className={`font-semibold text-[#1c2a44] m-0 mb-4 ${
-          isDesktop ? 'text-[1rem]' : 'text-[0.95rem]'
+        className={`font-semibold text-[#1c2a44] m-0 mb-[0.5rem] ${
+          isDesktop ? 'text-[1rem]' : 'text-[0.9rem]'
         }`}
       >
-        Geography &amp; Territory
+        Geography & Territory
       </h3>
 
       {/* Territory details */}
-      <div className={`grid gap-x-8 mb-5 ${isDesktop ? 'grid-cols-2' : 'grid-cols-1'}`}>
+      <div className={`grid gap-x-[1rem] mb-[1rem] ${isDesktop ? 'grid-cols-2' : 'grid-cols-1'}`}>
         {[
           { label: 'Preferred Cities', value: data.territoryAvailability.cities },
           { label: 'Primary Regions', value: data.territoryAvailability.regions },
@@ -25,37 +25,37 @@ const TerritoryNetwork: React.FC<TerritoryNetworkProps> = ({ isDesktop }) => {
         ].map((item, i) => (
           <div
             key={i}
-            className="flex items-center justify-between py-2.5 border-b border-[#f1f5f9] last:border-0"
+            className="flex items-center justify-between py-[0.375rem] border-b border-[#e2e8f0] last:border-0"
           >
-            <span className="text-[0.8rem] font-medium text-[#6b7280]">{item.label}</span>
-            <span className="text-[0.875rem] font-semibold text-[#1c2a44]">{item.value}</span>
+            <span className="text-[0.75rem] font-medium text-[#64748b]">{item.label}</span>
+            <span className="text-[0.8rem] font-semibold text-[#1c2a44] text-right">{item.value}</span>
           </div>
         ))}
       </div>
 
       {/* Network stats */}
-      <div className="grid grid-cols-2 gap-2 mb-5">
+      <div className={`grid gap-[0.375rem] mb-[1rem] ${isDesktop ? 'grid-cols-4' : 'grid-cols-2'}`}>
         {[
           { label: 'Total Units', value: data.existingNetwork.totalUnits },
           { label: 'Franchise Units', value: data.existingNetwork.franchiseUnits },
           { label: 'Company Units', value: data.existingNetwork.companyUnits },
           { label: 'Cities', value: data.existingNetwork.cities },
         ].map((stat, i) => (
-          <div key={i} className="px-3 py-2.5 rounded bg-[#f8fafc] border border-[#f1f5f9]">
-            <span className="text-[0.68rem] font-medium text-[#6b7280] block mb-0.5">
+          <div key={i} className="px-[0.625rem] py-[0.5rem] rounded-[0.25rem] bg-[#f8fafc] border border-transparent hover:border-[#e2e8f0] transition-colors cursor-default">
+            <span className="text-[0.65rem] font-medium text-[#64748b] block mb-[0.125rem] leading-none">
               {stat.label}
             </span>
-            <span className="text-[1rem] font-semibold text-[#1c2a44]">{stat.value}</span>
+            <span className="text-[0.875rem] font-semibold text-[#1c2a44] leading-tight block">{stat.value}</span>
           </div>
         ))}
       </div>
 
       {/* Expansion roadmap */}
-      <div className="px-3.5 py-3 rounded bg-[#f8fafc] border-l-2 border-l-[#1c2a44] border border-[#f1f5f9]">
-        <span className="text-[0.68rem] font-semibold text-[#1c2a44]/50 block mb-1">
+      <div className="p-[0.625rem] rounded-[0.25rem] bg-[#f8fafc] border border-[#e2e8f0] border-l-[0.125rem] border-l-[#1c2a44] shadow-sm">
+        <span className="text-[0.65rem] font-semibold text-[#64748b] block mb-[0.125rem] leading-none">
           Growth Roadmap
         </span>
-        <p className="text-[0.8rem] font-medium text-[#1c2a44] m-0 leading-[1.5]">
+        <p className="text-[0.75rem] font-medium text-[#1c2a44] m-0 leading-snug">
           {data.territoryAvailability.expansionPlans}
         </p>
       </div>

@@ -7,46 +7,48 @@ interface FinancialRequirementsProps {
 
 const FinancialRequirements: React.FC<FinancialRequirementsProps> = ({ isDesktop }) => {
   return (
-    <div className={isDesktop ? '' : 'px-4 py-5'}>
+    <div className={isDesktop ? 'py-[0.5rem]' : 'px-[1rem] py-[0.75rem]'}>
       <h3
-        className={`font-semibold text-[#1c2a44] m-0 mb-4 ${
-          isDesktop ? 'text-[1rem]' : 'text-[0.95rem]'
+        className={`font-semibold text-[#064e3b] m-0 mb-[1rem] ${
+          isDesktop ? 'text-[1.25rem]' : 'text-[1rem]'
         }`}
       >
-        Financial Requirements
+        Cost Breakdown
       </h3>
 
-      {/* Headline cards */}
-      <div className="grid grid-cols-2 gap-3 mb-5">
-        {[
-          { label: 'Investment Range', value: data.highlights.investmentRange },
-          { label: 'Franchise Fee', value: data.highlights.franchiseFee },
-        ].map((item, i) => (
-          <div key={i} className="px-4 py-3 rounded bg-[#f8fafc] border border-[#e2e8f0]">
-            <span className="text-[0.68rem] font-semibold text-[#6b7280] block mb-1">{item.label}</span>
-            <span className="text-[1.0625rem] font-semibold text-[#1c2a44]">{item.value}</span>
-          </div>
-        ))}
-      </div>
+      {/* Main Ledger Container */}
+      <div className="bg-[#f0fdf4] border border-[#bbf7d0] rounded-[0.25rem] overflow-hidden shadow-sm">
+        
+        {/* Breakdown Items */}
+        <div className={`grid ${isDesktop ? 'grid-cols-2 gap-x-[0.5rem] p-[1rem]' : 'grid-cols-1 p-[0.5rem]'}`}>
+          {data.investmentDetails.map((item, i) => (
+            <div
+              key={i}
+              className="flex items-center justify-between py-[0.25rem] border-b border-[#bbf7d0]/60 md:last:border-b-0"
+            >
+              <div className="flex items-center gap-[0.25rem]">
+                <span className="w-[0.25rem] h-[0.25rem] rounded-full bg-[#10b981] opacity-70" />
+                <span className={`font-medium text-[#047857] ${isDesktop ? 'text-[0.9rem]' : 'text-[0.85rem]'}`}>
+                  {item.item}
+                </span>
+              </div>
+              <span className={`font-semibold text-[#064e3b] ${isDesktop ? 'text-[1.125rem]' : 'text-[1rem]'}`}>
+                {item.amount}
+              </span>
+            </div>
+          ))}
+        </div>
 
-      <h4 className="text-[0.875rem] font-semibold text-[#1c2a44] m-0 mb-3">Cost Breakdown</h4>
-
-      <div className={`grid gap-x-8 ${isDesktop ? 'grid-cols-2' : 'grid-cols-1'}`}>
-        {data.investmentDetails.map((item, i) => (
-          <div
-            key={i}
-            className="flex items-center justify-between py-2.5 border-b border-[#f1f5f9] last:border-0"
-          >
-            <span className="text-[0.8rem] font-medium text-[#6b7280]">{item.item}</span>
-            <span className="text-[0.875rem] font-semibold text-[#1c2a44]">{item.amount}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Total row */}
-      <div className="mt-4 flex items-center justify-between px-4 py-3 bg-[#0f1f3d] rounded">
-        <span className="text-[0.75rem] font-medium text-white/60">Estimated Total</span>
-        <span className="text-[0.95rem] font-semibold text-white">{data.totalInvestmentRange}</span>
+        {/* Total Row */}
+        <div className={`flex items-center justify-between bg-gradient-to-r from-[#059669] to-[#10b981] ${isDesktop ? 'p-[0.5rem]' : 'px-[0.5rem] py-[0.5rem]'}`}>
+          <span className={`font-medium text-emerald-50 ${isDesktop ? 'text-[1rem]' : 'text-[0.875rem]'}`}>
+            Estimated Total
+          </span>
+          <span className={`font-bold text-white tracking-tight ${isDesktop ? 'text-[1.375rem]' : 'text-[1.125rem]'}`}>
+            {data.totalInvestmentRange}
+          </span>
+        </div>
+        
       </div>
     </div>
   );

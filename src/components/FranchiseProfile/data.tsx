@@ -63,15 +63,15 @@ export const data = {
     totalUnits: "45",
     franchiseUnits: "38",
     companyUnits: "7",
-    cities: "12 Cities"
+    cities: "12"
   },
   conceptTags: ["Low Investment", "Premium", "Investor Friendly", "Quick ROI"],
   contact: {
     name: "Rohan Sharma",
     role: "Director of Sales",
-    phone: "+91 98765 43210",
+    phone: "+91 123456789",
     email: "franchise@brewandbites.demo",
-    whatsapp: "+91 98765 43210"
+    whatsapp: "+91 987654321"
   },
   mapLocations: [
     { city: "Mumbai", lat: 19.07, lng: 72.88, outlets: 8, active: true },

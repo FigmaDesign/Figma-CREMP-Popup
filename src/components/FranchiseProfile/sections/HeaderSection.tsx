@@ -35,7 +35,7 @@ export default function HeaderSection({ isDesktop }: { isDesktop: boolean }) {
         </div>
 
         {/* Metadata & Socials Row */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#f1f5f9]">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 sample">
 
           <ul className={`flex items-center gap-6 text-[#6b7280] font-bold list-disc list-inside m-0 p-0 ${isDesktop ? 'text-[0.875rem]' : 'text-[0.75rem]'}`}>
             <li>Est. {data.basicInfo.establishedYear}</li>

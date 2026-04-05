@@ -9,8 +9,8 @@ interface FranchiseHeaderProps {
 const FranchiseHeader: React.FC<FranchiseHeaderProps> = ({ isDesktop }) => {
   return (
     <div className="w-full bg-[#0f1f3d] flex justify-center">
-      <div className={`w-full max-w-[80rem] ${isDesktop ? 'px-10 pt-4 pb-3' : 'px-4 pt-3 pb-2.5'}`}>
-        <div className="flex items-start gap-4">
+      <div className={`w-full max-w-[80rem] ${isDesktop ? 'px-10 pt-4 pb-3' : 'px-2 pt-2 pb-2'}`}>
+        <div className="flex items-start gap-2">
 
           {/* Logo box */}
           <div
@@ -38,7 +38,7 @@ const FranchiseHeader: React.FC<FranchiseHeaderProps> = ({ isDesktop }) => {
               {data.basicInfo.tagline}
             </p>
 
-            <div className="flex flex-wrap gap-1.5 mt-2.5">
+            <div className="flex flex-wrap gap-1 mt-1">
               {[data.basicInfo.category, data.basicInfo.subcategory, data.basicInfo.microCategory].map(tag => (
                 <span
                   key={tag}
@@ -73,7 +73,7 @@ const FranchiseHeader: React.FC<FranchiseHeaderProps> = ({ isDesktop }) => {
 
         {/* Mobile: meta + socials row */}
         {!isDesktop && (
-          <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/10">
+          <div className="flex items-center justify-between mt-1 pt-1 border-t border-white/10">
             <span className="text-[0.7rem] text-white/45 font-medium">
               Est. {data.basicInfo.establishedYear} · {data.basicInfo.headquarters}
             </span>

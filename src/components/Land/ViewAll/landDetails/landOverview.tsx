@@ -56,7 +56,7 @@ const overviewGroups: OverviewGroup[] = [
 
 const OverviewCard: React.FC<{ item: OverviewItem }> = ({ item }) => (
   <div className="flex items-center gap-1.5 p-[2px] rounded-[4px] bg-transparent hover:bg-[#f8fafc] transition-all group overflow-hidden cursor-default">
-    <div className="w-7 h-7 flex items-center justify-center rounded-[4px] bg-[#f8fafc] shrink-0 border border-[#f1f5f9] group-hover:bg-[#1c2a44] transition-all duration-200">
+    <div className="w-7 h-7 flex items-center justify-center rounded-[4px] bg-[#f8fafc] shrink-0  group-hover:bg-[#1c2a44] transition-all duration-200">
       {React.cloneElement(item.icon as React.ReactElement<any>, {
         className: `text-[#1c2a44] group-hover:text-white transition-colors duration-200`
       })}
