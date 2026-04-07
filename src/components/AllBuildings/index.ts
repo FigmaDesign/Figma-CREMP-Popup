@@ -1,3 +1,5 @@
+// Whislist
+export { Whislist } from '../Whislist';
 // MainScreen components
 export { Left, TabNavigation, RetailSpaces, OfficeSpace, CoWorkingSpaces } from './MainScreen';
 

@@ -2,35 +2,46 @@ import React from 'react';
 import { Select, MenuItem, FormControl, Box, Typography } from '@mui/material';
 
 interface MainFrameNavProps {
-  activePage: 'franchise' | 'mainframe';
-  onPageChange: (page: 'franchise' | 'mainframe') => void;
+  activePage: 'franchise' | 'handpicked' | 'mainframe' | 'wishlist';
+  onPageChange: (page: 'franchise' | 'handpicked' | 'mainframe' | 'wishlist') => void;
   activeSubPage: string;
   onSubPageChange: (subPage: string) => void;
 }
 
 const MainFrameNav: React.FC<MainFrameNavProps> = ({
-  activePage,
   onPageChange,
   activeSubPage,
   onSubPageChange
 }) => {
 
-  const currentValue = activePage === 'franchise' ? 'franchise' : activeSubPage;
-
   const handleChange = (val: string) => {
-    if (val === 'franchise') {
-      onPageChange('franchise');
+    if (val === 'wishlist') {
+      // Navigate to the top-level wishlist page
+      onPageChange('wishlist');
+      onSubPageChange('wishlist');
     } else {
+      // Stay within the mainframe popup views
       onPageChange('mainframe');
       onSubPageChange(val);
     }
   };
 
+  // Helper for rendering the selected value cleanly in the collapsed state
+  const getCurrentViewLabel = (val: string) => {
+    switch (val) {
+      case 'main': return '1. Main Screen';
+      case 'viewAll': return '2. View All';
+      case 'wishlist': return '3. Wishlist';
+      case 'landViewAll': return 'Land: View All';
+      default: return '1. Main Screen';
+    }
+  };
+
   return (
-    <Box className="flex items-center min-w-[180px] animate-in fade-in slide-in-from-top-1 duration-500">
+    <Box className="flex items-center min-w-[160px] animate-in fade-in slide-in-from-top-1 duration-500">
       <FormControl size="small" fullWidth>
         <Select
-          value={currentValue}
+          value={activeSubPage}
           onChange={(e) => handleChange(e.target.value as string)}
           className="bg-transparent text-[#0f1f3d] text-xs font-bold h-[36px]"
           sx={{
@@ -61,13 +72,14 @@ const MainFrameNav: React.FC<MainFrameNavProps> = ({
               color: '#c9a34e',
             }
           }}
+          renderValue={(selected) => (
+            <span className="truncate">
+              {getCurrentViewLabel(selected)}
+            </span>
+          )}
         >
-          <MenuItem value="franchise" className="font-['Outfit'] text-sm font-bold text-[#0f1f3d] border-b border-slate-100">
-            Franchise Profile
-          </MenuItem>
-
           <Box className="px-3 py-1.5 bg-[#f8fafc] flex items-center gap-1.5">
-            <Typography className="text-[10px]  tracking-widest font-extrabold text-[#1c2a44]/40">
+            <Typography className="text-[10px] uppercase tracking-widest font-extrabold text-[#1c2a44]/40">
               All Buildings
             </Typography>
           </Box>
@@ -78,9 +90,12 @@ const MainFrameNav: React.FC<MainFrameNavProps> = ({
           <MenuItem value="viewAll" className="font-['Outfit'] text-xs font-semibold text-[#0f1f3d] pl-6">
             2. View All
           </MenuItem>
+          <MenuItem value="wishlist" className="font-['Outfit'] text-xs font-semibold text-[#0f1f3d] pl-6">
+            3. Wishlist
+          </MenuItem>
 
-          <Box className="px-3 py-1.5 bg-[#f8fafc] flex items-center gap-1.5">
-            <Typography className="text-[10px]  tracking-widest font-extrabold text-[#1c2a44]/40">
+          <Box className="px-3 py-1.5 bg-[#f8fafc] flex items-center gap-1.5 border-t border-slate-100 mt-1">
+            <Typography className="text-[10px] uppercase tracking-widest font-extrabold text-[#1c2a44]/40">
               Land
             </Typography>
           </Box>

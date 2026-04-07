@@ -4,7 +4,9 @@
       "Bash(npm create:*)",
       "Bash(mv temp-vite/* .)",
       "Bash(mv temp-vite/.* .)",
-      "Bash(rmdir temp-vite:*)"
+      "Bash(rmdir temp-vite:*)",
+      "Bash(npm run:*)",
+      "mcp__ide__getDiagnostics"
     ]
   }
 }

@@ -26,24 +26,20 @@ const PremiumTabs = <T extends string>({
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
 
-  // Check if we need to show the left/right arrows based on scroll position
   const updateArrows = useCallback(() => {
     if (!scrollRef.current || isDesktop) return;
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
     
-    // Use a small 1px threshold for floating point rounding safety
     setShowLeftArrow(scrollLeft > 1);
     setShowRightArrow(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 1);
   }, [isDesktop]);
 
-  // Update arrows on mount and window resize
   useEffect(() => {
     updateArrows();
     window.addEventListener('resize', updateArrows);
     return () => window.removeEventListener('resize', updateArrows);
   }, [tabs, updateArrows]);
 
-  // Scroll to active tab and center it whenever the `value` changes
   useEffect(() => {
     if (!scrollRef.current) return;
     const activeTabBtn = scrollRef.current.querySelector(`button[data-value="${value}"]`);
@@ -57,20 +53,16 @@ const PremiumTabs = <T extends string>({
     }
   }, [value]);
 
-  // Handle manual arrow clicks
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const { clientWidth } = scrollRef.current;
-      // Scroll by half the container width
       const scrollAmount = direction === 'left' ? -(clientWidth / 2) : (clientWidth / 2);
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
   return (
-    <div className={`relative flex items-center w-full bg-white  ${className}`}>
-      
-      {/* Left Gradient & Arrow (Hidden on Desktop) */}
+    <div className={`relative flex items-center w-full bg-white ${className}`}>
       {!isDesktop && (
         <div 
           className={`absolute left-0 top-0 bottom-0 z-20 flex items-center transition-opacity duration-300 ${
@@ -88,7 +80,6 @@ const PremiumTabs = <T extends string>({
         </div>
       )}
 
-      {/* Scrollable Tabs Container */}
       <div
         ref={scrollRef}
         onScroll={updateArrows}
@@ -108,9 +99,10 @@ const PremiumTabs = <T extends string>({
               data-value={tab.value}
               onClick={() => onChange(tab.value)}
               style={{ zIndex: isActive ? 10 : tabs.length - index }}
-              className="relative h-[2.5rem] shrink-0 flex-1 min-w-[7rem] max-w-[10rem] outline-none group transition-all duration-300 bg-transparent"
+              className={`relative shrink-0 flex-1 min-w-[8rem] w-auto max-w-[14rem] h-auto outline-none group transition-all duration-300 bg-transparent ${
+                isDesktop ? 'min-h-[3rem] py-2' : 'min-h-[2.25rem] py-1.5'
+              }`}
             >
-              {/* Slanted SVG Background */}
               <svg
                 className="absolute inset-0 block w-full h-full"
                 fill="none"
@@ -133,19 +125,19 @@ const PremiumTabs = <T extends string>({
                 />
               </svg>
 
-              {/* Tab Content */}
-              <div className="relative z-10 flex flex-col items-center justify-center w-full h-full pb-[0.125rem]">
+              <div className="relative z-10 flex flex-col items-center justify-center w-full h-full overflow-hidden">
                 <span
-                  className={`text-[0.875rem] font-semibold tracking-tight transition-colors duration-300 whitespace-nowrap px-[1rem] ${
+                  className={`block w-full text-center whitespace-normal break-words leading-tight px-[1.5rem] font-semibold tracking-tight transition-colors duration-300 ${
+                    isDesktop ? 'text-[0.875rem]' : 'text-[0.75rem]'
+                  } ${
                     isActive ? 'text-white' : 'text-[#64748b] group-hover:text-[#1c2a44]'
                   }`}
                 >
                   {tab.label}
                 </span>
 
-                {/* Active Indicator Line */}
                 <div
-                  className={`h-[0.125rem] w-[1.5rem] mt-[0.125rem] rounded-full transition-all duration-300 ${
+                  className={`h-[0.125rem] w-[1.5rem] mt-[0.25rem] rounded-full transition-all duration-300 shrink-0 ${
                     isActive ? 'bg-[#c9a34e] opacity-100' : 'bg-transparent opacity-0'
                   }`}
                 />
@@ -155,7 +147,6 @@ const PremiumTabs = <T extends string>({
         })}
       </div>
 
-      {/* Right Gradient & Arrow (Hidden on Desktop) */}
       {!isDesktop && (
         <div 
           className={`absolute right-0 top-0 bottom-0 z-20 flex items-center transition-opacity duration-300 ${
@@ -172,7 +163,6 @@ const PremiumTabs = <T extends string>({
           </div>
         </div>
       )}
-
     </div>
   );
 };

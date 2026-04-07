@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import LeftPanel from './MainScreen/left';
 import MainScreen from './MainScreen';
 import { ViewAll } from './ViewAll';
+import { Whislist } from '../Whislist';
 import LandMainFrame from '../Land/LandMainFrame';
 
 interface MainFrameProps {
@@ -19,6 +20,8 @@ const MainFrame: React.FC<MainFrameProps> = ({ subPage, onSubPageChange, isMobil
         return <MainScreen />;
       case 'viewAll':
         return <ViewAll onBack={() => onSubPageChange('main')} />;
+      case 'wishlist':
+        return <Whislist viewMode={isMobile ? 'mobile' : 'desktop'} />;
       case 'landMain':
         return <LandMainFrame initialPage="main" onBack={() => onSubPageChange('landMain')} />;
       case 'landViewAll':
