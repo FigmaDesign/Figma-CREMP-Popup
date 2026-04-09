@@ -47,11 +47,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({ activePage, onPageSelect }) => {
           isActive={activePage === 'viewAll'}
           onClick={() => onPageSelect('viewAll')}
         />
-        <NavItem
-          label="3. Wishlist"
-          isActive={activePage === 'wishlist'}
-          onClick={() => onPageSelect('wishlist')}
-        />
+      
       </div>
 
       <h3 className="text-[0.65rem] font-semibold text-[#D4AF37]  tracking-[0.15em] mt-1 mb-1 px-1">

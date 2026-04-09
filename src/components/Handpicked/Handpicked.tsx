@@ -150,7 +150,7 @@ export default function Handpicked({ viewMode }: HandpickedProps) {
               </div>
             </div>
 
-            <div className={isDesktop ? 'max-w-[80rem] mx-auto px-10 py-6 pb-10' : 'px-3 py-4 pb-20'}>
+            <div className={isDesktop ? 'max-w-[80rem] mx-auto px-10 py-6 pb-6' : 'px-3 py-4 pb-20'}>
               <PropertyGrid
                 properties={filteredProperties}
                 isDesktop={isDesktop}

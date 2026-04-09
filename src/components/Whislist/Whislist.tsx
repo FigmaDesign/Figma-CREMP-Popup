@@ -79,7 +79,7 @@ export default function Whislist({ viewMode }: WhislistProps) {
               onViewChange={setViewType}
             />
 
-            <div className={isDesktop ? 'max-w-[80rem] mx-auto px-10 py-6 pb-10' : 'px-3 py-4 pb-20'}>
+            <div className={isDesktop ? 'max-w-[80rem] mx-auto px-10 py-6 pb-6' : 'px-3 py-4 pb-20'}>
               {wishlistItems.length === 0 ? (
                 <EmptyState isDesktop={isDesktop} />
               ) : activeFolderItems.length === 0 ? (
