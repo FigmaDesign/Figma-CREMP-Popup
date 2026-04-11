@@ -79,7 +79,7 @@ const MainFrameNav: React.FC<MainFrameNavProps> = ({
           )}
         >
           <Box className="px-3 py-1.5 bg-[#f8fafc] flex items-center gap-1.5">
-            <Typography className="text-[10px] uppercase tracking-widest font-extrabold text-[#1c2a44]/40">
+            <Typography className="text-[10px]  tracking-widest font-extrabold text-[#1c2a44]/40">
               All Buildings
             </Typography>
           </Box>
@@ -95,7 +95,7 @@ const MainFrameNav: React.FC<MainFrameNavProps> = ({
           </MenuItem>
 
           <Box className="px-3 py-1.5 bg-[#f8fafc] flex items-center gap-1.5 border-t border-slate-100 mt-1">
-            <Typography className="text-[10px] uppercase tracking-widest font-extrabold text-[#1c2a44]/40">
+            <Typography className="text-[10px]  tracking-widest font-extrabold text-[#1c2a44]/40">
               Land
             </Typography>
           </Box>

@@ -18,7 +18,13 @@ const tabs: { label: string; value: OpportunityType; icon?: React.ReactNode; col
 
 export default function CategoryTabs({ active, onChange, isDesktop }: CategoryTabsProps) {
   return (
-    <div className={`flex items-center gap-1 ${isDesktop ? '' : 'overflow-x-auto pb-0.5 no-scrollbar'}`}>
+    <div className={`flex items-center gap-2 ${isDesktop ? '' : 'overflow-x-auto pb-0.5 no-scrollbar'}`}>
+      {/* Category Label */}
+      <span className={`font-semibold text-[#637089] whitespace-nowrap flex-shrink-0 ${isDesktop ? 'text-xs' : 'text-[11px]'}`}>
+        Category:
+      </span>
+      {/* Divider */}
+      <div className="w-px h-4 bg-[#e8edf2] flex-shrink-0" />
       {tabs.map((tab) => {
         const isActive = active === tab.value;
 

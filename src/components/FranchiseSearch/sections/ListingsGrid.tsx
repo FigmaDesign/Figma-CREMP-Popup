@@ -86,66 +86,87 @@ function ListingCard({
 }) {
   const imageUrl = getImageUrl(listing.category);
 
-  // === DESKTOP VIEW (Large horizontal cards, 1 per row) ===
+  // === DESKTOP VIEW (Image-first vertical cards, 2 per row) ===
   if (isDesktop) {
+    const typeLabel = listing.type === 'franchise-new' ? 'Franchise' : listing.type === 'running-business' ? 'Running Business' : listing.type === 'restaurant-lease' ? 'For Lease' : '';
+
     return (
       <div
         id={`listing-${listing.id}`}
-        onClick={() => onSelect(listing.id)}
-        className={`bg-white rounded-[7px] border border-[#e8edf2] transition-all duration-300 ease-out cursor-pointer overflow-hidden flex flex-row h-[220px] ${isSelected
-          ? 'border-[#c9a34e] shadow-[0_8px_30px_rgba(201,163,78,0.15)] ring-1 ring-[#c9a34e]/30'
-          : 'hover:border-transparent hover:shadow-[0_12px_40px_rgba(15,31,61,0.08)] hover:-translate-y-0.5'
+        onClick={() => {
+          onSelect(listing.id);
+          onViewDetails?.(listing.id);
+        }}
+        className={`group bg-white rounded-[7px] border flex flex-col overflow-hidden transition-all duration-300 ease-out cursor-pointer h-full ${isSelected
+          ? 'border-[#c9a34e] shadow-[0_8px_30px_rgba(201,163,78,0.2)] ring-1 ring-[#c9a34e]/30 -translate-y-1'
+          : 'border-[#e8edf2] hover:border-[#c9a34e]/30 hover:shadow-[0_12px_36px_rgba(15,31,61,0.12)] hover:-translate-y-1'
           }`}
       >
-        <div className="relative flex-shrink-0 bg-[#f8fafc] w-[280px] h-full border-r border-[#e8edf2]">
-          <img src={imageUrl} alt={listing.name} className="w-full h-full object-cover" />
-          {/* <div className="absolute left-3 top-3 bg-[#0a162b]/90 backdrop-blur-md text-white text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-[4px] shadow-sm">
-            {listing.category}
-          </div> */}
+        {/* === IMAGE ZONE === */}
+        <div className="relative overflow-hidden h-[140px] flex-shrink-0">
+          <img
+            src={imageUrl}
+            alt={listing.name}
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          />
+          {/* Subtle gradient gradient overlay at bottom */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
         </div>
 
-        <div className="flex flex-col flex-1 p-6 relative">
+        {/* === CONTENT ZONE === */}
+        <div className="flex flex-col flex-1 p-1.5 pt-1">
           {/* Header Area */}
-          <div className="flex justify-between items-start mb-5">
-            <div>
-              <h3 className="font-extrabold text-[#0a162b] leading-tight text-[1.25rem] tracking-tight">
+          <div className="mb-2">
+            <div className="flex justify-between items-start mb-0.5">
+              <h3 className="font-extrabold text-[#0a162b] text-[15px] leading-tight tracking-tight line-clamp-1">
                 {listing.name}
               </h3>
             </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold text-[#1a3566] bg-[#eef2f8] px-1.5 py-0.5 rounded-[3px]">
+                {listing.category}
+              </span>
+              {typeLabel && (
+                <span className="text-[10px] font-semibold text-[#8a99b0]">• {typeLabel}</span>
+              )}
+            </div>
           </div>
 
-          {/* Data Points Grid */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-4 mb-auto">
+          {/* Metrics - Compact tag-style layout */}
+          <div className="flex flex-wrap gap-2 mb-2">
             {(listing.investmentMin !== undefined || listing.salePrice !== undefined) && (
-              <div className="flex flex-col">
-                <span className="text-[12px] font-semibold text-[#7a88a0] mb-0.5">Investment</span>
-                <span className="text-[14px] font-bold text-[#0a162b] leading-none">
+              <div className="bg-[#f8fafc] border border-[#e8edf2] rounded-[5px] px-2 py-1 flex items-center gap-1.5">
+                <span className="text-[10px] font-medium text-[#7a88a0]">Inv:</span>
+                <span className="text-[11.5px] font-extrabold text-[#0a162b]">
                   {listing.investmentMin !== undefined
                     ? formatRange(listing.investmentMin, listing.investmentMax!)
                     : formatInr(listing.salePrice!)}
                 </span>
               </div>
             )}
-
             {(listing.areaMin !== undefined || listing.area !== undefined) && (
-              <div className="flex flex-col">
-                <span className="text-[12px] font-semibold text-[#7a88a0] mb-0.5">Area Required</span>
-                <span className="text-[14px] font-bold text-[#0a162b] leading-none">
+              <div className="bg-[#f8fafc] border border-[#e8edf2] rounded-[5px] px-2 py-1 flex items-center gap-1.5">
+                <span className="text-[10px] font-medium text-[#7a88a0]">Area:</span>
+                <span className="text-[11.5px] font-extrabold text-[#0a162b]">
                   {listing.areaMin !== undefined
-                    ? `${listing.areaMin}–${listing.areaMax} sq ft`
-                    : `${listing.area} sq ft`}
+                    ? `${listing.areaMin}\u2013${listing.areaMax} sqft`
+                    : `${listing.area} sqft`}
                 </span>
+              </div>
+            )}
+            {listing.monthlyRent !== undefined && (
+              <div className="bg-[#f8fafc] border border-[#e8edf2] rounded-[5px] px-2 py-1 flex items-center gap-1.5">
+                <span className="text-[10px] font-medium text-[#7a88a0]">Rent:</span>
+                <span className="text-[11.5px] font-extrabold text-[#0a162b]">{formatInr(listing.monthlyRent)}</span>
               </div>
             )}
           </div>
 
-          {/* Action Area Component */}
-          <div className="absolute right-6 bottom-6 flex justify-end items-end">
+
+          {/* CTA */}
+          <div className="mt-auto flex justify-end">
             <ViewDetailsBtn
-              onClick={(e) => {
-                e.stopPropagation();
-                onViewDetails?.(listing.id);
-              }}
+              onClick={() => {}}
               isDesktop={true}
             />
           </div>
@@ -155,10 +176,15 @@ function ListingCard({
   }
 
   if (isFeatured) {
+    const typeLabel = listing.type === 'franchise-new' ? 'Franchise' : listing.type === 'running-business' ? 'Running Business' : listing.type === 'restaurant-lease' ? 'For Lease' : '';
+
     return (
       <div
         id={`listing-${listing.id}`}
-        onClick={() => onSelect(listing.id)}
+        onClick={() => {
+          onSelect(listing.id);
+          onViewDetails?.(listing.id);
+        }}
         className={`relative bg-white rounded-[7px] border border-[#e8edf2] transition-all duration-300 ease-out cursor-pointer overflow-hidden flex flex-row w-full ${isSelected
           ? 'shadow-[0_8px_30px_rgba(201,163,78,0.15)] ring-1 ring-[#c9a34e]/30'
           : 'hover:shadow-[0_12px_40px_rgba(15,31,61,0.08)]'
@@ -168,16 +194,25 @@ function ListingCard({
         <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#0a162b] via-[#637089] to-[#c9a34e] z-10" />
 
         <div className="flex flex-col flex-1 p-4 pr-3 pt-5">
-          <h3 className="font-extrabold text-[#0a162b] text-[16px] leading-tight mb-4 tracking-tight">
-            {listing.name}
-          </h3>
+          <div className="mb-3">
+            <h3 className="font-extrabold text-[#0a162b] text-[16px] leading-tight mb-1 tracking-tight">
+              {listing.name}
+            </h3>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold text-[#1a3566] bg-[#eef2f8] px-1.5 py-0.5 rounded-[3px]">
+                {listing.category}
+              </span>
+              {typeLabel && (
+                <span className="text-[10px] font-semibold text-[#8a99b0]">• {typeLabel}</span>
+              )}
+            </div>
+          </div>
 
-
-          <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
+          <div className="mt-auto grid grid-cols-2 gap-x-4 gap-y-3 mb-2">
             {(listing.investmentMin !== undefined || listing.salePrice !== undefined) && (
               <div className="flex flex-col">
-                <span className="text-[11px] font-semibold text-[#7a88a0] mb-[1.5px]">Investment</span>
-                <span className="text-[12px] font-bold text-[#0a162b] leading-none">
+                <span className="text-[9px] font-semibold text-[#7a88a0] mb-[1px]">Investment</span>
+                <span className="text-[11px] font-bold text-[#0a162b] leading-none">
                   {listing.investmentMin !== undefined
                     ? formatRange(listing.investmentMin, listing.investmentMax!)
                     : formatInr(listing.salePrice!)}
@@ -186,36 +221,34 @@ function ListingCard({
             )}
             {(listing.areaMin !== undefined || listing.area !== undefined) && (
               <div className="flex flex-col">
-                <span className="text-[11px] font-semibold text-[#7a88a0] mb-[1.5px]">Area Required</span>
-                <span className="text-[12px] font-bold text-[#0a162b] leading-none">
-                  {listing.areaMin !== undefined
-                    ? `${listing.areaMin}–${listing.areaMax} sq ft`
-                    : `${listing.area} sq ft`}
+                <span className="text-[10px] font-semibold text-[#7a88a0] mb-[1px]">Area</span>
+                <span className="text-[11px] font-bold text-[#0a162b] leading-none">
+                  {listing.areaMin !== undefined ? `${listing.areaMin}ft²` : `${listing.area}ft²`}
                 </span>
+              </div>
+            )}
+            {listing.monthlyRent !== undefined && (
+              <div className="flex flex-col">
+                <span className="text-[9px] font-semibold text-[#7a88a0] mb-[1px]">Rent</span>
+                <span className="text-[11px] font-bold text-[#0a162b] leading-none">{formatInr(listing.monthlyRent)}</span>
               </div>
             )}
           </div>
         </div>
 
-        {/* Right Image Section */}
-        <div className="relative w-[45%] flex-shrink-0 min-h-[140px] group">
-          <img src={imageUrl} alt={listing.name} className="w-full h-full object-cover" />
-          <div className="absolute inset-x-0 bottom-0 top-0 bg-transparent group-hover:bg-black/60 transition-colors duration-300"></div>
-
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 pointer-events-none">
+        {/* Right Image Section with Hover Action */}
+        <div className="relative w-[45%] flex-shrink-0 min-h-[140px] group/img overflow-hidden">
+          <img
+            src={imageUrl}
+            alt={listing.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-3">
             <button
-              onClick={(e) => { e.stopPropagation(); onViewDetails?.(listing.id); }}
-              className="group/btn pointer-events-auto flex w-[85%] justify-center items-center gap-1.5 bg-[#0a162b]/95 border border-white/10 shadow-lg text-white rounded-[4px] py-1.5 text-[12px] font-semibold transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out hover:bg-[#1a3566]"
+              className="bg-[#0a162b] text-white text-[11px] font-bold px-4 py-2 rounded-[5px] shadow-lg border border-white/10 flex items-center gap-1.5 transform translate-y-4 group-hover/img:translate-y-0 transition-all duration-300"
             >
               View Details
-              <div className="relative w-3.5 h-3.5 flex items-center justify-center overflow-hidden">
-                <span className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-out transform group-hover/btn:-translate-x-4 group-hover/btn:opacity-0">
-                  <ChevronRightIcon sx={{ fontSize: 14 }} className="text-white" />
-                </span>
-                <span className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-out transform translate-x-4 opacity-0 group-hover/btn:translate-x-0 group-hover/btn:opacity-100">
-                  <ArrowForwardIcon sx={{ fontSize: 14 }} className="text-white" />
-                </span>
-              </div>
+              <ArrowForwardIcon sx={{ fontSize: 14 }} />
             </button>
           </div>
         </div>
@@ -224,11 +257,16 @@ function ListingCard({
   }
 
   // === MOBILE VIEW: GRID ITEM (Bento Box Half Width) ===
+  const typeLabel = listing.type === 'franchise-new' ? 'Franchise' : listing.type === 'running-business' ? 'Running Business' : listing.type === 'restaurant-lease' ? 'For Lease' : '';
+
   return (
     <div
       id={`listing-${listing.id}`}
-      onClick={() => onSelect(listing.id)}
-      className={`group bg-[#fcfdff] rounded-[7px] border border-[#e8edf2] transition-all duration-300 ease-out cursor-pointer overflow-hidden flex flex-col h-full ${isSelected
+      onClick={() => {
+        onSelect(listing.id);
+        onViewDetails?.(listing.id);
+      }}
+      className={`group bg-white rounded-[7px] border border-[#e8edf2] transition-all duration-300 ease-out cursor-pointer overflow-hidden flex flex-col h-full ${isSelected
         ? 'border-[#c9a34e] shadow-[0_6px_24px_rgba(201,163,78,0.15)] ring-1 ring-[#c9a34e]/30'
         : 'hover:border-transparent hover:shadow-[0_8px_24px_rgba(15,31,61,0.06)] hover:-translate-y-0.5'
         }`}
@@ -237,43 +275,52 @@ function ListingCard({
         <img src={imageUrl} alt={listing.name} className="w-full h-full object-cover" />
       </div>
 
-      <div className="flex flex-col flex-1 p-2.5">
-        <h3 className="font-extrabold text-[#0a162b] text-[15px] leading-tight tracking-tight line-clamp-1 mb-2">
-          {listing.name}
-        </h3>
+      <div className="flex flex-col flex-1 p-3">
+        <div className="mb-2">
+          <h3 className="font-extrabold text-[#0a162b] text-[14px] leading-tight tracking-tight line-clamp-1 mb-1">
+            {listing.name}
+          </h3>
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="text-[9px] font-bold text-[#1a3566] bg-[#eef2f8] px-1 py-0.5 rounded-[2px] uppercase tracking-wider">
+              {listing.category}
+            </span>
+            {typeLabel && (
+              <span className="text-[9px] font-semibold text-[#8a99b0]">{typeLabel}</span>
+            )}
+          </div>
+        </div>
 
-        <div className="mt-auto pt-1 flex flex-col gap-1.5 text-[13px] mb-3">
-          {listing.investmentMin !== undefined && listing.investmentMax !== undefined && (
-            <div className="text-[#637089] font-medium tracking-tight">
-              Investment: <span className="text-[#0a162b] font-bold ml-0.5">{formatRange(listing.investmentMin, listing.investmentMax)}</span>
+        <div className="mt-auto pt-1 flex flex-col gap-1.5 text-[12px] mb-3">
+          {(listing.investmentMin !== undefined || listing.salePrice !== undefined) && (
+            <div className="text-[#637089] font-medium tracking-tight flex justify-between">
+              <span>Inv:</span>
+              <span className="text-[#0a162b] font-bold ml-0.5">
+                {listing.investmentMin !== undefined
+                  ? formatRange(listing.investmentMin, listing.investmentMax!)
+                  : formatInr(listing.salePrice!)}
+              </span>
             </div>
           )}
-          {listing.salePrice !== undefined && (
-            <div className="text-[#637089] font-medium tracking-tight">
-              Sale Value: <span className="text-[#0a162b] font-bold ml-0.5">{formatInr(listing.salePrice)}</span>
+          {(listing.areaMin !== undefined || listing.area !== undefined) && (
+            <div className="text-[#637089] font-medium tracking-tight flex justify-between">
+              <span>Area:</span>
+              <span className="text-[#0a162b] font-bold ml-0.5">
+                {listing.areaMin !== undefined ? `${listing.areaMin}ft²` : `${listing.area}ft²`}
+              </span>
             </div>
           )}
           {listing.monthlyRent !== undefined && (
-            <div className="text-[#637089] font-medium tracking-tight">
-              Rent: <span className="text-[#0a162b] font-bold ml-0.5">{formatInr(listing.monthlyRent)}/mo</span>
+            <div className="text-[#637089] font-medium tracking-tight flex justify-between">
+              <span>Rent:</span>
+              <span className="text-[#0a162b] font-bold ml-0.5">{formatInr(listing.monthlyRent)}</span>
             </div>
           )}
         </div>
 
-        <button
-          onClick={(e) => { e.stopPropagation(); onViewDetails?.(listing.id); }}
-          className="group/btn w-full bg-[#1a3566] hover:bg-[#0a162b] transition-colors text-white rounded-[5px] py-1.5 text-[13px] font-bold flex items-center justify-between px-3"
-        >
-          View Details
-          <div className="relative w-4 h-4 flex items-center justify-center overflow-hidden">
-            <span className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-out transform group-hover/btn:-translate-x-4 group-hover/btn:opacity-0">
-              <ChevronRightIcon sx={{ fontSize: 16 }} className="text-white" />
-            </span>
-            <span className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-out transform translate-x-4 opacity-0 group-hover/btn:translate-x-0 group-hover/btn:opacity-100">
-              <ArrowForwardIcon sx={{ fontSize: 16 }} className="text-white" />
-            </span>
-          </div>
-        </button>
+        <ViewDetailsBtn
+          onClick={() => {}}
+          isDesktop={false}
+        />
       </div>
     </div>
   );
@@ -291,9 +338,8 @@ export default function ListingsGrid({ listings, selectedListingId, onSelect, is
   }
 
   return (
-    <div className={`grid gap-3 ${isDesktop ? 'grid-cols-1' : 'grid-cols-2 p-3'}`}>
+    <div className={`grid gap-5 ${isDesktop ? 'grid-cols-2' : 'grid-cols-2 p-2'}`}>
       {listings.map((listing, index) => {
-        // Bento Box applies ONLY to mobile. Featured is index 0.
         const isFeatured = !isDesktop && index === 0;
         return (
           <div key={listing.id} className={isFeatured ? 'col-span-2' : 'col-span-1'}>

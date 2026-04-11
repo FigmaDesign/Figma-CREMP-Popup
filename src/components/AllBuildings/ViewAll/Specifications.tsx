@@ -70,7 +70,7 @@ const SpecificationCard: React.FC<{ item: SpecificationItem }> = ({ item }) => (
       })}
     </div>
     <div className="flex flex-col min-w-0">
-      <span className="text-[0.6rem] font-semibold text-[#6b7280] tracking-wide uppercase truncate">
+      <span className="text-[0.6rem] font-semibold text-[#6b7280] tracking-wide  truncate">
         {item.label}
       </span>
       <span className="text-[0.75rem] font-bold text-[#1c2a44] truncate leading-tight">
