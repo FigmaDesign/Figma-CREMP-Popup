@@ -6,19 +6,21 @@ import MainFrame from '@/components/AllBuildings/MainFrame';
 import MainFrameNav from '@/components/AllBuildings/MainFrameNav';
 import Handpicked from '@/components/Handpicked';
 import Whislist from './components/Whislist/Whislist';
+import FranchiseSearch from '@/components/FranchiseSearch/FranchiseSearch';
 
 export default function App() {
   const theme = useTheme();
   const isMobileScreen = useMediaQuery(theme.breakpoints.down('lg'));
   
-  // Added 'wishlist' to the allowed activePage types
-  const [activePage, setActivePage] = useState<'franchise' | 'handpicked' | 'wishlist' | 'mainframe'>('franchise');
+  // Added 'wishlist' and 'franchisesearch' to the allowed activePage types
+  const [activePage, setActivePage] = useState<'franchise' | 'handpicked' | 'wishlist' | 'mainframe' | 'franchisesearch'>('franchise');
   const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
   const [activeSubPage, setActiveSubPage] = useState<string>('main');
   const isMobile = isMobileScreen || viewMode === 'mobile';
 
   // Helper variable to determine if we should show the desktop/mobile toggle controls
-  const showViewControls = ['franchise', 'handpicked', 'wishlist'].includes(activePage);
+  // franchisesearch also supports viewMode toggle
+  const showViewControls = ['franchise', 'handpicked', 'wishlist', 'franchisesearch'].includes(activePage);
 
   return (
     <Box className="flex flex-col h-screen bg-[#f5f6f8] overflow-hidden font-['Outfit']">
@@ -136,7 +138,7 @@ export default function App() {
               <FormControl size="small">
                 <Select
                   value={activePage}
-                  onChange={(e) => setActivePage(e.target.value as 'franchise' | 'handpicked' | 'wishlist' | 'mainframe')}
+                  onChange={(e) => setActivePage(e.target.value as 'franchise' | 'handpicked' | 'wishlist' | 'mainframe' | 'franchisesearch')}
                   className="bg-[#ffffff] text-[#0f1f3d] text-sm font-semibold h-[36px]"
                   sx={{
                     borderRadius: '4px',
@@ -170,6 +172,9 @@ export default function App() {
                   <MenuItem value="mainframe" className="font-['Outfit'] text-sm font-medium text-[#0f1f3d]">
                     POPUP(Dialog)
                   </MenuItem>
+                  <MenuItem value="franchisesearch" className="font-['Outfit'] text-sm font-medium text-[#0f1f3d]">
+                    Franchise Search
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -193,6 +198,10 @@ export default function App() {
         ) : activePage === 'wishlist' ? (
           <Box className="flex-1 flex flex-col">
             <Whislist viewMode={viewMode} /> {/* Updated spelling here */}
+          </Box>
+        ) : activePage === 'franchisesearch' ? (
+          <Box className="flex-1 flex flex-col overflow-hidden" sx={{ height: 'calc(100vh - 64px)' }}>
+            <FranchiseSearch viewMode={viewMode} />
           </Box>
         ) : (
           <MainFrame

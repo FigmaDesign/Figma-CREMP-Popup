@@ -1,0 +1,330 @@
+import { useState, useRef, useEffect } from 'react';
+import SearchBar from './sections/SearchBar';
+import CategoryTabs from './sections/CategoryTabs';
+import MapSection from './sections/MapSection';
+import ListingsGrid from './sections/ListingsGrid';
+import { listings, type OpportunityType } from './data';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import CloseIcon from '@mui/icons-material/Close';
+import FranchiseProfile from '../FranchiseProfile/FranchiseProfile';
+
+interface FranchiseSearchProps {
+  viewMode: 'desktop' | 'mobile';
+}
+
+export default function FranchiseSearch({ viewMode }: FranchiseSearchProps) {
+  const isDesktop = viewMode === 'desktop';
+  const [activeCategory, setActiveCategory] = useState<OpportunityType>('all');
+  const [searchQuery, setSearchQuery] = useState('Kukatpally Area');
+  const [selectedRadius, setSelectedRadius] = useState(3);
+  const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
+  const [activeFilters, setActiveFilters] = useState<{
+    budget: string | null;
+    runner: string | null;
+    area: string | null;
+    type: string | null;
+  }>({ budget: null, runner: null, area: null, type: null });
+  const [selectedListingId, setSelectedListingId] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const listingsRef = useRef<HTMLDivElement>(null);
+
+  const filteredListings = listings.filter((l) => {
+    if (activeCategory === 'all') return true;
+    return l.type === activeCategory;
+  });
+
+  const handlePinClick = (listingId: string) => {
+    setSelectedListingId(listingId);
+    setTimeout(() => {
+      const el = document.getElementById(`listing-${listingId}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  };
+
+  return (
+    <div
+      className={`w-full flex flex-col ${
+        isDesktop ? 'bg-[#f8fafc] overflow-hidden' : 'bg-[#f4f7f9] items-center justify-center overflow-hidden'
+      }`}
+      style={{ height: isDesktop ? 'calc(100vh - 64px)' : 'calc(100vh - 64px)' }}
+    >
+      {isDesktop ? (
+        <DesktopLayout
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedRadius={selectedRadius}
+          setSelectedRadius={setSelectedRadius}
+          selectedBudget={selectedBudget}
+          setSelectedBudget={setSelectedBudget}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+          activeFilters={activeFilters}
+          setActiveFilters={setActiveFilters}
+          filteredListings={filteredListings}
+          selectedListingId={selectedListingId}
+          setSelectedListingId={setSelectedListingId}
+          onPinClick={handlePinClick}
+          listingsRef={listingsRef}
+          onViewDetails={(id) => { setSelectedListingId(id); setIsModalOpen(true); }}
+        />
+      ) : (
+        <div
+          className="transition-all duration-500 mx-auto overflow-hidden shadow-2xl bg-white w-[24.375rem] shrink-0 rounded-none"
+          style={{ height: '48.75rem' }}
+        >
+          <MobileLayout
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            selectedRadius={selectedRadius}
+            setSelectedRadius={setSelectedRadius}
+            selectedBudget={selectedBudget}
+            setSelectedBudget={setSelectedBudget}
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+            activeFilters={activeFilters}
+            setActiveFilters={setActiveFilters}
+            filteredListings={filteredListings}
+            selectedListingId={selectedListingId}
+            setSelectedListingId={setSelectedListingId}
+            onPinClick={handlePinClick}
+            listingsRef={listingsRef}
+            onViewDetails={(id) => { setSelectedListingId(id); setIsModalOpen(true); }}
+          />
+        </div>
+      )}
+
+      {/* Modal Overlay for View Details */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0f1f3d]/60 backdrop-blur-sm p-4">
+          <div className={`relative bg-white rounded-[7px] shadow-2xl overflow-hidden w-full max-w-[80rem] ${isDesktop ? 'h-[90vh]' : 'h-[100dvh]'}`}>
+            {/* Close Button */}
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 z-[101] w-10 h-10 bg-black/10 hover:bg-black/20 rounded-full flex items-center justify-center backdrop-blur-md transition-colors"
+            >
+              <CloseIcon sx={{ color: 'white' }} />
+            </button>
+            <div className="w-full h-full overflow-hidden">
+              <FranchiseProfile viewMode={viewMode} />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+interface LayoutProps {
+  searchQuery: string;
+  setSearchQuery: (v: string) => void;
+  selectedRadius: number;
+  setSelectedRadius: (v: number) => void;
+  selectedBudget: string | null;
+  setSelectedBudget: (v: string | null) => void;
+  activeCategory: OpportunityType;
+  setActiveCategory: (v: OpportunityType) => void;
+  activeFilters: { budget: string | null; runner: string | null; area: string | null; type: string | null };
+  setActiveFilters: React.Dispatch<React.SetStateAction<{ budget: string | null; runner: string | null; area: string | null; type: string | null }>>;
+  filteredListings: typeof listings;
+  selectedListingId: string | null;
+  setSelectedListingId: (v: string | null) => void;
+  onPinClick: (id: string) => void;
+  listingsRef: React.RefObject<HTMLDivElement | null>;
+  onViewDetails: (id: string) => void;
+}
+
+function DesktopLayout({
+  searchQuery, setSearchQuery, selectedRadius, setSelectedRadius,
+  selectedBudget, setSelectedBudget,
+  activeCategory, setActiveCategory,
+  filteredListings, selectedListingId, setSelectedListingId, onPinClick, listingsRef,
+  onViewDetails,
+}: LayoutProps) {
+  return (
+    <div className="flex flex-1 min-h-0 bg-[#f8fafc]">
+      {/* Left Base (Header + Map) */}
+      <div className="w-[55%] flex flex-col relative flex-shrink-0 border-r border-[#e8ecf1] bg-white shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-10">
+        <div className="border-b border-[#e8ecf1] px-6 py-4 flex flex-col gap-3 z-20 bg-white">
+          <div className="flex items-center gap-4">
+            <SearchBar value={searchQuery} onChange={setSearchQuery} isDesktop={true} />
+            <RadiusSliderWithBudget
+              radius={selectedRadius}
+              onRadiusChange={setSelectedRadius}
+              budget={selectedBudget}
+              onBudgetChange={setSelectedBudget}
+              isDesktop={true}
+            />
+          </div>
+          <CategoryTabs active={activeCategory} onChange={setActiveCategory} isDesktop={true} />
+        </div>
+        <div className="flex-1 min-h-0 relative">
+          <MapSection
+            listings={filteredListings}
+            selectedListingId={selectedListingId}
+            onPinClick={onPinClick}
+            isDesktop={true}
+          />
+        </div>
+      </div>
+      
+      {/* Right Base (Listings) */}
+      <div className="flex-1 flex flex-col min-h-0 bg-[#f8fafc]">
+        <div ref={listingsRef} className="flex-1 overflow-y-auto p-5 pb-8 [&::-webkit-scrollbar]:w-[0.35rem] [&::-webkit-scrollbar-thumb]:bg-[#1c2a44]/20 [&::-webkit-scrollbar-thumb]:rounded">
+          <ListingsGrid
+            listings={filteredListings}
+            selectedListingId={selectedListingId}
+            onSelect={setSelectedListingId}
+            isDesktop={true}
+            onViewDetails={onViewDetails}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileLayout({
+  searchQuery, setSearchQuery, selectedRadius, setSelectedRadius,
+  selectedBudget, setSelectedBudget,
+  activeCategory, setActiveCategory,
+  filteredListings, selectedListingId, setSelectedListingId, onPinClick, listingsRef,
+  onViewDetails,
+}: LayoutProps) {
+  return (
+    <div className="flex flex-col w-full h-full bg-[#f5f6f8]" style={{ minHeight: 0 }}>
+      {/* ── Header ── */}
+      <div className="bg-white border-b border-[#eef0f3] px-3 pt-3 pb-2 flex flex-col gap-2 flex-shrink-0">
+        {/* Row 1: Search bar full width */}
+        <SearchBar value={searchQuery} onChange={setSearchQuery} isDesktop={false} />
+        {/* Row 2: Radius slider + Budget dropdown */}
+        <div className="flex items-center gap-2">
+          <RadiusSliderWithBudget
+            radius={selectedRadius}
+            onRadiusChange={setSelectedRadius}
+            budget={selectedBudget}
+            onBudgetChange={setSelectedBudget}
+            isDesktop={false}
+            fullWidth
+          />
+        </div>
+        {/* Row 3: Category tabs */}
+        <CategoryTabs active={activeCategory} onChange={setActiveCategory} isDesktop={false} />
+      </div>
+
+      {/* ── Map ── */}
+      <div className="w-full flex-shrink-0" style={{ height: '35%' }}>
+        <MapSection
+          listings={filteredListings}
+          selectedListingId={selectedListingId}
+          onPinClick={onPinClick}
+          isDesktop={false}
+        />
+      </div>
+
+      {/* ── Listings scrollable ── */}
+      <div ref={listingsRef} className="flex-1 overflow-y-auto w-full bg-[#f5f6f8] [&::-webkit-scrollbar]:w-[0.25rem] [&::-webkit-scrollbar-thumb]:bg-[#1c2a44]/15 [&::-webkit-scrollbar-thumb]:rounded" style={{ minHeight: 0 }}>
+        <ListingsGrid
+          listings={filteredListings}
+          selectedListingId={selectedListingId}
+          onSelect={setSelectedListingId}
+          isDesktop={false}
+          onViewDetails={onViewDetails}
+        />
+      </div>
+    </div>
+  );
+}
+
+const RADIUS_STOPS = [1, 2, 3, 5, 10];
+const BUDGET_OPTIONS = ['₹ 0–5L', '₹ 5–25L', '₹ 25–50L', '₹ 50L+'];
+
+function RadiusSliderWithBudget({
+  radius, onRadiusChange, budget, onBudgetChange, isDesktop, fullWidth,
+}: {
+  radius: number;
+  onRadiusChange: (v: number) => void;
+  budget: string | null;
+  onBudgetChange: (v: string | null) => void;
+  isDesktop: boolean;
+  fullWidth?: boolean;
+}) {
+  const [budgetOpen, setBudgetOpen] = useState(false);
+  const budgetRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (budgetRef.current && !budgetRef.current.contains(e.target as Node)) setBudgetOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const sliderIndex = RADIUS_STOPS.indexOf(radius);
+  const sliderMax = RADIUS_STOPS.length - 1;
+
+  return (
+    <div className={`flex items-center gap-2 ${fullWidth ? 'w-full' : 'flex-shrink-0'}`}>
+      {/* Radius slider */}
+      <div className={`flex items-center gap-2 bg-white border border-[#d9dde3] rounded-[5px] hover:border-[#c9a34e] transition-colors ${fullWidth ? 'flex-1 min-w-0' : ''} ${
+        isDesktop ? 'px-3 py-[7px]' : 'px-2.5 py-[6px]'
+      }`}>
+        <span className={`font-semibold text-[#637089] whitespace-nowrap ${
+          isDesktop ? 'text-xs' : 'text-[11px]'
+        }`}>Radius</span>
+        <input
+          type="range"
+          min={0}
+          max={sliderMax}
+          step={1}
+          value={sliderIndex === -1 ? 2 : sliderIndex}
+          onChange={(e) => onRadiusChange(RADIUS_STOPS[Number(e.target.value)])}
+          className="w-20 accent-[#c9a34e] cursor-pointer"
+          style={{ height: '4px' }}
+        />
+        <span className={`font-bold text-[#0f1f3d] w-10 text-right ${
+          isDesktop ? 'text-xs' : 'text-[11px]'
+        }`}>{radius} km</span>
+      </div>
+
+      {/* Budget dropdown */}
+      <div ref={budgetRef} className="relative flex-shrink-0">
+        <button
+          onClick={() => setBudgetOpen(!budgetOpen)}
+          className={`flex items-center gap-1.5 bg-white border rounded-[5px] font-semibold transition-colors ${
+            isDesktop ? 'px-3 py-[7px] text-xs' : 'px-2.5 py-[6px] text-[11px]'
+          } ${
+            budget
+              ? 'border-[#c9a34e] text-[#c9a34e]'
+              : 'border-[#d9dde3] text-[#0f1f3d] hover:border-[#c9a34e]'
+          }`}
+        >
+          <span>{budget ?? 'Budget'}</span>
+          <KeyboardArrowDownIcon sx={{ fontSize: 14 }} className={`transition-transform ${budgetOpen ? 'rotate-180' : ''}`} />
+        </button>
+        {budgetOpen && (
+          <div className="absolute right-0 top-full mt-1 bg-white border border-[#eef0f3] rounded-[5px] shadow-lg z-50 min-w-[140px] overflow-hidden">
+            <button
+              onClick={() => { onBudgetChange(null); setBudgetOpen(false); }}
+              className={`w-full text-left px-4 py-2 text-xs font-medium transition-colors ${
+                !budget ? 'bg-[#0f1f3d] text-white' : 'text-[#637089] hover:bg-[#f5f6f8]'
+              }`}
+            >
+              All Budgets
+            </button>
+            {BUDGET_OPTIONS.map((o) => (
+              <button
+                key={o}
+                onClick={() => { onBudgetChange(o); setBudgetOpen(false); }}
+                className={`w-full text-left px-4 py-2 text-xs font-medium transition-colors ${
+                  budget === o ? 'bg-[#0f1f3d] text-white' : 'text-[#0f1f3d] hover:bg-[#f5f6f8]'
+                }`}
+              >
+                {o}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
