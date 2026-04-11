@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, Language, Instagram, LinkedIn } from '@mui/icons-material';
+import { CheckCircle } from '@mui/icons-material';
 
 interface FranchiseHeaderProps {
   isDesktop: boolean;
