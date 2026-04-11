@@ -146,16 +146,19 @@ function DesktopLayout({
       <div className="w-[55%] flex flex-col relative flex-shrink-0 border-r border-[#e8ecf1] bg-white shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-10">
         <div className="border-b border-[#e8ecf1] px-6 py-4 flex flex-col gap-3 z-20 bg-white">
           <div className="flex items-center gap-4">
-            <SearchBar value={searchQuery} onChange={setSearchQuery} isDesktop={true} />
-            <RadiusSliderWithBudget
-              radius={selectedRadius}
-              onRadiusChange={setSelectedRadius}
-              budget={selectedBudget}
-              onBudgetChange={setSelectedBudget}
-              isDesktop={true}
-            />
+            <div className="flex-1 min-w-0">
+              <SearchBar value={searchQuery} onChange={setSearchQuery} isDesktop={true} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <RadiusSlider radius={selectedRadius} onRadiusChange={setSelectedRadius} isDesktop={true} fullWidth />
+            </div>
           </div>
-          <CategoryTabs active={activeCategory} onChange={setActiveCategory} isDesktop={true} />
+          <div className="flex items-center gap-4 justify-between mt-1">
+            <CategoryTabs active={activeCategory} onChange={setActiveCategory} isDesktop={true} />
+            <div className="flex-shrink-0">
+              <BudgetDropdown budget={selectedBudget} onBudgetChange={setSelectedBudget} isDesktop={true} />
+            </div>
+          </div>
         </div>
         <div className="flex-1 min-h-0 relative">
           <MapSection
@@ -194,21 +197,25 @@ function MobileLayout({
     <div className="flex flex-col w-full h-full bg-[#f5f6f8]" style={{ minHeight: 0 }}>
       {/* ── Header ── */}
       <div className="bg-white border-b border-[#eef0f3] px-3 pt-3 pb-2 flex flex-col gap-2 flex-shrink-0">
-        {/* Row 1: Search bar full width */}
-        <SearchBar value={searchQuery} onChange={setSearchQuery} isDesktop={false} />
-        {/* Row 2: Radius slider + Budget dropdown */}
+        {/* Row 1: Search + Budget */}
         <div className="flex items-center gap-2">
-          <RadiusSliderWithBudget
-            radius={selectedRadius}
-            onRadiusChange={setSelectedRadius}
-            budget={selectedBudget}
-            onBudgetChange={setSelectedBudget}
-            isDesktop={false}
-            fullWidth
-          />
+          <div className="flex-1 min-w-0">
+            <SearchBar value={searchQuery} onChange={setSearchQuery} isDesktop={false} />
+          </div>
+          <div className="flex-shrink-0">
+            <BudgetDropdown budget={selectedBudget} onBudgetChange={setSelectedBudget} isDesktop={false} />
+          </div>
         </div>
-        {/* Row 3: Category tabs */}
-        <CategoryTabs active={activeCategory} onChange={setActiveCategory} isDesktop={false} />
+        
+        {/* Row 2: Radius Slider (Full Width) */}
+        <div className="w-full">
+          <RadiusSlider radius={selectedRadius} onRadiusChange={setSelectedRadius} isDesktop={false} fullWidth />
+        </div>
+        
+        {/* Row 3: Category Tabs */}
+        <div className="mt-1">
+          <CategoryTabs active={activeCategory} onChange={setActiveCategory} isDesktop={false} />
+        </div>
       </div>
 
       {/* ── Map ── */}
@@ -235,19 +242,36 @@ function MobileLayout({
   );
 }
 
-const RADIUS_STOPS = [1, 2, 3, 5, 10];
 const BUDGET_OPTIONS = ['₹ 0–5L', '₹ 5–25L', '₹ 25–50L', '₹ 50L+'];
 
-function RadiusSliderWithBudget({
-  radius, onRadiusChange, budget, onBudgetChange, isDesktop, fullWidth,
-}: {
-  radius: number;
-  onRadiusChange: (v: number) => void;
-  budget: string | null;
-  onBudgetChange: (v: string | null) => void;
-  isDesktop: boolean;
-  fullWidth?: boolean;
-}) {
+function RadiusSlider({ radius, onRadiusChange, isDesktop, fullWidth }: { radius: number; onRadiusChange: (v: number) => void; isDesktop: boolean; fullWidth?: boolean; }) {
+  // Map 0-50 km to exactly 0 to 100 percentage layout for the gradient
+  const maxRadius = 50;
+  const percentage = Math.min((radius / maxRadius) * 100, 100);
+  
+  return (
+    <div className={`flex items-center gap-2.5 bg-white border border-[#d9dde3] rounded-[5px] hover:border-[#c9a34e] transition-colors ${fullWidth ? 'flex-1 min-w-0 w-full' : ''} ${
+      isDesktop ? 'px-3 py-[7px]' : 'px-2.5 py-[6px]'
+    }`}>
+      <span className={`font-semibold text-[#637089] whitespace-nowrap flex-shrink-0 ${isDesktop ? 'text-xs' : 'text-[11px]'}`}>Radius</span>
+      <input
+        type="range"
+        min={1}
+        max={50}
+        step={1}
+        value={radius}
+        onChange={(e) => onRadiusChange(Number(e.target.value))}
+        className="flex-1 w-full min-w-[60px] h-[4px] rounded-full appearance-none cursor-pointer outline-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:bg-[#1a3566] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-[0_2px_5px_rgba(26,53,102,0.4)] [&::-moz-range-thumb]:w-3.5 [&::-moz-range-thumb]:h-3.5 [&::-moz-range-thumb]:bg-[#1a3566] [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:shadow-[0_2px_5px_rgba(26,53,102,0.4)]"
+        style={{
+          background: `linear-gradient(to right, #1a3566, #c9a34e ${percentage}%, #e8edf2 ${percentage}%)`
+        }}
+      />
+      <span className={`font-bold text-[#0f1f3d] w-12 text-right flex-shrink-0 ${isDesktop ? 'text-xs' : 'text-[11px]'}`}>{radius} km</span>
+    </div>
+  );
+}
+
+function BudgetDropdown({ budget, onBudgetChange, isDesktop }: { budget: string | null; onBudgetChange: (v: string | null) => void; isDesktop: boolean; }) {
   const [budgetOpen, setBudgetOpen] = useState(false);
   const budgetRef = useRef<HTMLDivElement>(null);
 
@@ -259,72 +283,44 @@ function RadiusSliderWithBudget({
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const sliderIndex = RADIUS_STOPS.indexOf(radius);
-  const sliderMax = RADIUS_STOPS.length - 1;
-
   return (
-    <div className={`flex items-center gap-2 ${fullWidth ? 'w-full' : 'flex-shrink-0'}`}>
-      {/* Radius slider */}
-      <div className={`flex items-center gap-2 bg-white border border-[#d9dde3] rounded-[5px] hover:border-[#c9a34e] transition-colors ${fullWidth ? 'flex-1 min-w-0' : ''} ${
-        isDesktop ? 'px-3 py-[7px]' : 'px-2.5 py-[6px]'
-      }`}>
-        <span className={`font-semibold text-[#637089] whitespace-nowrap ${
-          isDesktop ? 'text-xs' : 'text-[11px]'
-        }`}>Radius</span>
-        <input
-          type="range"
-          min={0}
-          max={sliderMax}
-          step={1}
-          value={sliderIndex === -1 ? 2 : sliderIndex}
-          onChange={(e) => onRadiusChange(RADIUS_STOPS[Number(e.target.value)])}
-          className="w-20 accent-[#c9a34e] cursor-pointer"
-          style={{ height: '4px' }}
-        />
-        <span className={`font-bold text-[#0f1f3d] w-10 text-right ${
-          isDesktop ? 'text-xs' : 'text-[11px]'
-        }`}>{radius} km</span>
-      </div>
-
-      {/* Budget dropdown */}
-      <div ref={budgetRef} className="relative flex-shrink-0">
-        <button
-          onClick={() => setBudgetOpen(!budgetOpen)}
-          className={`flex items-center gap-1.5 bg-white border rounded-[5px] font-semibold transition-colors ${
-            isDesktop ? 'px-3 py-[7px] text-xs' : 'px-2.5 py-[6px] text-[11px]'
-          } ${
-            budget
-              ? 'border-[#c9a34e] text-[#c9a34e]'
-              : 'border-[#d9dde3] text-[#0f1f3d] hover:border-[#c9a34e]'
-          }`}
-        >
-          <span>{budget ?? 'Budget'}</span>
-          <KeyboardArrowDownIcon sx={{ fontSize: 14 }} className={`transition-transform ${budgetOpen ? 'rotate-180' : ''}`} />
-        </button>
-        {budgetOpen && (
-          <div className="absolute right-0 top-full mt-1 bg-white border border-[#eef0f3] rounded-[5px] shadow-lg z-50 min-w-[140px] overflow-hidden">
+    <div ref={budgetRef} className="relative flex-shrink-0">
+      <button
+        onClick={() => setBudgetOpen(!budgetOpen)}
+        className={`flex items-center gap-1.5 bg-white border rounded-[5px] font-semibold transition-colors w-full justify-between ${
+          isDesktop ? 'px-3 py-[7px] text-xs' : 'px-3 py-[6px] text-[11px]'
+        } ${
+          budget
+            ? 'border-[#c9a34e] text-[#c9a34e]'
+            : 'border-[#d9dde3] text-[#0f1f3d] hover:border-[#c9a34e]'
+        }`}
+      >
+        <span className="whitespace-nowrap">{budget ?? 'Budget'}</span>
+        <KeyboardArrowDownIcon sx={{ fontSize: 14 }} className={`transition-transform flex-shrink-0 ml-1 ${budgetOpen ? 'rotate-180' : ''}`} />
+      </button>
+      {budgetOpen && (
+        <div className="absolute right-0 top-[calc(100%+4px)] bg-white border border-[#eef0f3] rounded-[5px] shadow-[0_8px_24px_rgba(15,31,61,0.12)] z-50 min-w-[140px] overflow-hidden">
+          <button
+            onClick={() => { onBudgetChange(null); setBudgetOpen(false); }}
+            className={`w-full text-left px-4 py-2.5 text-[13px] font-medium transition-colors ${
+              !budget ? 'bg-[#0f1f3d] text-white' : 'text-[#637089] hover:bg-[#f5f6f8]'
+            }`}
+          >
+            All Budgets
+          </button>
+          {BUDGET_OPTIONS.map((o) => (
             <button
-              onClick={() => { onBudgetChange(null); setBudgetOpen(false); }}
-              className={`w-full text-left px-4 py-2 text-xs font-medium transition-colors ${
-                !budget ? 'bg-[#0f1f3d] text-white' : 'text-[#637089] hover:bg-[#f5f6f8]'
+              key={o}
+              onClick={() => { onBudgetChange(o); setBudgetOpen(false); }}
+              className={`w-full text-left px-4 py-2.5 text-[13px] font-medium transition-colors ${
+                budget === o ? 'bg-[#0f1f3d] text-white' : 'text-[#0f1f3d] hover:bg-[#f5f6f8]'
               }`}
             >
-              All Budgets
+              {o}
             </button>
-            {BUDGET_OPTIONS.map((o) => (
-              <button
-                key={o}
-                onClick={() => { onBudgetChange(o); setBudgetOpen(false); }}
-                className={`w-full text-left px-4 py-2 text-xs font-medium transition-colors ${
-                  budget === o ? 'bg-[#0f1f3d] text-white' : 'text-[#0f1f3d] hover:bg-[#f5f6f8]'
-                }`}
-              >
-                {o}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

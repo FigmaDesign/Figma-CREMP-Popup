@@ -1,17 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
-import StoreIcon from '@mui/icons-material/Store';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import type { OpportunityType } from '../data';
+// Removed unused OpportunityType import
 
 interface FilterBarProps {
   activeFilters: { budget: string | null; runner: string | null; area: string | null; type: string | null };
   setActiveFilters: React.Dispatch<React.SetStateAction<{ budget: string | null; runner: string | null; area: string | null; type: string | null }>>;
-  activeCategory: OpportunityType;
-  setActiveCategory: (v: OpportunityType) => void;
   isDesktop: boolean;
 }
 
@@ -88,7 +84,7 @@ function FilterDropdown({
   );
 }
 
-export default function FilterBar({ activeFilters, setActiveFilters, activeCategory, setActiveCategory, isDesktop }: FilterBarProps) {
+export default function FilterBar({ activeFilters, setActiveFilters, isDesktop }: FilterBarProps) {
   const setFilter = (key: DropdownKey) => (val: string | null) => {
     setActiveFilters((prev) => ({ ...prev, [key]: val }));
   };
