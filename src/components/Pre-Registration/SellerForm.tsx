@@ -73,21 +73,21 @@ export default function SellerForm({ isDesktop }: SellerFormProps) {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 px-4 gap-6">
-        <div className="w-16 h-16 rounded-[7px] bg-gradient-to-br from-[#bf953f] via-[#d4af37] to-[#b38728] flex items-center justify-center shadow-[0_10px_20px_rgba(212,175,55,0.2)]">
-          <CheckCircleIcon sx={{ fontSize: '2rem', color: '#ffffff' }} />
+      <div className="flex flex-col items-center justify-center py-8 px-4 gap-4">
+        <div className="w-14 h-14 rounded-[7px] bg-gradient-to-br from-[#bf953f] via-[#d4af37] to-[#b38728] flex items-center justify-center shadow-[0_10px_20px_rgba(212,175,55,0.2)]">
+          <CheckCircleIcon sx={{ fontSize: '1.75rem', color: '#ffffff' }} />
         </div>
-        <div className="text-center space-y-2">
-          <h2 className={`font-light tracking-wide text-[#0a1128] ${isDesktop ? 'text-3xl' : 'text-2xl'}`}>
+        <div className="text-center space-y-1">
+          <h2 className={`font-light tracking-wide text-[#0a1128] ${isDesktop ? 'text-2xl' : 'text-xl'}`}>
             Registration Submitted
           </h2>
-          <p className={`text-[#637089] font-light max-w-sm mx-auto leading-relaxed ${isDesktop ? 'text-base' : 'text-sm'}`}>
-            Thank you for registering as a seller. Our advisory team will review your information and connect with you shortly.
+          <p className={`text-[#637089] font-light max-w-sm mx-auto leading-relaxed ${isDesktop ? 'text-sm' : 'text-xs'}`}>
+            Thank you for registering. Our advisory team will connect with you shortly.
           </p>
         </div>
         <button
           onClick={() => { setSubmitted(false); setValues(emptyForm); setErrors({}); }}
-          className="px-8 py-3 mt-2 rounded-[7px] bg-gradient-to-br from-[#0a1128] via-[#121c33] to-[#0a1128] text-white font-light tracking-wider text-sm hover:opacity-90 transition-opacity shadow-[0_10px_20px_rgba(10,17,40,0.1)]"
+          className="px-6 py-2 mt-2 rounded-[7px] bg-gradient-to-br from-[#0a1128] via-[#121c33] to-[#0a1128] text-white font-light tracking-wider text-sm hover:opacity-90 transition-opacity shadow-[0_10px_20px_rgba(10,17,40,0.1)]"
         >
           Register Another
         </button>
@@ -96,24 +96,25 @@ export default function SellerForm({ isDesktop }: SellerFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3">
       <div>
-        <label className={`flex items-center gap-2 font-medium text-[#0a1128] mb-3 ${isDesktop ? 'text-sm' : 'text-xs'}`}>
-          <BadgeIcon sx={{ fontSize: 18, color: '#d4af37' }} />
+        <label className={`flex items-center gap-1.5 font-medium text-[#0a1128] mb-1 ${isDesktop ? 'text-sm' : 'text-xs'}`}>
+          <BadgeIcon sx={{ fontSize: 16, color: '#d4af37' }} />
           Select Your Role <span className="text-[#e05252] font-light">*</span>
         </label>
-        <div className={`${isDesktop ? 'flex flex-wrap gap-3' : 'flex gap-1.5 w-full justify-between'} mt-1`}>
+        
+        <div className={`${isDesktop ? 'flex flex-wrap gap-2' : 'flex flex-wrap justify-center gap-1.5 w-full'}`}>
           {sellerRoles.map(({ value, label }) => (
             <button
               type="button"
               key={value}
               onClick={() => setValues((prev) => ({ ...prev, role: value }))}
               className={`${isDesktop
-                ? 'px-4 py-2.5 text-sm min-w-[90px]'
-                : 'px-1.5 py-2 text-[11px] min-w-0 flex-1'
-              } rounded-[4px] font-medium border transition-all duration-300 whitespace-nowrap ${
+                ? 'px-3 py-1.5 text-xs min-w-[72px]'
+                : 'px-1 py-1.5 text-[11px] w-[calc(33.333%-4px)]' 
+              } rounded-[4px] font-medium border transition-all duration-300 whitespace-nowrap flex items-center justify-center ${
                 values.role === value
-                  ? 'bg-gradient-to-br from-[#0a1128] via-[#121c33] to-[#0a1128] text-white border-[#0a1128] shadow-[0_8px_16px_rgba(10,17,40,0.15)]'
+                  ? 'bg-gradient-to-br from-[#0a1128] via-[#121c33] to-[#0a1128] text-white border-[#0a1128] shadow-[0_4px_10px_rgba(10,17,40,0.15)]'
                   : 'bg-white text-[#637089] border-black/5 hover:border-[#d4af37]/40 hover:text-[#0a1128] hover:bg-[#fafafb]'
               }`}
             >
@@ -121,12 +122,13 @@ export default function SellerForm({ isDesktop }: SellerFormProps) {
             </button>
           ))}
         </div>
-        {errors.role && <p className="text-[#e05252] text-xs mt-2 font-light">{errors.role}</p>}
+        {errors.role && <p className="text-[#e05252] text-[11px] mt-1 font-light">{errors.role}</p>}
       </div>
 
+
       <div>
-        <label className={`flex items-center gap-2 font-medium text-[#0a1128] mb-2 ${isDesktop ? 'text-sm' : 'text-xs'}`}>
-          <PersonIcon sx={{ fontSize: 18, color: '#d4af37' }} />
+        <label className={`flex items-center gap-1.5 font-medium text-[#0a1128] mb-1 ${isDesktop ? 'text-sm' : 'text-xs'}`}>
+          <PersonIcon sx={{ fontSize: 16, color: '#d4af37' }} />
           Full Name <span className="text-[#e05252] font-light">*</span>
         </label>
         <input
@@ -134,18 +136,18 @@ export default function SellerForm({ isDesktop }: SellerFormProps) {
           placeholder="Enter your full name"
           value={values.name}
           onChange={(e) => setValues((prev) => ({ ...prev, name: e.target.value }))}
-          className={`w-full border rounded-[7px] px-4 py-3 text-[#0a1128] text-sm outline-none transition-all duration-300 placeholder:text-[#a0aabf] font-light font-['Outfit'] ${
+          className={`w-full border rounded-[7px] px-3 py-2 text-[#0a1128] text-sm outline-none transition-all duration-300 placeholder:text-[#a0aabf] font-light font-['Outfit'] ${
             errors.name
               ? 'border-[#e05252] bg-[#fff5f5]'
               : 'border-black/5 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/20 bg-[#fafafb] focus:bg-white'
           }`}
         />
-        {errors.name && <p className="text-[#e05252] text-xs mt-1.5 font-light">{errors.name}</p>}
+        {errors.name && <p className="text-[#e05252] text-[11px] mt-1 font-light">{errors.name}</p>}
       </div>
 
       <div>
-        <label className={`flex items-center gap-2 font-medium text-[#0a1128] mb-2 ${isDesktop ? 'text-sm' : 'text-xs'}`}>
-          <BusinessIcon sx={{ fontSize: 18, color: '#d4af37' }} />
+        <label className={`flex items-center gap-1.5 font-medium text-[#0a1128] mb-1 ${isDesktop ? 'text-sm' : 'text-xs'}`}>
+          <BusinessIcon sx={{ fontSize: 16, color: '#d4af37' }} />
           Entity Name <span className="text-[#e05252] font-light">*</span>
         </label>
         <input
@@ -153,18 +155,18 @@ export default function SellerForm({ isDesktop }: SellerFormProps) {
           placeholder="Enter your company name"
           value={values.companyName}
           onChange={(e) => setValues((prev) => ({ ...prev, companyName: e.target.value }))}
-          className={`w-full border rounded-[7px] px-4 py-3 text-[#0a1128] text-sm outline-none transition-all duration-300 placeholder:text-[#a0aabf] font-light font-['Outfit'] ${
+          className={`w-full border rounded-[7px] px-3 py-2 text-[#0a1128] text-sm outline-none transition-all duration-300 placeholder:text-[#a0aabf] font-light font-['Outfit'] ${
             errors.companyName
               ? 'border-[#e05252] bg-[#fff5f5]'
               : 'border-black/5 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/20 bg-[#fafafb] focus:bg-white'
           }`}
         />
-        {errors.companyName && <p className="text-[#e05252] text-xs mt-1.5 font-light">{errors.companyName}</p>}
+        {errors.companyName && <p className="text-[#e05252] text-[11px] mt-1 font-light">{errors.companyName}</p>}
       </div>
 
       <div>
-        <label className={`flex items-center gap-2 font-medium text-[#0a1128] mb-2 ${isDesktop ? 'text-sm' : 'text-xs'}`}>
-          <PhoneIcon sx={{ fontSize: 18, color: '#d4af37' }} />
+        <label className={`flex items-center gap-1.5 font-medium text-[#0a1128] mb-1 ${isDesktop ? 'text-sm' : 'text-xs'}`}>
+          <PhoneIcon sx={{ fontSize: 16, color: '#d4af37' }} />
           Contact Number <span className="text-[#e05252] font-light">*</span>
         </label>
         <input
@@ -176,18 +178,18 @@ export default function SellerForm({ isDesktop }: SellerFormProps) {
             const val = e.target.value.replace(/\D/g, '');
             setValues((prev) => ({ ...prev, mobile: val }));
           }}
-          className={`w-full border rounded-[7px] px-4 py-3 text-[#0a1128] text-sm outline-none transition-all duration-300 placeholder:text-[#a0aabf] font-light font-['Outfit'] ${
+          className={`w-full border rounded-[7px] px-3 py-2 text-[#0a1128] text-sm outline-none transition-all duration-300 placeholder:text-[#a0aabf] font-light font-['Outfit'] ${
             errors.mobile
               ? 'border-[#e05252] bg-[#fff5f5]'
               : 'border-black/5 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/20 bg-[#fafafb] focus:bg-white'
           }`}
         />
-        {errors.mobile && <p className="text-[#e05252] text-xs mt-1.5 font-light">{errors.mobile}</p>}
+        {errors.mobile && <p className="text-[#e05252] text-[11px] mt-1 font-light">{errors.mobile}</p>}
       </div>
 
       <div>
-        <label className={`flex items-center gap-2 font-medium text-[#0a1128] mb-2 ${isDesktop ? 'text-sm' : 'text-xs'}`}>
-          <EmailIcon sx={{ fontSize: 18, color: '#d4af37' }} />
+        <label className={`flex items-center gap-1.5 font-medium text-[#0a1128] mb-1 ${isDesktop ? 'text-sm' : 'text-xs'}`}>
+          <EmailIcon sx={{ fontSize: 16, color: '#d4af37' }} />
           Email Address <span className="text-[#e05252] font-light">*</span>
         </label>
         <input
@@ -195,22 +197,22 @@ export default function SellerForm({ isDesktop }: SellerFormProps) {
           placeholder="Enter your email address"
           value={values.email}
           onChange={(e) => setValues((prev) => ({ ...prev, email: e.target.value }))}
-          className={`w-full border rounded-[7px] px-4 py-3 text-[#0a1128] text-sm outline-none transition-all duration-300 placeholder:text-[#a0aabf] font-light font-['Outfit'] ${
+          className={`w-full border rounded-[7px] px-3 py-2 text-[#0a1128] text-sm outline-none transition-all duration-300 placeholder:text-[#a0aabf] font-light font-['Outfit'] ${
             errors.email
               ? 'border-[#e05252] bg-[#fff5f5]'
               : 'border-black/5 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/20 bg-[#fafafb] focus:bg-white'
           }`}
         />
-        {errors.email && <p className="text-[#e05252] text-xs mt-1.5 font-light">{errors.email}</p>}
+        {errors.email && <p className="text-[#e05252] text-[11px] mt-1 font-light">{errors.email}</p>}
       </div>
 
-      <div className="flex items-center justify-start mt-2 mb-2">
+      <div className="flex items-center justify-start mt-1">
         <input
           id="seller-terms"
           type="checkbox"
           checked={values.termsAccepted || false}
           onChange={e => setValues(prev => ({ ...prev, termsAccepted: e.target.checked }))}
-          className="accent-[#d4af37] w-4 h-4 mr-3 cursor-pointer rounded-[4px]"
+          className="accent-[#d4af37] w-3.5 h-3.5 mr-2 cursor-pointer rounded-[4px]"
           required
         />
         <label htmlFor="seller-terms" className={`text-[#a0aabf] font-light ${isDesktop ? 'text-[12px]' : 'text-[11px]'} select-none cursor-pointer`}>
@@ -220,7 +222,7 @@ export default function SellerForm({ isDesktop }: SellerFormProps) {
 
       <button
         type="submit"
-        className={`mx-auto py-3.5 rounded-[7px] bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] text-white font-medium text-sm shadow-[0_10px_20px_rgba(212,175,55,0.2)] hover:shadow-[0_15px_25px_rgba(212,175,55,0.3)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 tracking-wide mt-2 ${isDesktop ? 'w-1/3' : 'w-2/3'}`}
+        className={`mx-auto py-2.5 rounded-[7px] bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] text-white font-medium text-sm shadow-[0_4px_10px_rgba(212,175,55,0.2)] hover:shadow-[0_8px_15px_rgba(212,175,55,0.3)] hover:-translate-y-[1px] active:translate-y-0 transition-all duration-300 tracking-wide mt-1 ${isDesktop ? 'w-1/3' : 'w-2/3'}`}
       >
         Submit Registration
       </button>
