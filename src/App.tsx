@@ -7,20 +7,21 @@ import MainFrameNav from '@/components/AllBuildings/MainFrameNav';
 import Handpicked from '@/components/Handpicked';
 import Whislist from './components/Whislist/Whislist';
 import FranchiseSearch from '@/components/FranchiseSearch/FranchiseSearch';
+import PreRegistration from '@/components/Pre-Registration/PreRegistration';
 
 export default function App() {
   const theme = useTheme();
   const isMobileScreen = useMediaQuery(theme.breakpoints.down('lg'));
   
-  // Added 'wishlist' and 'franchisesearch' to the allowed activePage types
-  const [activePage, setActivePage] = useState<'franchise' | 'handpicked' | 'wishlist' | 'mainframe' | 'franchisesearch'>('franchise');
+  // Added 'wishlist', 'franchisesearch', and 'preregistration' to the allowed activePage types
+  const [activePage, setActivePage] = useState<'franchise' | 'handpicked' | 'wishlist' | 'mainframe' | 'franchisesearch' | 'preregistration'>('franchise');
   const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
   const [activeSubPage, setActiveSubPage] = useState<string>('main');
+  const [userType, setUserType] = useState<'seller' | 'buyer'>('seller');
   const isMobile = isMobileScreen || viewMode === 'mobile';
 
   // Helper variable to determine if we should show the desktop/mobile toggle controls
-  // franchisesearch also supports viewMode toggle
-  const showViewControls = ['franchise', 'handpicked', 'wishlist', 'franchisesearch'].includes(activePage);
+  const showViewControls = ['franchise', 'handpicked', 'wishlist', 'franchisesearch', 'preregistration'].includes(activePage);
 
   return (
     <Box className="flex flex-col h-screen bg-[#f5f6f8] overflow-hidden font-['Outfit']">
@@ -80,6 +81,52 @@ export default function App() {
             )}
           </Box>
 
+          {/* User Type Dropdown — shown only in Pre-Registration page */}
+          {activePage === 'preregistration' && (
+            <Box className="flex items-center gap-2 shrink-0 mr-1">
+              {!isMobileScreen && (
+                <Typography className="text-[11px] font-semibold text-[#637089] tracking-widest">
+                  User Type
+                </Typography>
+              )}
+              <FormControl size="small">
+                <Select
+                  value={userType}
+                  onChange={(e) => setUserType(e.target.value as 'seller' | 'buyer')}
+                  className="bg-gradient-to-br from-[#c9a34e]/10 to-[#b8903c]/5 text-[#0f1f3d] text-sm font-semibold h-[36px]"
+                  sx={{
+                    borderRadius: '8px',
+                    fontFamily: 'Outfit, sans-serif',
+                    '.MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#c9a34e',
+                      borderWidth: '1.5px',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#b8903c',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#b8903c',
+                      borderWidth: '1.5px',
+                    },
+                    '.MuiSelect-select': {
+                      paddingY: '6px',
+                      paddingX: '14px',
+                      color: '#0f1f3d',
+                      fontWeight: 700,
+                    },
+                  }}
+                >
+                  <MenuItem value="seller" className="font-['Outfit'] text-sm font-semibold text-[#0f1f3d]">
+                    Seller
+                  </MenuItem>
+                  <MenuItem value="buyer" className="font-['Outfit'] text-sm font-semibold text-[#0f1f3d]">
+                    Buyer
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          )}
+
           {/* Right: Dropdowns for both Mobile and Desktop */}
           <Box className="flex items-center gap-2 shrink-0">
             {/* Mobile Only: View Mode Dropdown */}
@@ -138,7 +185,7 @@ export default function App() {
               <FormControl size="small">
                 <Select
                   value={activePage}
-                  onChange={(e) => setActivePage(e.target.value as 'franchise' | 'handpicked' | 'wishlist' | 'mainframe' | 'franchisesearch')}
+                  onChange={(e) => setActivePage(e.target.value as 'franchise' | 'handpicked' | 'wishlist' | 'mainframe' | 'franchisesearch' | 'preregistration')}
                   className="bg-[#ffffff] text-[#0f1f3d] text-sm font-semibold h-[36px]"
                   sx={{
                     borderRadius: '4px',
@@ -175,6 +222,9 @@ export default function App() {
                   <MenuItem value="franchisesearch" className="font-['Outfit'] text-sm font-medium text-[#0f1f3d]">
                     Franchise Search
                   </MenuItem>
+                  <MenuItem value="preregistration" className="font-['Outfit'] text-sm font-medium text-[#0f1f3d]">
+                    Pre-Registration
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -202,6 +252,10 @@ export default function App() {
         ) : activePage === 'franchisesearch' ? (
           <Box className="flex-1 flex flex-col overflow-hidden" sx={{ height: 'calc(100vh - 64px)' }}>
             <FranchiseSearch viewMode={viewMode} />
+          </Box>
+        ) : activePage === 'preregistration' ? (
+          <Box className="flex-1 flex flex-col">
+            <PreRegistration viewMode={viewMode} userType={userType} />
           </Box>
         ) : (
           <MainFrame
