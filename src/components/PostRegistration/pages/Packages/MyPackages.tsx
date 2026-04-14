@@ -4,7 +4,7 @@ interface MyPackagesProps {
   isDesktop: boolean;
 }
 
-export default function MyPackages({ isDesktop }: MyPackagesProps) {
+export default function MyPackages({ isDesktop: _isDesktop }: MyPackagesProps) {
   return (
     <div className="flex flex-col gap-4">
       {/* Content will be loaded from backend */}

@@ -87,7 +87,7 @@ export default function TableView<T extends Record<string, unknown>>({
                 {isExpanded && expandableContent && (
                   <tr className="bg-[#fafafb] border-b border-black/[0.03]">
                     <td
-                      colSpan={columns.length + (expandableContent ? 1 : 0)}
+                      colSpan={columns.length + (expandableContent != null ? 1 : 0)}
                       className="px-6 py-5 relative"
                     >
                       <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#d4af37]" />

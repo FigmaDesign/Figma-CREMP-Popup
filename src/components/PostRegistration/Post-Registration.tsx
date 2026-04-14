@@ -11,7 +11,6 @@ import CardMembershipOutlinedIcon from '@mui/icons-material/CardMembershipOutlin
 import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import AddBusinessOutlinedIcon from '@mui/icons-material/AddBusinessOutlined';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 import SidebarNavigation from './components/SidebarNavigation';
