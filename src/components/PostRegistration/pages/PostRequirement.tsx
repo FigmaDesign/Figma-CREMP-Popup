@@ -328,7 +328,7 @@ export default function PostRequirement({ isDesktop }: PostRequirementProps) {
         </div>
 
         <div className="px-10 py-5 border-t border-black/5 bg-[#fafafb] flex justify-end">
-          <button type="submit" className="w-full sm:w-auto px-10 py-3 bg-gradient-to-br from-[#bf953f] via-[#d4af37] to-[#b38728] text-white rounded-[4px] font-bold text-[12px] uppercase tracking-widest shadow-lg hover:brightness-110 transition-all">
+          <button type="submit" className="w-full sm:w-auto px-10 py-3 bg-gradient-to-br from-[#bf953f] via-[#d4af37] to-[#b38728] text-white rounded-[4px] font-bold text-[12px]  tracking-widest shadow-lg hover:brightness-110 transition-all">
             Post Requirement
           </button>
         </div>
