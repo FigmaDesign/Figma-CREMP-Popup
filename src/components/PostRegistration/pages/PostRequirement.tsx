@@ -2,15 +2,28 @@ import { useState } from 'react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import PhoneInTalkOutlinedIcon from '@mui/icons-material/PhoneInTalkOutlined';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import UpdateOutlinedIcon from '@mui/icons-material/UpdateOutlined';
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import FormInput from '../components/FormInput';
-import FormSelect from '../components/FormSelect';
 import FormTextarea from '../components/FormTextarea';
-import DatePicker from '../components/DatePicker';
 
 interface PostRequirementProps {
   isDesktop: boolean;
   userType: 'seller' | 'buyer';
 }
+
+const LOOKING_TO_OPTIONS = [
+  { value: 'buy', label: 'Buy' },
+  { value: 'lease', label: 'Lease' },
+  { value: 'find', label: 'Find Business Opportunities' },
+  { value: 'other', label: 'Other' },
+];
 
 const BUSINESS_CATEGORIES = [
   'Food & Beverage', 'Retail', 'Education', 'Healthcare',
@@ -18,11 +31,16 @@ const BUSINESS_CATEGORIES = [
 ];
 
 const TIMELINES = [
-  'Immediately', '1–3 months', '3–6 months', '6–12 months', '12+ months',
+  { value: 'immediately', label: 'Immediately' },
+  { value: '1-3', label: '1–3 months' },
+  { value: '3-6', label: '3–6 months' },
+  { value: '6-12', label: '6–12 months' },
+  { value: '12+', label: '12+ months' },
 ];
 
 interface FormData {
-  intent: 'buy' | 'lease' | '';
+  intent: string;
+  otherIntent: string;
   businessType: 'running' | 'new' | '';
   category: string;
   budgetMin: string;
@@ -32,18 +50,149 @@ interface FormData {
   description: string;
   smsContact: boolean;
   whatsappContact: boolean;
+  callContact: boolean;
   expiryDate: string;
 }
 
 type Errors = Partial<Record<keyof FormData, string>>;
 
 const EMPTY: FormData = {
-  intent: '', businessType: '', category: '', budgetMin: '', budgetMax: '',
+  intent: '', otherIntent: '', businessType: '', category: '', budgetMin: '', budgetMax: '',
   location: '', timeline: '', description: '', smsContact: false, whatsappContact: true,
-  expiryDate: '',
+  callContact: false, expiryDate: '',
 };
 
-const labelCls = 'block text-sm font-medium text-[#0a1128] mb-1';
+/* ── POLISHED MODERN CALENDAR COMPONENT ── */
+function ModernCalendar({ value, onChange }: { value: string; onChange: (val: string) => void }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const days = Array.from({ length: 30 }, (_, i) => i + 1);
+  const prevDays = [29, 30, 31];
+  const nextDays = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  // Parse selected day from value (e.g. "15 Apr 2026")
+  const selectedDay = value ? parseInt(value.split(' ')[0], 10) : null;
+  const today = 15; // Mock today's date
+
+  return (
+    <div className="relative w-full">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full flex items-center justify-between gap-2 px-3 py-2 bg-white border rounded-[4px] h-[42px] shadow-sm outline-none transition-all duration-300 ${
+          isOpen ? 'border-[#d4af37] ring-1 ring-[#d4af37]/20' : 'border-black/10 hover:border-[#d4af37]/40'
+        }`}
+      >
+        <div className="flex items-center gap-2 overflow-hidden">
+          <CalendarTodayOutlinedIcon sx={{ fontSize: 18, color: value ? '#d4af37' : '#a0aabf' }} className="shrink-0 transition-colors" />
+          <span className={`text-[13px] truncate ${value ? 'text-[#0a1128] font-medium' : 'text-[#637089] font-light'}`}>
+            {value || 'Select Last Date'}
+          </span>
+        </div>
+        <KeyboardArrowDownIcon sx={{ fontSize: 18, color: '#a0aabf' }} className={`shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      {isOpen && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+          <div className="absolute bottom-[calc(100%+6px)] sm:bottom-auto sm:top-[calc(100%+6px)] left-0 w-[280px] bg-white border border-black/10 rounded-[8px] shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[14px] font-bold text-[#0a1128] pl-1">
+                April 2026
+              </span>
+              <div className="flex gap-1">
+                <button type="button" className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-[#fafafb] text-[#637089] transition-colors">
+                  <ChevronLeftIcon sx={{ fontSize: 20 }} />
+                </button>
+                <button type="button" className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-[#fafafb] text-[#637089] transition-colors">
+                  <ChevronRightIcon sx={{ fontSize: 20 }} />
+                </button>
+              </div>
+            </div>
+
+            {/* Weekdays */}
+            <div className="grid grid-cols-7 gap-1 mb-2">
+              {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
+                <span key={day} className="text-[11px] text-center text-[#637089] font-semibold">{day}</span>
+              ))}
+            </div>
+
+            {/* Days Grid */}
+            <div className="grid grid-cols-7 gap-1 text-center">
+              {prevDays.map(d => <span key={`p-${d}`} className="text-[12px] py-1.5 text-[#a0aabf] font-light">{d}</span>)}
+              {days.map(d => {
+                const isSelected = d === selectedDay;
+                const isToday = d === today;
+                return (
+                  <button
+                    key={d}
+                    type="button"
+                    onClick={() => { onChange(`${d} Apr 2026`); setIsOpen(false); }}
+                    className={`text-[12px] py-1.5 rounded-[4px] font-medium transition-all ${
+                      isSelected
+                        ? 'bg-[#0a1128] text-white shadow-md'
+                        : isToday
+                          ? 'bg-white text-[#d4af37] border border-[#d4af37] hover:bg-[#fafafb]'
+                          : 'bg-white text-[#0a1128] hover:bg-[#fafafb] hover:text-[#d4af37]'
+                    }`}
+                  >
+                    {d}
+                  </button>
+                );
+              })}
+              {nextDays.map(d => <span key={`n-${d}`} className="text-[12px] py-1.5 text-[#a0aabf] font-light">{d}</span>)}
+            </div>
+
+            {/* Footer Actions */}
+            <div className="flex items-center justify-between mt-4 pt-3 border-t border-black/5">
+              <button type="button" onClick={() => { onChange(''); setIsOpen(false); }} className="text-[12px] text-[#637089] font-medium hover:text-[#0a1128] transition-colors px-2 py-1 rounded hover:bg-[#fafafb]">
+                Clear
+              </button>
+              <button type="button" onClick={() => { onChange('15 Apr 2026'); setIsOpen(false); }} className="text-[12px] text-[#d4af37] font-bold hover:text-[#b38728] transition-colors px-2 py-1 rounded hover:bg-amber-50/50">
+                Today
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+/* ── MODERN DROPDOWN COMPONENT ── */
+function FormDropdown({ icon: Icon, placeholder, value, options, onChange, error }: any) {
+  const [isOpen, setIsOpen] = useState(false);
+  const selectedLabel = options.find((o: any) => o.value === value)?.label;
+
+  return (
+    <div className="relative w-full">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full flex items-center justify-between gap-2 px-3 py-2 bg-white border rounded-[4px] transition-all duration-300 h-[42px] shadow-sm outline-none ${isOpen ? 'border-[#d4af37] ring-1 ring-[#d4af37]/20' : error ? 'border-red-400' : 'border-black/10 hover:border-[#d4af37]/40'}`}
+      >
+        <div className="flex items-center gap-2 overflow-hidden">
+          <Icon sx={{ fontSize: 18, color: value ? '#d4af37' : '#a0aabf' }} className="shrink-0 transition-colors" />
+          <span className={`text-[13px] truncate ${value ? 'text-[#0a1128] font-medium' : 'text-[#637089] font-light'}`}>{selectedLabel || placeholder}</span>
+        </div>
+        <KeyboardArrowDownIcon sx={{ fontSize: 18, color: '#a0aabf' }} className={`shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      {isOpen && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+          <div className="absolute top-[calc(100%+4px)] left-0 w-full bg-white border border-black/10 rounded-[4px] shadow-xl py-1.5 z-50 max-h-[220px] overflow-y-auto">
+            {options.map((opt: any) => (
+              <button key={opt.value} type="button" onClick={() => { onChange(opt.value); setIsOpen(false); }} className={`w-full text-left px-4 py-2.5 text-[13px] transition-colors hover:bg-[#fafafb] hover:text-[#d4af37] ${value === opt.value ? 'text-[#d4af37] bg-[#fafafb] font-semibold' : 'text-[#0a1128]'}`}>
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+      {error && <p className="text-[#e05252] text-[11px] mt-1 font-light">{error}</p>}
+    </div>
+  );
+}
 
 export default function PostRequirement({ isDesktop }: PostRequirementProps) {
   const [data, setData] = useState<FormData>(EMPTY);
@@ -57,13 +206,14 @@ export default function PostRequirement({ isDesktop }: PostRequirementProps) {
 
   const validate = (): boolean => {
     const errs: Errors = {};
-    if (!data.intent)          errs.intent       = 'Please select Buy or Lease.';
-    if (!data.businessType)    errs.businessType = 'Please select business type.';
-    if (!data.category)        errs.category     = 'Please select a category.';
-    if (!data.budgetMin.trim()) errs.budgetMin   = 'Minimum budget is required.';
-    if (!data.budgetMax.trim()) errs.budgetMax   = 'Maximum budget is required.';
-    if (!data.location.trim()) errs.location     = 'Location is required.';
-    if (!data.timeline)        errs.timeline     = 'Please pick a timeline.';
+    if (!data.intent) errs.intent = 'Required';
+    if (data.intent === 'other' && !data.otherIntent.trim()) errs.otherIntent = 'Required';
+    if (!data.businessType) errs.businessType = 'Required';
+    if (!data.category) errs.category = 'Required';
+    if (!data.budgetMin.trim()) errs.budgetMin = 'Required';
+    if (!data.budgetMax.trim()) errs.budgetMax = 'Required';
+    if (!data.location.trim()) errs.location = 'Required';
+    if (!data.timeline) errs.timeline = 'Required';
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -75,211 +225,110 @@ export default function PostRequirement({ isDesktop }: PostRequirementProps) {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 px-6 gap-4 max-w-lg">
-        <div className="w-14 h-14 rounded-[7px] bg-gradient-to-br from-[#bf953f] via-[#d4af37] to-[#b38728] flex items-center justify-center shadow-[0_10px_20px_rgba(212,175,55,0.2)]">
-          <CheckCircleIcon sx={{ fontSize: '1.75rem', color: '#ffffff' }} />
-        </div>
-        <div className="text-center space-y-1">
-          <h2 className="text-xl font-light tracking-wide text-[#0a1128]">Requirement Posted!</h2>
-          <p className="text-sm font-light text-[#637089] max-w-sm mx-auto leading-relaxed">
-            Your requirement to <span className="font-medium text-[#0a1128] capitalize">{data.intent}</span> a{' '}
-            <span className="font-medium text-[#0a1128]">{data.category}</span> franchise has been published.
-            Matching sellers will be notified.
-          </p>
-        </div>
-        <button
-          onClick={() => { setSubmitted(false); setData(EMPTY); setErrors({}); }}
-          className="mt-2 px-6 py-2 rounded-[7px] bg-gradient-to-br from-[#0a1128] via-[#121c33] to-[#0a1128] text-white font-light tracking-wider text-sm hover:opacity-90 transition-opacity shadow-[0_10px_20px_rgba(10,17,40,0.1)]"
-        >
-          Post Another
-        </button>
+      <div className="flex flex-col items-center justify-center py-16 px-6 gap-6 max-w-lg mx-auto">
+        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#bf953f] via-[#d4af37] to-[#b38728] flex items-center justify-center shadow-lg"><CheckCircleIcon sx={{ fontSize: '2rem', color: '#ffffff' }} /></div>
+        <div className="text-center"><h2 className="text-2xl font-bold text-[#0a1128]">Requirement Published</h2><p className="text-sm font-light text-[#637089]">Broadcasting to matching members.</p></div>
+        <button onClick={() => { setSubmitted(false); setData(EMPTY); }} className="px-8 py-3 bg-[#0a1128] text-white rounded-[4px] hover:bg-[#121c33] transition-colors">Post Another</button>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5 max-w-2xl">
-      <div className="bg-white rounded-[7px] border border-black/[0.03] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] overflow-hidden">
-        <div className={`flex flex-col gap-4 ${isDesktop ? 'px-6 py-5' : 'px-4 py-4'}`}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-6 max-w-4xl">
+      <div className="bg-white rounded-[4px] border border-black/5 shadow-sm overflow-hidden">
+        <div className={`flex flex-col gap-8 ${isDesktop ? 'p-10' : 'p-4'}`}>
+          
+          {/* Row 1: Looking to */}
+          <div className={`grid gap-4 ${isDesktop ? 'grid-cols-2' : 'grid-cols-1'}`}>
+            <div className="space-y-1.5">
+              <label className="text-[13px] font-semibold text-[#0a1128]">Looking to</label>
+              <FormDropdown icon={SearchOutlinedIcon} placeholder="Buy, Lease..." value={data.intent} options={LOOKING_TO_OPTIONS} onChange={(val: string) => set('intent', val)} error={errors.intent} />
+            </div>
+            {data.intent === 'other' && (
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-semibold text-[#0a1128]">Specify Requirement</label>
+                <FormInput placeholder="Describe what you are looking for..." value={data.otherIntent} onChange={(e) => set('otherIntent', e.target.value)} error={errors.otherIntent} />
+              </div>
+            )}
+          </div>
 
-          {/* Intent */}
-          <div>
-            <label className={labelCls}>I want to <span className="text-[#e05252] font-light">*</span></label>
+          {/* Business Type Toggles */}
+          <div className="space-y-1.5">
+            <label className="text-[13px] font-semibold text-[#0a1128]">Business Type</label>
             <div className="flex gap-3">
-              {(['buy', 'lease'] as const).map((v) => (
+              {[
+                { v: 'running', l: 'Buy a Running Business' },
+                { v: 'new', l: 'Start a New Franchise' }
+              ].map((item) => (
                 <button
-                  key={v}
-                  type="button"
-                  onClick={() => set('intent', v)}
-                  className={`flex-1 py-2.5 rounded-[7px] text-sm font-medium border transition-all duration-200 capitalize ${
-                    data.intent === v
-                      ? 'bg-gradient-to-br from-[#0a1128] via-[#121c33] to-[#0a1128] text-white border-[#0a1128] shadow-[0_4px_10px_rgba(10,17,40,0.15)]'
-                      : 'bg-white text-[#637089] border-black/5 hover:border-[#d4af37]/40 hover:text-[#0a1128]'
-                  }`}
+                  key={item.v} type="button" onClick={() => set('businessType', item.v as any)}
+                  className={`flex-1 h-[42px] rounded-[4px] text-[12px] font-medium border transition-all ${data.businessType === item.v ? 'bg-[#0a1128] text-white border-[#0a1128] shadow-md' : 'bg-white text-[#637089] border-black/10 hover:border-[#d4af37]'}`}
                 >
-                  {v === 'buy' ? 'Buy a Franchise' : 'Lease a Space'}
+                  {item.l}
                 </button>
               ))}
             </div>
-            {errors.intent && <p className="text-[#e05252] text-[11px] mt-1 font-light">{errors.intent}</p>}
           </div>
 
-          {/* Business Type */}
-          <div>
-            <label className={labelCls}>Business Type <span className="text-[#e05252] font-light">*</span></label>
-            <div className="flex gap-2">
-              {([['running', 'Running Business'], ['new', 'New Franchise']] as const).map(([val, label]) => (
-                <button
-                  key={val}
-                  type="button"
-                  onClick={() => set('businessType', val)}
-                  className={`px-4 py-2 rounded-[4px] text-xs font-medium border transition-all duration-200 ${
-                    data.businessType === val
-                      ? 'bg-gradient-to-br from-[#0a1128] via-[#121c33] to-[#0a1128] text-white border-[#0a1128]'
-                      : 'bg-white text-[#637089] border-black/5 hover:border-[#d4af37]/40 hover:text-[#0a1128]'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-            {errors.businessType && <p className="text-[#e05252] text-[11px] mt-1 font-light">{errors.businessType}</p>}
-          </div>
-
-          {/* Category */}
-          <div>
-            <label className={labelCls}>Category <span className="text-[#e05252] font-light">*</span></label>
-            <div className="flex flex-wrap gap-2">
-              {BUSINESS_CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => set('category', cat)}
-                  className={`px-3 py-1.5 rounded-[4px] text-xs font-medium border transition-all duration-200 ${
-                    data.category === cat
-                      ? 'bg-gradient-to-br from-[#0a1128] via-[#121c33] to-[#0a1128] text-white border-[#0a1128]'
-                      : 'bg-white text-[#637089] border-black/5 hover:border-[#d4af37]/40 hover:text-[#0a1128]'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-            {errors.category && <p className="text-[#e05252] text-[11px] mt-1 font-light">{errors.category}</p>}
-          </div>
-
-          {/* Budget */}
-          <div>
-            <label className={labelCls}>Budget Range <span className="text-[#e05252] font-light">*</span></label>
-            <div className={`grid gap-3 ${isDesktop ? 'grid-cols-2' : 'grid-cols-2'}`}>
-              <FormInput
-                type="text"
-                placeholder="Min (e.g. ₹10L)"
-                value={data.budgetMin}
-                onChange={(e) => set('budgetMin', e.target.value)}
-                error={errors.budgetMin}
-              />
-              <FormInput
-                type="text"
-                placeholder="Max (e.g. ₹50L)"
-                value={data.budgetMax}
-                onChange={(e) => set('budgetMax', e.target.value)}
-                error={errors.budgetMax}
-              />
+          {/* Looking for (Grouped) */}
+          <div className="space-y-4">
+            <h4 className="text-[14px] font-bold text-[#d4af37] border-b border-black/5 pb-1">Looking for</h4>
+            <div className={`grid gap-4 ${isDesktop ? 'grid-cols-2' : 'grid-cols-1'}`}>
+              <div className="space-y-1.5">
+                <label className="text-[12px] font-medium text-[#637089]">Industry / Sector</label>
+                <FormDropdown icon={CategoryOutlinedIcon} placeholder="Select Category" value={data.category} options={BUSINESS_CATEGORIES.map(c => ({ value: c, label: c }))} onChange={(val: string) => set('category', val)} error={errors.category} />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[12px] font-medium text-[#637089]">Location</label>
+                <FormInput placeholder="Target City or State" value={data.location} onChange={(e) => set('location', e.target.value)} error={errors.location} />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[12px] font-medium text-[#637089]">Budget Range</label>
+                <div className="grid grid-cols-2 gap-2">
+                  <FormInput placeholder="Min" value={data.budgetMin} onChange={(e) => set('budgetMin', e.target.value)} error={errors.budgetMin} />
+                  <FormInput placeholder="Max" value={data.budgetMax} onChange={(e) => set('budgetMax', e.target.value)} error={errors.budgetMax} />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[12px] font-medium text-[#637089]">Timeline</label>
+                <FormDropdown icon={UpdateOutlinedIcon} placeholder="Timeline" value={data.timeline} options={TIMELINES} onChange={(val: string) => set('timeline', val)} error={errors.timeline} />
+              </div>
             </div>
           </div>
 
-          {/* Location & Timeline */}
-          <div className={`grid gap-3 ${isDesktop ? 'grid-cols-2' : 'grid-cols-1'}`}>
-            <div>
-              <label className={labelCls}>Preferred Location <span className="text-[#e05252] font-light">*</span></label>
-              <FormInput
-                type="text"
-                placeholder="City, State"
-                value={data.location}
-                onChange={(e) => set('location', e.target.value)}
-                error={errors.location}
-              />
+          {/* Comms & Expiry */}
+          <div className={`grid gap-6 ${isDesktop ? 'grid-cols-2' : 'grid-cols-1'}`}>
+            <div className="space-y-3">
+              <label className="text-[13px] font-semibold text-[#0a1128]">Preferred Communication</label>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { k: 'smsContact', l: 'SMS', i: SmsOutlinedIcon, c: 'blue' },
+                  { k: 'whatsappContact', l: 'WhatsApp', i: WhatsAppIcon, c: 'emerald' },
+                  { k: 'callContact', l: 'Call', i: PhoneInTalkOutlinedIcon, c: 'amber' }
+                ].map((com) => (
+                  <button
+                    key={com.k} type="button" onClick={() => set(com.k as any, !(data as any)[com.k])}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-[4px] border transition-all ${(data as any)[com.k] ? `bg-${com.c}-50 border-${com.c}-200 text-${com.c}-700` : 'bg-white border-black/10 text-[#637089]'}`}
+                  >
+                    <com.i sx={{ fontSize: 18 }} /> <span className="text-xs font-medium">{com.l}</span>
+                  </button>
+                ))}
+              </div>
             </div>
-            <div>
-              <label className={labelCls}>Timeline <span className="text-[#e05252] font-light">*</span></label>
-              <FormSelect
-                value={data.timeline}
-                onChange={(e) => set('timeline', e.target.value)}
-                options={TIMELINES.map((t) => ({ value: t, label: t }))}
-                placeholder="Select timeline..."
-                error={errors.timeline}
-              />
-            </div>
-          </div>
-
-          {/* Description */}
-          <div>
-            <label className={labelCls}>Additional Details <span className="text-[#a0aabf] font-light text-xs">(optional)</span></label>
-            <FormTextarea
-              rows={3}
-              placeholder="Any specific requirements, preferences or notes..."
-              value={data.description}
-              onChange={(e) => set('description', e.target.value)}
-            />
-          </div>
-
-          {/* Contact Preference */}
-          <div>
-            <label className={labelCls}>Contact Preference</label>
-            <div className="flex items-center gap-4">
-              <button
-                type="button"
-                onClick={() => set('smsContact', !data.smsContact)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-[7px] text-sm border transition-all duration-200 ${
-                  data.smsContact
-                    ? 'bg-blue-50 text-blue-700 border-blue-200'
-                    : 'bg-white text-[#637089] border-black/5 hover:border-blue-200 hover:bg-blue-50/50'
-                }`}
-              >
-                <SmsOutlinedIcon sx={{ fontSize: 16 }} />
-                SMS
-                <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                  data.smsContact ? 'border-blue-600 bg-blue-600' : 'border-[#a0aabf]'
-                }`}>
-                  {data.smsContact && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                </span>
-              </button>
-              <button
-                type="button"
-                onClick={() => set('whatsappContact', !data.whatsappContact)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-[7px] text-sm border transition-all duration-200 ${
-                  data.whatsappContact
-                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                    : 'bg-white text-[#637089] border-black/5 hover:border-emerald-200 hover:bg-emerald-50/50'
-                }`}
-              >
-                <WhatsAppIcon sx={{ fontSize: 16 }} />
-                WhatsApp
-                <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                  data.whatsappContact ? 'border-emerald-600 bg-emerald-600' : 'border-[#a0aabf]'
-                }`}>
-                  {data.whatsappContact && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                </span>
-              </button>
+            <div className="space-y-1.5">
+              <label className="text-[13px] font-semibold text-[#0a1128]">Requirement Open Till</label>
+              <ModernCalendar value={data.expiryDate} onChange={(val) => set('expiryDate', val)} />
             </div>
           </div>
 
-          {/* Expiry */}
-          <div>
-            <label className={labelCls}>Expiry Date <span className="text-[#a0aabf] font-light text-xs">(optional)</span></label>
-            <DatePicker
-              value={data.expiryDate}
-              onChange={(e) => set('expiryDate', e.target.value)}
-            />
+          <div className="space-y-1.5">
+            <label className="text-[13px] font-semibold text-[#0a1128]">Additional Details</label>
+            <FormTextarea rows={3} placeholder="Tell us more about your preferences..." value={data.description} onChange={(e) => set('description', e.target.value)} />
           </div>
         </div>
 
-        <div className="px-6 py-4 border-t border-black/[0.03] bg-[#fafafb] flex justify-end">
-          <button
-            type="submit"
-            className="px-6 py-2.5 rounded-[7px] bg-gradient-to-br from-[#bf953f] via-[#d4af37] to-[#b38728] text-white text-sm font-light tracking-wider hover:opacity-90 transition-opacity shadow-[0_4px_12px_rgba(212,175,55,0.25)]"
-          >
+        <div className="px-10 py-5 border-t border-black/5 bg-[#fafafb] flex justify-end">
+          <button type="submit" className="w-full sm:w-auto px-10 py-3 bg-gradient-to-br from-[#bf953f] via-[#d4af37] to-[#b38728] text-white rounded-[4px] font-bold text-[12px] uppercase tracking-widest shadow-lg hover:brightness-110 transition-all">
             Post Requirement
           </button>
         </div>
