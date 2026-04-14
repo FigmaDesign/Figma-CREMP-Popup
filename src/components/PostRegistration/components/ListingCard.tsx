@@ -29,10 +29,12 @@ interface ListingCardProps {
   showHideAction?: boolean;
   showEditAction?: boolean;
   showDeleteAction?: boolean;
+  showLeadAction?: boolean;
   onSave?: (id: string) => void;
   onHide?: (id: string) => void;
   onEdit?: (id: string) => void;
   onDelete?: (id: string) => void;
+  onLead?: (id: string) => void;
   onClick?: (id: string) => void;
 }
 
@@ -65,23 +67,24 @@ export default function ListingCard({
 
   const renderActions = () => (
     <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+
       {showSaveAction && (
-        <button onClick={() => onSave?.(item.id)} className={`flex items-center justify-center rounded-[4px] border border-black/5 hover:bg-white hover:border-[#d4af37]/40 hover:shadow-sm transition-all duration-300 ${isDesktop ? 'w-8 h-8 bg-white' : 'w-7 h-7 bg-[#f8f9fa]'}`}>
-          {item.isSaved ? <BookmarkOutlinedIcon sx={{ fontSize: 16, color: '#d4af37' }} /> : <BookmarkBorderOutlinedIcon sx={{ fontSize: 16, color: '#d4af37' }} />}
+        <button onClick={() => onSave?.(item.id)} className={`flex items-center justify-center rounded-[4px] border border-black/5 hover:bg-white hover:border-[#d4af37]/40 hover:shadow-sm transition-all duration-300 ${isDesktop ? 'w-8 h-8 bg-white/95' : 'w-7 h-7 bg-white/95'}`} title="Save">
+          {item.isSaved ? <BookmarkOutlinedIcon sx={{ fontSize: 16, color: '#d4af37' }} /> : <BookmarkBorderOutlinedIcon sx={{ fontSize: 16, color: '#637089' }} />}
         </button>
       )}
       {showHideAction && (
-        <button onClick={() => onHide?.(item.id)} className={`flex items-center justify-center rounded-[4px] border border-black/5 hover:bg-white hover:border-[#d4af37]/40 hover:shadow-sm transition-all duration-300 ${isDesktop ? 'w-8 h-8 bg-white' : 'w-7 h-7 bg-[#f8f9fa]'}`}>
-          {item.isHidden ? <VisibilityOutlinedIcon sx={{ fontSize: 16, color: '#d4af37' }} /> : <VisibilityOffOutlinedIcon sx={{ fontSize: 16, color: '#d4af37' }} />}
+        <button onClick={() => onHide?.(item.id)} className={`flex items-center justify-center rounded-[4px] border border-black/5 hover:bg-white hover:border-[#d4af37]/40 hover:shadow-sm transition-all duration-300 ${isDesktop ? 'w-8 h-8 bg-white/95' : 'w-7 h-7 bg-white/95'}`} title="Hide">
+          {item.isHidden ? <VisibilityOutlinedIcon sx={{ fontSize: 16, color: '#d4af37' }} /> : <VisibilityOffOutlinedIcon sx={{ fontSize: 16, color: '#637089' }} />}
         </button>
       )}
       {showEditAction && (
-        <button onClick={() => onEdit?.(item.id)} className={`flex items-center justify-center rounded-[4px] border border-black/5 hover:bg-white hover:border-[#d4af37]/40 hover:shadow-sm transition-all duration-300 ${isDesktop ? 'w-8 h-8 bg-white' : 'w-7 h-7 bg-[#f8f9fa]'}`}>
+        <button onClick={() => onEdit?.(item.id)} className={`flex items-center justify-center rounded-[4px] border border-black/5 hover:bg-white hover:border-[#d4af37]/40 hover:shadow-sm transition-all duration-300 ${isDesktop ? 'w-8 h-8 bg-white/95' : 'w-7 h-7 bg-white/95'}`} title="Edit">
           <EditOutlinedIcon sx={{ fontSize: 16, color: '#637089' }} />
         </button>
       )}
       {showDeleteAction && (
-        <button onClick={() => onDelete?.(item.id)} className={`flex items-center justify-center rounded-[4px] border border-black/5 hover:bg-[#fff5f5] hover:border-[#e05252]/40 hover:shadow-sm transition-all duration-300 ${isDesktop ? 'w-8 h-8 bg-white' : 'w-7 h-7 bg-[#f8f9fa]'}`}>
+        <button onClick={() => onDelete?.(item.id)} className={`flex items-center justify-center rounded-[4px] border border-black/5 hover:bg-[#fff5f5] hover:border-[#e05252]/40 hover:shadow-sm transition-all duration-300 ${isDesktop ? 'w-8 h-8 bg-white/95' : 'w-7 h-7 bg-white/95'}`} title="Delete">
           <DeleteOutlineIcon sx={{ fontSize: 16, color: '#e05252' }} />
         </button>
       )}
@@ -149,7 +152,7 @@ export default function ListingCard({
         <img
           src={item.image || FALLBACK_IMG}
           alt={item.title || 'Listing Image'}
-          className={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out bg-[#fafafb] ${isDesktop ? 'h-[180px]' : 'h-[100px]'}`}
+          className={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out bg-[#fafafb] ${isDesktop ? 'h-[180px]' : 'h-[110px]'}`}
           onError={(e) => { (e.target as HTMLImageElement).src = FALLBACK_IMG; }}
         />
         <div className={`absolute bottom-0 right-0 bg-[#0a1128] text-white font-medium rounded-tl-[4px] ${isDesktop ? 'text-[12px] px-3 py-1.5' : 'text-[10px] px-2 py-1'}`}>
@@ -168,8 +171,8 @@ export default function ListingCard({
       </div>
 
       <div className={`flex flex-col flex-1 ${isDesktop ? 'px-5 py-4' : 'p-3'}`}>
-        <h4 className={`font-bold text-[#0a1128] truncate ${isDesktop ? 'text-[18px] mb-1' : 'text-[13px] mb-0.5'}`}>{item.title}</h4>
-        <p className={`text-[#637089] font-light truncate ${isDesktop ? 'text-[14px] mb-3' : 'text-[11px] mb-2'}`}>
+        <h4 className={`font-bold text-[#0a1128] truncate ${isDesktop ? 'text-[18px] mb-1' : 'text-[14px] mb-0.5'}`}>{item.title}</h4>
+        <p className={`text-[#637089] font-light truncate ${isDesktop ? 'text-[14px] mb-3' : 'text-[12px] mb-2'}`}>
           {item.description || item.category}
         </p>
         
