@@ -41,7 +41,7 @@ const SuitedFor: React.FC = () => {
           {allTags.length > 4 && (
             <button
               onClick={() => setExpanded((prev) => !prev)}
-              className="inline-flex items-center gap-1 p-1 rounded-[4px] text-[0.55rem] font-bold bg-[#1c2a44] text-[#f8fafc] tracking-[0.1em] leading-none mt-[1px]"
+              className="inline-flex items-center gap-1 p-1 rounded-[4px] text-[0.55rem] font-medium bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] text-white tracking-[0.1em] leading-none mt-[1px] shadow-[0_4px_10px_rgba(212,175,55,0.2)] hover:shadow-[0_8px_15px_rgba(212,175,55,0.3)] hover:-translate-y-[1px] active:translate-y-0 transition-all duration-300"
             >
               <span className="text-[0.65rem] font-bold tracking-tight whitespace-nowrap">
                 {expanded ? 'View Less' : 'View More'}

@@ -84,9 +84,10 @@ export default function FolderTabs({
                 viewBox="0 0 200 40"
               >
                 <defs>
-                  <linearGradient id={activeGradId} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#1c2a44" />
-                    <stop offset="100%" stopColor="#0f1f3d" />
+                  <linearGradient id={activeGradId} x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#bf953f" />
+                    <stop offset="50%" stopColor="#d4af37" />
+                    <stop offset="100%" stopColor="#b38728" />
                   </linearGradient>
                 </defs>
                 <path
@@ -216,7 +217,7 @@ export default function FolderTabs({
               <button
                 onClick={handleCreateFolder}
                 disabled={!newFolderName.trim()}
-                className="flex-1 px-4 py-2.5 rounded-lg bg-[#1c2a44] text-white font-medium hover:bg-[#0f1f3d] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-2.5 rounded-[4px] bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] text-white font-medium shadow-[0_4px_10px_rgba(212,175,55,0.2)] hover:shadow-[0_8px_15px_rgba(212,175,55,0.3)] hover:-translate-y-[1px] active:translate-y-0 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Create
               </button>

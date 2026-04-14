@@ -37,7 +37,7 @@ export default function CategoryTabs({ active, onChange, isDesktop }: CategoryTa
             onClick={() => onChange(tab.value)}
             className={`flex items-center gap-1.5 border rounded-[5px] font-bold transition-all duration-300 ease-out whitespace-nowrap flex-shrink-0 ${isDesktop ? 'px-4 py-1.5 text-[13px]' : 'px-3.5 py-1 text-[12px]'
               } ${isActive
-                ? 'border-[#0a162b] text-white bg-gradient-to-b from-[#1a3566] to-[#0a162b] shadow-[0_4px_12px_rgba(10,22,43,0.2)]'
+                ? 'border-[#b38728] text-white bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] shadow-[0_4px_10px_rgba(212,175,55,0.2)] hover:shadow-[0_8px_15px_rgba(212,175,55,0.3)]'
                 : 'border-[#e8edf2] text-[#7a88a0] bg-white hover:border-[#c9a34e] hover:text-[#0a162b] hover:shadow-[0_2px_8px_rgba(201,163,78,0.15)] hover:-translate-y-[1px]'
               }`}
           >

@@ -18,7 +18,7 @@ const LandHeader: React.FC<LandHeaderProps> = ({ onBack }) => {
 
         <button
           onClick={onBack}
-          className="absolute top-2 left-2 w-7 h-7 flex items-center justify-center rounded bg-[#1c2a44]/40 backdrop-blur-md border border-white/20 text-white cursor-pointer transition-all hover:bg-[#1c2a44]/60 z-20"
+          className="absolute top-2 left-2 w-7 h-7 flex items-center justify-center rounded-[4px] bg-gradient-to-r from-[#bf953f]/80 via-[#d4af37]/80 to-[#b38728]/80 backdrop-blur-md border border-white/20 text-white cursor-pointer transition-all hover:from-[#bf953f] hover:via-[#d4af37] hover:to-[#b38728] shadow-[0_4px_10px_rgba(212,175,55,0.2)] z-20"
           aria-label="Go Back"
         >
           <ArrowBackIcon sx={{ fontSize: 16, color: 'white' }} />

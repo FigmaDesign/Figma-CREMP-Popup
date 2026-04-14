@@ -63,7 +63,7 @@ function FilterDropdown({
         <div className="absolute top-full left-0 mt-1 bg-white border border-[#eef0f3] rounded-[5px] shadow-lg z-50 min-w-[150px] overflow-hidden">
           <button
             onClick={() => { onChange(null); setOpen(false); }}
-            className={`w-full text-left px-4 py-2 text-xs font-medium transition-colors ${!isActive ? 'bg-[#0f1f3d] text-white' : 'text-[#637089] hover:bg-[#f5f6f8]'
+            className={`w-full text-left px-4 py-2 text-xs font-medium transition-all ${!isActive ? 'bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] text-white' : 'text-[#637089] hover:bg-[#f5f6f8]'
               }`}
           >
             All
@@ -72,7 +72,7 @@ function FilterDropdown({
             <button
               key={o}
               onClick={() => { onChange(o); setOpen(false); }}
-              className={`w-full text-left px-4 py-2 text-xs font-medium transition-colors ${value === o ? 'bg-[#0f1f3d] text-white' : 'text-[#0f1f3d] hover:bg-[#f5f6f8]'
+              className={`w-full text-left px-4 py-2 text-xs font-medium transition-all ${value === o ? 'bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] text-white' : 'text-[#0f1f3d] hover:bg-[#f5f6f8]'
                 }`}
             >
               {o}

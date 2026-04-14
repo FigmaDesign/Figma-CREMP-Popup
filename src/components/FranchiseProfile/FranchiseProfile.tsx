@@ -118,7 +118,7 @@ export default function FranchiseProfile({ viewMode }: { viewMode: 'desktop' | '
             <button
               onClick={() => setIsFabExpanded(v => !v)}
               className={`w-[2.75rem] h-[2.75rem] rounded flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-105 ${
-                isFabExpanded ? 'bg-[#EF4444]' : 'bg-[#1c2a44]'
+                isFabExpanded ? 'bg-[#EF4444]' : 'bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] shadow-[0_4px_10px_rgba(212,175,55,0.2)]'
               }`}
             >
               {isFabExpanded

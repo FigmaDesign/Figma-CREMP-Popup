@@ -47,6 +47,22 @@ export default function FranchiseSearch({ viewMode }: FranchiseSearchProps) {
         }`}
       style={{ height: isDesktop ? 'calc(100vh - 64px)' : 'calc(100vh - 64px)' }}
     >
+      {/* ── Page Header ── */}
+      <div className="w-full bg-gradient-to-br from-[#0a1128] via-[#121c33] to-[#0a1128] relative overflow-hidden shrink-0 border-b border-white/[0.05]">
+        <div className="absolute top-0 right-0 w-72 h-72 bg-[#d4af37]/10 blur-[100px] -translate-y-1/2 translate-x-1/4 rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[80px] translate-y-1/2 -translate-x-1/3 rounded-full pointer-events-none" />
+        <div className="absolute inset-0 opacity-[0.02] pointer-events-none mix-blend-overlay">
+          <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)`, backgroundSize: '24px 24px' }} />
+        </div>
+        <div className={`relative z-10 ${isDesktop ? 'px-8 py-4' : 'px-4 py-3'}`}>
+          <h1 className={`font-extralight text-white m-0 tracking-wide ${isDesktop ? 'text-2xl' : 'text-xl'}`}>
+            Explore{' '}
+            <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#bf953f] via-[#fcf6ba] to-[#b38728]">
+              Opportunities
+            </span>
+          </h1>
+        </div>
+      </div>
       {isDesktop ? (
         <DesktopLayout
           searchQuery={searchQuery}
@@ -298,7 +314,7 @@ function BudgetDropdown({ budget, onBudgetChange, isDesktop }: { budget: string 
         <div className="absolute right-0 top-[calc(100%+4px)] bg-white border border-[#eef0f3] rounded-[5px] shadow-[0_8px_24px_rgba(15,31,61,0.12)] z-50 min-w-[140px] overflow-hidden">
           <button
             onClick={() => { onBudgetChange(null); setBudgetOpen(false); }}
-            className={`w-full text-left px-4 py-2.5 text-[13px] font-medium transition-colors ${!budget ? 'bg-[#0f1f3d] text-white' : 'text-[#637089] hover:bg-[#f5f6f8]'
+            className={`w-full text-left px-4 py-2.5 text-[13px] font-medium transition-all ${!budget ? 'bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] text-white' : 'text-[#637089] hover:bg-[#f5f6f8]'
               }`}
           >
             All Budgets
@@ -307,7 +323,7 @@ function BudgetDropdown({ budget, onBudgetChange, isDesktop }: { budget: string 
             <button
               key={o}
               onClick={() => { onBudgetChange(o); setBudgetOpen(false); }}
-              className={`w-full text-left px-4 py-2.5 text-[13px] font-medium transition-colors ${budget === o ? 'bg-[#0f1f3d] text-white' : 'text-[#0f1f3d] hover:bg-[#f5f6f8]'
+              className={`w-full text-left px-4 py-2.5 text-[13px] font-medium transition-all ${budget === o ? 'bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] text-white' : 'text-[#0f1f3d] hover:bg-[#f5f6f8]'
                 }`}
             >
               {o}

@@ -31,7 +31,7 @@ const StatsBar: React.FC<StatsBarProps> = ({ expanded, onToggle }) => {
       {/* DISTINCT INTERACTIVE BUTTON */}
       <div className="flex items-center justify-center flex-1 px-1">
         <div
-          className="flex flex-row items-center justify-center gap-1 w-full max-w-[85px] cursor-pointer rounded-md bg-[#1c2a44] py-1.5 transition-all duration-300 hover:bg-[#111A2B] hover:shadow-md shadow-[#1c2a44]/20 group"
+          className="flex flex-row items-center justify-center gap-1 w-full max-w-[85px] cursor-pointer rounded-[4px] bg-gradient-to-r from-[#bf953f] via-[#d4af37] to-[#b38728] py-1.5 transition-all duration-300 hover:shadow-[0_8px_15px_rgba(212,175,55,0.3)] hover:-translate-y-[1px] active:translate-y-0 shadow-[0_4px_10px_rgba(212,175,55,0.2)] group"
           onClick={onToggle}
         >
           <span className="text-[0.55rem] font-bold text-white tracking-[0.1em]  leading-none mt-[1px]">

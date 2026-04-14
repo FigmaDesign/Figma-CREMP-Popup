@@ -10,7 +10,7 @@ const FranchiseHero: React.FC<FranchiseHeroProps> = ({ isDesktop }) => {
   const commonBgImg = "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop";
 
   return (
-    <div className="relative w-full overflow-hidden bg-[#0f1f3d] max-w-[1200px] mx-auto rounded-[4px] shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
+    <div className="relative w-full overflow-hidden bg-gradient-to-br from-[#0a1128] via-[#121c33] to-[#0a1128] max-w-[1200px] mx-auto rounded-[4px] shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
       <div className="absolute inset-0 z-0 flex justify-center">
         <div className="relative w-full max-w-[1200px] h-full">
           <img 
