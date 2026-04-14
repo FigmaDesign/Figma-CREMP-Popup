@@ -2,9 +2,12 @@ import { useState } from 'react';
 import ListingCard from '../components/ListingCard';
 import type { ListingItem } from '../components/ListingCard';
 import ToggleViewTabs from '../components/ToggleViewTabs';
-import Filters from '../components/Filters';
 import EmptyState from '../components/EmptyState';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
 
 const INITIAL_LISTINGS: ListingItem[] = [
   {
@@ -45,13 +48,80 @@ const INITIAL_LISTINGS: ListingItem[] = [
   },
 ];
 
-const CATEGORIES = ['All', 'Food & Beverage', 'Education', 'Healthcare', 'Retail', 'Fitness & Wellness'];
+const CATEGORIES = ['Food & Beverage', 'Education', 'Healthcare', 'Retail', 'Fitness & Wellness'];
+
 const SORT_OPTIONS = [
-  { value: 'newest',  label: 'Newest First' },
-  { value: 'oldest',  label: 'Oldest First' },
+  { value: 'newest',     label: 'Newest First' },
+  { value: 'oldest',     label: 'Oldest First' },
   { value: 'price-asc',  label: 'Price: Low to High' },
   { value: 'price-desc', label: 'Price: High to Low' },
 ];
+
+/* ── MODERN DROPDOWN COMPONENT ── */
+interface ModernDropdownProps {
+  icon: React.ElementType;
+  placeholder: string;
+  value: string;
+  options: { value: string; label: string }[];
+  onChange: (val: string) => void;
+  align?: 'left' | 'center' | 'right';
+  isDesktop: boolean;
+}
+
+function ModernDropdown({ icon: Icon, placeholder, value, options, onChange, align = 'left', isDesktop }: ModernDropdownProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const selectedLabel = options.find((o) => o.value === value)?.label;
+
+  return (
+    <div className={`relative w-full ${isDesktop ? 'w-auto' : ''} ${isOpen ? 'z-50' : 'z-10'}`}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full flex items-center justify-between gap-1 py-2 bg-white border rounded-[4px] transition-all duration-300 font-medium shadow-[0_2px_8px_rgba(0,0,0,0.02)] outline-none h-[38px] ${
+          isDesktop ? 'px-3 text-[13px] min-w-[150px]' : 'px-2 text-[11px]'
+        } ${isOpen ? 'border-[#d4af37] ring-1 ring-[#d4af37]/20' : 'border-black/5 hover:border-[#d4af37]/40'}`}
+      >
+        <div className="flex items-center gap-1.5 overflow-hidden">
+          <Icon sx={{ fontSize: isDesktop ? 16 : 14, color: value ? '#d4af37' : '#a0aabf' }} className="shrink-0 transition-colors" />
+          <span className={`truncate ${value ? 'text-[#0a1128]' : 'text-[#637089] font-light'}`}>
+            {selectedLabel || placeholder}
+          </span>
+        </div>
+        <KeyboardArrowDownIcon
+          sx={{ fontSize: 14, color: '#a0aabf' }}
+          className={`shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+        />
+      </button>
+
+      {isOpen && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={(e) => { e.stopPropagation(); setIsOpen(false); }} />
+          <div className={`absolute top-[calc(100%+6px)] ${align === 'right' ? 'right-0' : align === 'center' ? 'left-1/2 -translate-x-1/2' : 'left-0'} min-w-[150px] ${isDesktop ? 'min-w-[180px]' : ''} bg-white border border-black/5 rounded-[4px] shadow-[0_8px_24px_rgba(0,0,0,0.08)] py-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-200`}>
+            <button
+              onClick={() => { onChange(''); setIsOpen(false); }}
+              className={`w-full text-left px-4 py-2 font-medium transition-colors hover:bg-[#fafafb] hover:text-[#d4af37] ${isDesktop ? 'text-[13px]' : 'text-[12px]'} ${
+                value === '' ? 'text-[#d4af37] bg-[#fafafb]' : 'text-[#0a1128]'
+              }`}
+            >
+              All {placeholder}s
+            </button>
+            {options.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => { onChange(opt.value); setIsOpen(false); }}
+                className={`w-full text-left px-4 py-2 font-medium transition-colors hover:bg-[#fafafb] hover:text-[#d4af37] ${isDesktop ? 'text-[13px]' : 'text-[12px]'} ${
+                  value === opt.value ? 'text-[#d4af37] bg-[#fafafb]' : 'text-[#0a1128]'
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 interface SavedListingsProps {
   isDesktop: boolean;
@@ -59,10 +129,10 @@ interface SavedListingsProps {
 
 export default function SavedListings({ isDesktop }: SavedListingsProps) {
   const [listings, setListings] = useState<ListingItem[]>(INITIAL_LISTINGS);
-  const [view, setView] = useState<'grid' | 'list'>('grid');
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('All');
-  const [sort, setSort] = useState('newest');
+  const [view, setView]         = useState<'grid' | 'list'>('grid');
+  const [search, setSearch]     = useState('');
+  const [category, setCategory] = useState('');
+  const [sort, setSort]         = useState('newest');
 
   const handleUnsave = (id: string) => {
     setListings((prev) => prev.filter((l) => l.id !== id));
@@ -70,7 +140,7 @@ export default function SavedListings({ isDesktop }: SavedListingsProps) {
 
   const filtered = listings
     .filter((l) =>
-      (category === 'All' || l.category === category) &&
+      (category === '' || l.category === category) &&
       (l.title.toLowerCase().includes(search.toLowerCase()) ||
         l.location.toLowerCase().includes(search.toLowerCase()))
     )
@@ -81,55 +151,96 @@ export default function SavedListings({ isDesktop }: SavedListingsProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <p className="text-sm font-light text-[#637089]">
-          <span className="font-semibold text-[#0a1128]">{listings.length}</span> saved franchises
-        </p>
-        <ToggleViewTabs view={view} onChange={setView} />
+      {/* Filters Row */}
+      <div className={`flex ${isDesktop ? 'flex-row gap-3' : 'flex-col gap-2.5'} w-full`}>
+        <div className={`flex items-center gap-2.5 w-full ${isDesktop ? 'flex-1' : ''}`}>
+          <div className="relative flex-1 flex items-center bg-white border border-black/5 rounded-[4px] shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-colors focus-within:border-[#d4af37] focus-within:ring-1 focus-within:ring-[#d4af37]/20 hover:border-[#d4af37]/40 h-[38px]">
+            <SearchOutlinedIcon
+              sx={{ fontSize: 18, color: search ? '#d4af37' : '#a0aabf' }}
+              className="absolute left-3 pointer-events-none transition-colors"
+            />
+            <input
+              type="text"
+              placeholder="Search saved opportunities..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full h-full bg-transparent pl-9 pr-3 text-[#0a1128] text-[13px] outline-none placeholder:text-[#a0aabf] font-light font-['Outfit'] rounded-[4px]"
+            />
+          </div>
+
+          {!isDesktop && (
+            <div className="shrink-0 flex items-center h-[38px]">
+              <ToggleViewTabs view={view} onChange={setView} />
+            </div>
+          )}
+        </div>
+
+        <div className={`flex items-center gap-2 ${isDesktop ? 'w-auto' : 'grid grid-cols-2 w-full'}`}>
+          <ModernDropdown
+            isDesktop={isDesktop}
+            icon={CategoryOutlinedIcon}
+            placeholder="Sector"
+            value={category}
+            options={CATEGORIES.map(c => ({ value: c, label: c }))}
+            onChange={setCategory}
+            align="left"
+          />
+          <ModernDropdown
+            isDesktop={isDesktop}
+            icon={SortOutlinedIcon}
+            placeholder="Sort By"
+            value={sort}
+            options={SORT_OPTIONS}
+            onChange={setSort}
+            align="right"
+          />
+        </div>
+
+        {isDesktop && (
+          <div className="flex shrink-0 items-center h-[38px] ml-auto">
+            <ToggleViewTabs view={view} onChange={setView} />
+          </div>
+        )}
       </div>
 
-      <Filters
-        searchPlaceholder="Search saved listings..."
-        searchValue={search}
-        onSearchChange={setSearch}
-        categories={CATEGORIES}
-        selectedCategory={category}
-        onCategoryChange={setCategory}
-        sortOptions={SORT_OPTIONS}
-        selectedSort={sort}
-        onSortChange={setSort}
-        isDesktop={isDesktop}
-      />
-
+      {/* Grid Display */}
       {filtered.length === 0 ? (
         <EmptyState
-          icon={<BookmarkBorderOutlinedIcon sx={{ fontSize: '1.5rem', color: '#a0aabf' }} />}
+          icon={<BookmarkBorderOutlinedIcon sx={{ fontSize: '1.75rem', color: '#d4af37' }} />}
           title="No saved listings"
-          description="Franchises you save while browsing will appear here."
+          description="Opportunities you save while browsing will appear here."
         />
       ) : view === 'grid' ? (
-        <div className={`grid gap-4 ${isDesktop ? 'grid-cols-3' : 'grid-cols-1'}`}>
-          {filtered.map((item) => (
-            <ListingCard
-              key={item.id}
-              item={item}
-              mode="grid"
-              showSaveAction
-              onSave={handleUnsave}
-            />
-          ))}
+        <div className={`grid gap-4 ${isDesktop ? 'grid-cols-4' : 'grid-cols-2'}`}>
+          {filtered.map((item) => {
+            if (!item) return null;
+            return (
+              <ListingCard
+                key={item.id}
+                item={item}
+                mode="grid"
+                isDesktop={isDesktop}
+                showSaveAction
+                onSave={handleUnsave}
+              />
+            );
+          })}
         </div>
       ) : (
-        <div className="bg-white rounded-[7px] border border-black/[0.03] shadow-[0_4px_16px_rgba(0,0,0,0.04)] overflow-hidden">
-          {filtered.map((item) => (
-            <ListingCard
-              key={item.id}
-              item={item}
-              mode="list"
-              showSaveAction
-              onSave={handleUnsave}
-            />
-          ))}
+        <div className="flex flex-col">
+          {filtered.map((item) => {
+            if (!item) return null;
+            return (
+              <ListingCard
+                key={item.id}
+                item={item}
+                mode="list"
+                isDesktop={isDesktop}
+                showSaveAction
+                onSave={handleUnsave}
+              />
+            );
+          })}
         </div>
       )}
     </div>
